@@ -24,6 +24,7 @@ uploads/
 
 # --- Respaldos y volcados ----------------------------------------------------
 *.sql
+!Backend/db/migraciones/*.sql
 *.zip
 *.tar.gz
 *.bak
