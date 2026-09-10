@@ -1,0 +1,13 @@
+<nav class="trans-breadcrumb" aria-label="Miga de pan">
+  @for (item of items(); track $index) {
+    @if (item.link && !$last) {
+      <a [routerLink]="item.link" class="breadcrumb-link">{{ item.label }}</a>
+      <span class="breadcrumb-sep" aria-hidden="true">/</span>
+    } @else if (!$last) {
+      <span class="breadcrumb-current">{{ item.label }}</span>
+      <span class="breadcrumb-sep" aria-hidden="true">/</span>
+    } @else {
+      <span class="breadcrumb-current">{{ item.label }}</span>
+    }
+  }
+</nav>

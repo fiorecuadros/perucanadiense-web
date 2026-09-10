@@ -1,0 +1,168 @@
+<div class="admin-page">
+  <header class="page-header">
+    <div>
+      <h1 class="page-title">Usuarios del panel</h1>
+      <p class="page-sub">
+        Cuentas que pueden entrar a <code>/admin</code>. Un <strong>editor</strong> gestiona
+        contenido; un <strong>administrador</strong> además gestiona cuentas.
+      </p>
+    </div>
+    <div class="page-header-actions">
+      <button type="button" class="btn-add" (click)="abrirNuevo()">
+        <i class="fa fa-plus"></i> Nueva cuenta
+      </button>
+    </div>
+  </header>
+
+  <div class="admin-card">
+    @if (cargando()) {
+      <p class="form-hint">Cargando cuentas…</p>
+    } @else if (error()) {
+      <div class="empty-state">
+        <p>{{ error() }}</p>
+      </div>
+    } @else {
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Usuario</th>
+            <th>Rol</th>
+            <th>Estado</th>
+            <th>Último acceso</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (usuario of items(); track usuario.id) {
+            <tr>
+              <td>
+                <strong>{{ usuario.nombre }}</strong>
+                @if (usuario.email) {
+                  <div class="form-hint">{{ usuario.email }}</div>
+                }
+              </td>
+              <td>{{ usuario.username }}</td>
+              <td>{{ usuario.rol === 'admin' ? 'Administrador' : 'Editor' }}</td>
+              <td>
+                @if (usuario.activo) {
+                  <span class="badge badge-publicado">Activa</span>
+                } @else {
+                  <span class="badge badge-borrador">Inactiva</span>
+                }
+              </td>
+              <td>{{ fecha(usuario.ultimoAcceso) }}</td>
+              <td class="td-actions">
+                <button
+                  type="button"
+                  class="btn-icon"
+                  (click)="abrirEditar(usuario)"
+                  aria-label="Editar"
+                >
+                  <i class="fa fa-pen"></i>
+                </button>
+                @if (usuario.id !== yo()?.id) {
+                  <button
+                    type="button"
+                    class="btn-icon btn-delete"
+                    (click)="confirmar.set(usuario)"
+                    aria-label="Eliminar"
+                  >
+                    <i class="fa fa-trash"></i>
+                  </button>
+                }
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="6">No hay cuentas registradas.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </div>
+</div>
+
+<app-dialog
+  [open]="formAbierto()"
+  [title]="editandoId() ? 'Editar cuenta' : 'Nueva cuenta'"
+  (openChange)="formAbierto.set($event)"
+>
+  <div class="form-grid">
+    <div class="form-row">
+      <label>Nombre completo</label>
+      <input
+        type="text"
+        [value]="form().nombre"
+        (input)="patch('nombre', $any($event.target).value)"
+      />
+    </div>
+    <div class="form-row">
+      <label>Usuario</label>
+      <input
+        type="text"
+        [value]="form().username"
+        (input)="patch('username', $any($event.target).value)"
+      />
+      <p class="form-hint">Letras, números, punto, guion y guion bajo.</p>
+    </div>
+    <div class="form-row">
+      <label>Correo institucional</label>
+      <input
+        type="email"
+        [value]="form().email"
+        (input)="patch('email', $any($event.target).value)"
+      />
+    </div>
+    <div class="form-row">
+      <label>Rol</label>
+      <select [value]="form().rol" (change)="patch('rol', $any($event.target).value)">
+        <option value="editor">Editor</option>
+        <option value="admin">Administrador</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label>Contraseña</label>
+      <input
+        type="password"
+        autocomplete="new-password"
+        [value]="form().password"
+        (input)="patch('password', $any($event.target).value)"
+      />
+      <p class="form-hint">
+        {{
+          editandoId()
+            ? 'Déjela vacía para no cambiarla. Cambiarla cierra sus sesiones abiertas.'
+            : 'Mínimo 8 caracteres.'
+        }}
+      </p>
+    </div>
+    <div class="form-row">
+      <label>Estado</label>
+      <select
+        [value]="form().activo ? 'si' : 'no'"
+        (change)="patch('activo', $any($event.target).value === 'si')"
+      >
+        <option value="si">Activa</option>
+        <option value="no">Inactiva</option>
+      </select>
+    </div>
+  </div>
+  <div dialog-footer>
+    <button type="button" class="btn-cancel" (click)="formAbierto.set(false)">Cancelar</button>
+    <button type="button" class="btn-save" (click)="guardar()">Guardar</button>
+  </div>
+</app-dialog>
+
+<app-dialog
+  [open]="!!confirmar()"
+  title="Eliminar cuenta"
+  (openChange)="confirmar.set($event ? confirmar() : null)"
+>
+  <p>La persona dejará de poder entrar al panel. Sus cambios anteriores se conservan.</p>
+  <div dialog-footer>
+    <button type="button" class="btn-cancel" (click)="confirmar.set(null)">Cancelar</button>
+    <button type="button" class="btn-danger" (click)="eliminar()">Eliminar</button>
+  </div>
+</app-dialog>

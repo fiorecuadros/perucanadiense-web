@@ -1,0 +1,172 @@
+[
+  {
+    "id": "principal-inicio",
+    "zona": "principal",
+    "etiqueta": "Inicio",
+    "destino": "/inicio",
+    "orden": 1,
+    "visible": true
+  },
+  {
+    "id": "principal-nosotros",
+    "zona": "principal",
+    "etiqueta": "Nosotros",
+    "destino": "/nosotros",
+    "orden": 2,
+    "visible": true
+  },
+  {
+    "id": "principal-programas",
+    "zona": "principal",
+    "etiqueta": "Programas",
+    "destino": "/programas",
+    "orden": 3,
+    "visible": true
+  },
+  {
+    "id": "principal-noticias",
+    "zona": "principal",
+    "etiqueta": "Noticias",
+    "destino": "/noticias",
+    "orden": 4,
+    "visible": true
+  },
+  {
+    "id": "principal-servicios",
+    "zona": "principal",
+    "etiqueta": "Servicios",
+    "destino": "/servicios",
+    "orden": 5,
+    "visible": true
+  },
+  {
+    "id": "acciones-admision",
+    "zona": "acciones",
+    "etiqueta": "Admisión",
+    "destino": "/admision",
+    "variante": "admision",
+    "orden": 1,
+    "visible": true
+  },
+  {
+    "id": "acciones-transparencia",
+    "zona": "acciones",
+    "etiqueta": "Transparencia",
+    "destino": "/transparencia",
+    "variante": "transparencia",
+    "orden": 2,
+    "visible": true
+  },
+  {
+    "id": "pie-institucional-nosotros",
+    "zona": "pie-institucional",
+    "etiqueta": "Nosotros",
+    "destino": "/nosotros",
+    "orden": 1,
+    "visible": true
+  },
+  {
+    "id": "pie-institucional-programas",
+    "zona": "pie-institucional",
+    "etiqueta": "Carreras",
+    "destino": "/programas",
+    "orden": 2,
+    "visible": true
+  },
+  {
+    "id": "pie-institucional-admision",
+    "zona": "pie-institucional",
+    "etiqueta": "Admisión",
+    "destino": "/admision",
+    "orden": 3,
+    "visible": true
+  },
+  {
+    "id": "pie-institucional-becas",
+    "zona": "pie-institucional",
+    "etiqueta": "Becas y créditos",
+    "destino": "/becas",
+    "orden": 4,
+    "visible": true
+  },
+  {
+    "id": "pie-institucional-costos",
+    "zona": "pie-institucional",
+    "etiqueta": "Costos",
+    "destino": "/costos",
+    "orden": 5,
+    "visible": true
+  },
+  {
+    "id": "pie-institucional-estadisticas",
+    "zona": "pie-institucional",
+    "etiqueta": "Estadísticas",
+    "destino": "/estadisticas",
+    "orden": 6,
+    "visible": true
+  },
+  {
+    "id": "pie-institucional-horarios",
+    "zona": "pie-institucional",
+    "etiqueta": "Horarios",
+    "destino": "/horarios",
+    "orden": 7,
+    "visible": true
+  },
+  {
+    "id": "pie-institucional-inversiones",
+    "zona": "pie-institucional",
+    "etiqueta": "Inversiones",
+    "destino": "/inversiones",
+    "orden": 8,
+    "visible": true
+  },
+  {
+    "id": "pie-institucional-licenciamiento",
+    "zona": "pie-institucional",
+    "etiqueta": "Licenciamiento",
+    "destino": "/licenciamiento",
+    "orden": 9,
+    "visible": true
+  },
+  {
+    "id": "pie-institucional-transparencia",
+    "zona": "pie-institucional",
+    "etiqueta": "Transparencia",
+    "destino": "/transparencia",
+    "orden": 10,
+    "visible": true
+  },
+  {
+    "id": "pie-servicios-mesa-de-partes",
+    "zona": "pie-servicios",
+    "etiqueta": "Mesa de Partes Virtual",
+    "destino": "/mesa-de-partes",
+    "orden": 1,
+    "visible": true
+  },
+  {
+    "id": "pie-servicios-procedimientos",
+    "zona": "pie-servicios",
+    "etiqueta": "Procedimientos",
+    "destino": "/procedimientos",
+    "orden": 2,
+    "visible": true
+  },
+  {
+    "id": "pie-servicios-reclamaciones",
+    "zona": "pie-servicios",
+    "etiqueta": "Libro de Reclamaciones",
+    "destino": "/reclamaciones",
+    "orden": 3,
+    "visible": true
+  },
+  {
+    "id": "pie-servicios-privacidad",
+    "zona": "pie-servicios",
+    "etiqueta": "Política de Privacidad",
+    "destino": "/privacidad",
+    "orden": 4,
+    "visible": true
+  }
+]

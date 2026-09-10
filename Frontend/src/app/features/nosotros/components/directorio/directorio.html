@@ -1,0 +1,57 @@
+<section class="directorio" id="docentes" aria-labelledby="directorio-title">
+  <div class="directorio-head">
+    <h2 id="directorio-title">Directorio institucional</h2>
+    <p>Autoridades, personal administrativo y plana docente publicada.</p>
+  </div>
+
+  <div class="filters" role="group" aria-label="Filtrar directorio">
+    <div class="chips">
+      @for (type of types; track type) {
+        <button
+          type="button"
+          class="chip"
+          [class.is-active]="typeFilter() === type"
+          (click)="typeFilter.set(type)"
+        >
+          {{ type }}
+        </button>
+      }
+    </div>
+    <div class="chips" role="group" aria-label="Filtrar por área">
+      @for (area of areas(); track area) {
+        <button
+          type="button"
+          class="chip chip-area"
+          [class.is-active]="areaFilter() === area"
+          (click)="areaFilter.set(area)"
+        >
+          {{ area }}
+        </button>
+      }
+    </div>
+  </div>
+
+  <ul class="grid">
+    @for (member of visible(); track member.id) {
+      <li class="card">
+        <div class="avatar" aria-hidden="true">
+          @if (hasPhoto(member)) {
+            <img [appSrc]="member.image ?? ''" [alt]="''" (error)="markBroken(member.id)" />
+          } @else {
+            <span>{{ initials(member) }}</span>
+          }
+        </div>
+        <h3>{{ member.names }} {{ member.lastNames }}</h3>
+        <p class="role">{{ member.position }}</p>
+        <app-badge variant="accent">{{ member.type }}</app-badge>
+        @if (member.area) {
+          <p class="meta">{{ member.area }}</p>
+        }
+        <p class="meta">{{ member.grade }}</p>
+        <a [href]="'mailto:' + member.email">{{ member.email }}</a>
+      </li>
+    } @empty {
+      <li class="empty">No hay personal para estos filtros.</li>
+    }
+  </ul>
+</section>

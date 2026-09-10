@@ -1,0 +1,12 @@
+/* Configuración de TypeScript para las pruebas unitarias.
+   Sin este archivo, el builder de test hereda tsconfig.app.json, que EXCLUYE
+   los *.spec.ts: la compilación no los encuentra y `npm test` falla antes de
+   ejecutar nada. */
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/spec",
+    "types": ["vitest/globals"]
+  },
+  "include": ["src/**/*.spec.ts", "src/**/*.d.ts"]
+}

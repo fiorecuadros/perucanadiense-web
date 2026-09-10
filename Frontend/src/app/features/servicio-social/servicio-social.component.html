@@ -1,0 +1,132 @@
+<app-page-hero variant="breadcrumb" [title]="copy().heroTitle" [subtitle]="copy().heroSubtitle">
+  <app-breadcrumbs [items]="crumbs" />
+</app-page-hero>
+
+<section class="svc-wrap">
+  <div class="svc-grid">
+    @for (item of servicios(); track item.titulo) {
+      <article class="svc-card">
+        <div class="svc-icon" aria-hidden="true"><i class="fa-solid {{ item.icon }}"></i></div>
+        <h3>{{ item.titulo }}</h3>
+        <p>{{ item.descripcion }}</p>
+        @if (lineas(item.requisitos).length) {
+          <ul>
+            @for (req of lineas(item.requisitos); track req) {
+              <li>{{ req }}</li>
+            }
+          </ul>
+        }
+      </article>
+    }
+  </div>
+
+  <div class="svc-split">
+    <aside class="svc-panel">
+      <h2>Solicitar apoyo</h2>
+      <p>
+        La evaluación es confidencial. La relación anual de becas, si existe, se publica en Becas y
+        créditos.
+      </p>
+      <div class="svc-contact">
+        @for (sede of info().locations; track sede.id) {
+          <div>
+            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+            <div>
+              <strong>{{ sede.name }}</strong>
+              <p>{{ sede.address }}, {{ sede.city }}</p>
+            </div>
+          </div>
+        }
+        <div>
+          <i class="fa-solid fa-clock" aria-hidden="true"></i>
+          <div>
+            <strong>Horario</strong>
+            <p>{{ info().schedule.attention }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="svc-actions">
+        <a appButton variant="outline" routerLink="/becas">Ver becas y créditos</a>
+      </div>
+    </aside>
+
+    <div class="svc-form">
+      @if (codigo(); as code) {
+        <div class="svc-success">
+          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+          <h3>Solicitud registrada en este equipo</h3>
+          <p>
+            Código: <strong>{{ code }}</strong>
+          </p>
+          <p>Envíela a {{ info().contact.emailGeneral }} indicando este código.</p>
+          <div class="svc-actions">
+            <a appButton [href]="mailtoHref(code)">Abrir correo</a>
+            <button type="button" appButton variant="outline" (click)="reset()">
+              Nueva solicitud
+            </button>
+          </div>
+        </div>
+      } @else {
+        <form [formGroup]="form" (ngSubmit)="enviar()" novalidate>
+          <h3>Formulario de asistencia</h3>
+          <div class="svc-half">
+            <label>Nombres <input appInput formControlName="nombres" /></label>
+            <label>Apellidos <input appInput formControlName="apellidos" /></label>
+          </div>
+          <div class="svc-half">
+            <label
+              >DNI <input appInput formControlName="dni" inputmode="numeric" maxlength="8"
+            /></label>
+            <label
+              >Celular <input appInput formControlName="telefono" type="tel" maxlength="9"
+            /></label>
+          </div>
+          <label>Correo <input appInput formControlName="email" type="email" /></label>
+          <div class="svc-half">
+            <label>
+              Programa
+              <select formControlName="programa">
+                <option value="">Seleccione</option>
+                @for (programa of programas(); track programa.id) {
+                  <option [value]="programa.title">{{ programa.title }}</option>
+                }
+              </select>
+            </label>
+            <label>
+              Ciclo
+              <select formControlName="semestre">
+                <option value="">Seleccione</option>
+                @for (ciclo of ciclos; track ciclo) {
+                  <option [value]="ciclo">{{ ciclo }}</option>
+                }
+              </select>
+            </label>
+          </div>
+          <label>
+            Tipo de apoyo
+            <select formControlName="tipoApoyo">
+              <option value="">Seleccione</option>
+              @for (tipo of tiposApoyo(); track tipo) {
+                <option [value]="tipo">{{ tipo }}</option>
+              }
+            </select>
+          </label>
+          <label
+            >Situación <textarea formControlName="descripcionSituacion" rows="4"></textarea>
+          </label>
+          @if (invalid('descripcionSituacion')) {
+            <p class="field-error">Describa la situación (mínimo 20 caracteres).</p>
+          }
+          <label class="svc-check">
+            <input type="checkbox" formControlName="aceptoPrivacidad" />
+            <span>Acepto la <a routerLink="/privacidad">política de privacidad</a>.</span>
+          </label>
+          <div class="svc-actions">
+            <button type="submit" appButton>Enviar solicitud</button>
+            <button type="button" appButton variant="outline" (click)="reset()">Limpiar</button>
+          </div>
+        </form>
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,190 @@
+<div class="admin-page dash" [class.dash--busy]="refrescando()">
+  <header class="page-header">
+    <div>
+      <h1 class="page-title">
+        @if (usuario(); as u) {
+          Hola, {{ u.nombre }}
+        } @else {
+          Panel del portal
+        }
+      </h1>
+      <p class="page-sub">
+        @if (esAdmin()) {
+          Lo que se publicó en la web y las solicitudes que llegaron por el portal.
+        } @else {
+          Las solicitudes que llegaron por el portal y la actividad reciente del equipo.
+        }
+      </p>
+    </div>
+    <div class="page-header-actions">
+      <a class="btn-ghost" href="/inicio" target="_blank" rel="noopener">Ver portal público</a>
+      <button type="button" class="btn-ghost" (click)="cargar()" [disabled]="cargando()">
+        <i class="fa fa-rotate" [class.dash-spin]="cargando()" aria-hidden="true"></i>
+        {{ refrescando() ? 'Actualizando…' : 'Actualizar' }}
+      </button>
+    </div>
+  </header>
+
+  @if (actualizadoEn()) {
+    <p class="dash-updated" aria-live="polite">Actualizado {{ relativa() }}</p>
+  }
+
+  @if (primeraCarga()) {
+    <div class="dash-skeleton" aria-hidden="true">
+      <div class="sk sk-hero"></div>
+      @if (esAdmin()) {
+        <div class="sk sk-strip"></div>
+      }
+      <div class="sk sk-table"></div>
+    </div>
+    <p class="sr-only" aria-live="polite">Cargando el resumen del panel…</p>
+  } @else if (error()) {
+    <div class="admin-card">
+      <div class="empty-state">
+        <i class="fa fa-triangle-exclamation" aria-hidden="true"></i>
+        <p>{{ error() }}</p>
+        <button type="button" class="btn-ghost" (click)="cargar()">Reintentar</button>
+      </div>
+    </div>
+  } @else if (resumen(); as datos) {
+    <section class="admin-card panel-solicitudes" [class.is-urgent]="hayUrgencia()">
+      <div class="admin-card-body">
+        <div class="panel-head">
+          <h2 class="panel-title">Solicitudes sin atender</h2>
+          @if (totalPendientes()) {
+            <span class="panel-count" [class.panel-count--warn]="hayUrgencia()">
+              {{ totalPendientes() }}
+            </span>
+          }
+        </div>
+
+        @if (pendientes().length) {
+          <p class="panel-lead">
+            {{ plural(totalPendientes(), 'solicitud espera', 'solicitudes esperan') }} respuesta.
+          </p>
+          <ul class="bandeja-list">
+            @for (b of pendientes(); track b.clave) {
+              <li class="bandeja" [class.bandeja--reg]="b.regulado">
+                <div class="bandeja-main">
+                  <span class="bandeja-name">{{ b.label }}</span>
+                  @if (b.regulado) {
+                    <span class="bandeja-tag">
+                      <i class="fa fa-scale-balanced" aria-hidden="true"></i> Plazo de ley
+                    </span>
+                  }
+                  @if (b.nota) {
+                    <span class="bandeja-note">{{ b.nota }}</span>
+                  }
+                </div>
+                <span class="bandeja-count">{{ b.total }} sin atender</span>
+                <a class="btn-ghost bandeja-open" [routerLink]="b.ruta">Abrir</a>
+              </li>
+            }
+          </ul>
+          @if (alDia().length) {
+            <p class="bandeja-clear">
+              <i class="fa fa-check" aria-hidden="true"></i>
+              Al día: {{ listaAlDia() }}.
+            </p>
+          }
+        } @else {
+          <div class="panel-empty">
+            <i class="fa fa-circle-check" aria-hidden="true"></i>
+            <p>Todo atendido. Cuando llegue una solicitud por el portal la verás aquí.</p>
+          </div>
+        }
+      </div>
+    </section>
+
+    @if (esAdmin()) {
+      <section class="admin-card">
+        <div class="admin-card-body">
+          <h2 class="panel-title">Estado del contenido</h2>
+          <ul class="stat-strip">
+            <li>
+              <a routerLink="/admin/documentos">
+                <i class="fa fa-file-shield" aria-hidden="true"></i>
+                <span class="stat-n">{{ datos.documentos.publicados }}</span>
+                <span class="stat-l">Documentos publicados</span>
+              </a>
+              @if (datos.documentos.borradores) {
+                <span class="badge badge-borrador"
+                  >{{ datos.documentos.borradores }} en borrador</span
+                >
+              }
+            </li>
+            <li>
+              <a routerLink="/admin/noticias">
+                <i class="fa fa-newspaper" aria-hidden="true"></i>
+                <span class="stat-n">{{ datos.noticias }}</span>
+                <span class="stat-l">Noticias en el portal</span>
+              </a>
+            </li>
+            <li>
+              <a routerLink="/admin/personal">
+                <i class="fa fa-chalkboard-user" aria-hidden="true"></i>
+                <span class="stat-n">{{ datos.personal }}</span>
+                <span class="stat-l">Fichas de personal</span>
+              </a>
+            </li>
+            <li>
+              <a routerLink="/admin/investigaciones">
+                <i class="fa fa-book-open" aria-hidden="true"></i>
+                <span class="stat-n">{{ datos.repositorio }}</span>
+                <span class="stat-l">Investigaciones</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </section>
+    }
+
+    <section class="admin-card">
+      <div class="admin-card-body panel-intro">
+        <h2 class="panel-title">Últimos cambios</h2>
+        <p class="panel-sub">
+          @if (esAdmin()) {
+            Registro de auditoría: el Portal de Transparencia obliga a poder decir quién publicó
+            cada cosa.
+          } @else {
+            Movimientos recientes del equipo dentro del panel.
+          }
+        </p>
+      </div>
+      <div class="dash-tablewrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th scope="col">Quién</th>
+              <th scope="col">Qué</th>
+              <th scope="col">Cuándo</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (evento of datos.actividad; track claveEvento(evento)) {
+              <tr>
+                <td>{{ evento.usuario }}</td>
+                <td>
+                  {{ accion(evento.accion) }} <strong>{{ evento.entidad }}</strong>
+                  @if (evento.entidadId) {
+                    <span class="form-hint" [title]="evento.entidadId">{{
+                      idCorto(evento.entidadId)
+                    }}</span>
+                  }
+                </td>
+                <td class="dash-when">{{ fecha(evento.fecha) }}</td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="3" class="dash-none">Todavía no hay movimientos registrados.</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      @if (datos.actividad.length) {
+        <p class="panel-foot">Se conservan los últimos 10 movimientos.</p>
+      }
+    </section>
+  }
+</div>

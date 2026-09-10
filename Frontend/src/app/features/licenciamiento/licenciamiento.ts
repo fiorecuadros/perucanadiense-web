@@ -1,0 +1,19 @@
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { InstitutionService } from '../../core/services/institution.service';
+import { ContenidoStore } from '../../core/store/contenido.store';
+import { PageHero } from '../../shared/components/page-hero/page-hero';
+import { Visor } from './components/visor/visor';
+
+@Component({
+  selector: 'app-licenciamiento',
+  standalone: true,
+  imports: [PageHero, Visor],
+  templateUrl: './licenciamiento.html',
+  styleUrl: './licenciamiento.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class Licenciamiento {
+  private readonly institution = inject(InstitutionService);
+  readonly info = this.institution.info;
+  readonly copy = inject(ContenidoStore).licenciamiento.value;
+}

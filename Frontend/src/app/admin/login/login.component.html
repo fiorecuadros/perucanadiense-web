@@ -1,0 +1,102 @@
+<div class="login">
+  <aside class="login__aside">
+    <img
+      class="login__photo"
+      src="images/pcanadiense/login-fondo.webp"
+      alt=""
+      aria-hidden="true"
+      decoding="async"
+    />
+    <div class="login__aside-inner">
+      <div class="login__brand">
+        <span class="login__badge">
+          <img src="images/pcanadiense/logopc2.png" [alt]="institucion().shortName" />
+        </span>
+        <span class="login__wordmark">
+          <strong>Panel administrativo</strong>
+          Gestión del portal institucional
+        </span>
+      </div>
+
+      <div class="login__aside-foot">
+        <p class="login__lema">{{ institucion().tagline }}.</p>
+        <p class="login__inst">{{ institucion().name }}</p>
+      </div>
+    </div>
+  </aside>
+
+  <main class="login__main">
+    <form class="login__card" [formGroup]="form" (ngSubmit)="enviar()" novalidate>
+      <header class="login__head">
+        <h1>Inicia sesión</h1>
+        <p>Ingresa con tu cuenta institucional para administrar el contenido del portal.</p>
+      </header>
+
+      @if (!remoto) {
+        <p class="login__hint">
+          <i class="fa fa-circle-info" aria-hidden="true"></i>
+          <span>
+            El Backend aún no está conectado: cualquier usuario y contraseña abre el panel en este
+            navegador.
+          </span>
+        </p>
+      }
+
+      <div class="field">
+        <label for="login-usuario">Usuario</label>
+        <input
+          id="login-usuario"
+          appInput
+          formControlName="username"
+          autocomplete="username"
+          autocapitalize="none"
+          spellcheck="false"
+          [attr.aria-invalid]="mostrarError('username') || null"
+        />
+        @if (mostrarError('username')) {
+          <p class="field__error">Ingresa tu usuario.</p>
+        }
+      </div>
+
+      <div class="field">
+        <label for="login-clave">Contraseña</label>
+        <div class="field__control">
+          <input
+            id="login-clave"
+            appInput
+            class="pr-12"
+            formControlName="password"
+            [type]="verClave() ? 'text' : 'password'"
+            autocomplete="current-password"
+            [attr.aria-invalid]="mostrarError('password') || null"
+          />
+          <button
+            type="button"
+            class="field__toggle"
+            (click)="alternarClave()"
+            [attr.aria-label]="verClave() ? 'Ocultar la contraseña' : 'Mostrar la contraseña'"
+            [attr.aria-pressed]="verClave()"
+          >
+            <i class="fa" [class.fa-eye]="!verClave()" [class.fa-eye-slash]="verClave()" aria-hidden="true"></i>
+          </button>
+        </div>
+        @if (mostrarError('password')) {
+          <p class="field__error">Ingresa tu contraseña.</p>
+        }
+      </div>
+
+      @if (error(); as msg) {
+        <p class="login__error" role="alert">
+          <i class="fa fa-triangle-exclamation" aria-hidden="true"></i>
+          <span>{{ msg }}</span>
+        </p>
+      }
+
+      <button type="submit" appButton class="w-full" [disabled]="enviando()">
+        {{ enviando() ? 'Ingresando…' : 'Ingresar' }}
+      </button>
+
+      <p class="login__foot">Acceso exclusivo para personal autorizado · Chiclayo</p>
+    </form>
+  </main>
+</div>

@@ -1,0 +1,175 @@
+<div class="admin-page">
+  <header class="page-header">
+    <div>
+      <h1 class="page-title">Noticias y comunicados</h1>
+      <p class="page-sub">
+        Cree, edite o quite novedades. Lo publicado aparece en Inicio (máximo 3
+        noticias y 3 comunicados) y en /noticias.
+      </p>
+    </div>
+    <div class="page-header-actions">
+      <a class="btn-ghost" href="/noticias" target="_blank" rel="noopener">Ver portal</a>
+      <button type="button" class="btn-add" (click)="abrirNueva()">
+        <i class="fa fa-plus"></i> Nueva noticia
+      </button>
+    </div>
+  </header>
+
+  <div class="admin-card">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Portada</th>
+          <th>Título</th>
+          <th>Tipo</th>
+          <th>Fecha</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of items(); track item.id) {
+          <tr>
+            <td>
+              <div class="admin-thumb">
+                @if (item.image) {
+                  <img [appSrc]="item.image" alt="" />
+                }
+              </div>
+            </td>
+            <td>
+              <strong>{{ item.title }}</strong>
+              @if (item.featured) {
+                <span class="badge badge-publicado">Destacada</span>
+              }
+              @if (item.publicada === false) {
+                <span class="badge badge-borrador">Borrador</span>
+              }
+              <div class="form-hint">{{ bajada(item.excerpt) }}</div>
+            </td>
+            <td>{{ item.categoryLabel }}</td>
+            <td>{{ item.createdAt }}</td>
+            <td class="td-actions">
+              <a
+                class="btn-icon"
+                [href]="'/noticias/' + item.id"
+                target="_blank"
+                rel="noopener"
+                aria-label="Ver"
+              >
+                <i class="fa fa-eye"></i>
+              </a>
+              <button
+                type="button"
+                class="btn-icon"
+                (click)="abrirEditar(item)"
+                aria-label="Editar"
+              >
+                <i class="fa fa-pen"></i>
+              </button>
+              <button
+                type="button"
+                class="btn-icon btn-delete"
+                (click)="confirm.set(item)"
+                aria-label="Quitar"
+              >
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="5">Aún no hay noticias. Cree la primera.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<app-dialog [open]="formAbierto()" title="Noticia" (openChange)="formAbierto.set($event)">
+  <div class="form-row">
+    <label>Título</label>
+    <input type="text" [value]="form().title" (input)="patch('title', $any($event.target).value)" />
+  </div>
+  <div class="form-grid">
+    <div class="form-row">
+      <label>Tipo</label>
+      <select [value]="form().category" (change)="onCategoria($any($event.target).value)">
+        @for (cat of categorias; track cat) {
+          <option [value]="cat">{{ labels[cat] }}</option>
+        }
+      </select>
+    </div>
+    <div class="form-row">
+      <label>Fecha</label>
+      <input
+        type="date"
+        [value]="form().createdAt"
+        (input)="patch('createdAt', $any($event.target).value)"
+      />
+    </div>
+  </div>
+  <div class="form-row">
+    <label>Bajada</label>
+    <app-editor-quill
+      compacto
+      [html]="form().excerpt"
+      (htmlChange)="patch('excerpt', $event)"
+    />
+  </div>
+  <div class="form-row">
+    <label>Cuerpo</label>
+    <app-editor-quill [html]="form().paragraphs" (htmlChange)="patch('paragraphs', $event)" />
+  </div>
+  <div class="form-row">
+    <label>Imagen</label>
+    <input type="url" [value]="form().image" (input)="patch('image', $any($event.target).value)" />
+    <app-selector-archivo
+      modo="imagen"
+      [referencia]="form().image"
+      (referenciaChange)="patch('image', $event)"
+    />
+  </div>
+  <div class="form-row">
+    <label>Texto alternativo de la imagen</label>
+    <input
+      type="text"
+      [value]="form().imageAlt"
+      (input)="patch('imageAlt', $any($event.target).value)"
+    />
+  </div>
+  <label class="svc-check" style="display: flex; gap: 8px; align-items: center; margin: 12px 0">
+    <input
+      type="checkbox"
+      [checked]="form().featured"
+      (change)="patch('featured', $any($event.target).checked)"
+    />
+    Destacar en Inicio (una por tipo: noticia o comunicado; si marca otra, esa la reemplaza)
+  </label>
+  <label class="svc-check" style="display: flex; gap: 8px; align-items: center; margin: 12px 0">
+    <input
+      type="checkbox"
+      [checked]="form().publicada"
+      (change)="patch('publicada', $any($event.target).checked)"
+    />
+    Publicar en /noticias (si no, queda como borrador)
+  </label>
+  <div dialog-footer>
+    <button type="button" class="btn-cancel" (click)="formAbierto.set(false)">Cancelar</button>
+    <button type="button" class="btn-save" (click)="guardar()">
+      {{ form().publicada ? 'Publicar' : 'Guardar borrador' }}
+    </button>
+  </div>
+</app-dialog>
+
+<app-dialog
+  [open]="!!confirm()"
+  title="Quitar noticia"
+  (openChange)="confirm.set($event ? confirm() : null)"
+>
+  <p>Dejará de verse en el listado público.</p>
+  <div dialog-footer>
+    <button type="button" class="btn-cancel" (click)="confirm.set(null)">Cancelar</button>
+    <button type="button" class="btn-danger" (click)="eliminar()">Eliminar</button>
+  </div>
+</app-dialog>

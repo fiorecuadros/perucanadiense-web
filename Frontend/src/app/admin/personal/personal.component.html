@@ -1,0 +1,210 @@
+<div class="admin-page">
+  <header class="page-header">
+    <div>
+      <h1 class="page-title">Personal y docentes</h1>
+      <p class="page-sub">
+        Lo que publique aquí aparece en el directorio de Nosotros. Puede subir foto y datos de
+        autoridades, administrativos y docentes.
+      </p>
+    </div>
+    <div class="page-header-actions">
+      <a class="btn-ghost" href="/nosotros" target="_blank" rel="noopener"
+        >Ver directorio público</a
+      >
+      <button type="button" class="btn-add" (click)="abrirNuevo()">
+        <i class="fa fa-plus"></i> Añadir persona
+      </button>
+    </div>
+  </header>
+
+  <div class="admin-tabs" role="tablist">
+    <button
+      type="button"
+      class="admin-tab"
+      [class.active]="filtro() === 'Todos'"
+      (click)="filtro.set('Todos')"
+    >
+      Todos ({{ lista().length }})
+    </button>
+    @for (tipo of tipos; track tipo) {
+      <button
+        type="button"
+        class="admin-tab"
+        [class.active]="filtro() === tipo"
+        (click)="filtro.set(tipo)"
+      >
+        {{ tipo }}
+      </button>
+    }
+  </div>
+
+  <div class="admin-card">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Foto</th>
+          <th>Nombre</th>
+          <th>Cargo</th>
+          <th>Tipo</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (persona of visibles(); track persona.id) {
+          <tr>
+            <td>
+              <div class="admin-avatar">
+                @if (persona.image) {
+                  <img [appSrc]="persona.image" alt="" />
+                } @else {
+                  <span>{{ persona.names.charAt(0) }}{{ persona.lastNames.charAt(0) }}</span>
+                }
+              </div>
+            </td>
+            <td>
+              <strong>{{ persona.names }} {{ persona.lastNames }}</strong>
+              <div class="form-hint">{{ persona.email }}</div>
+            </td>
+            <td>
+              {{ persona.position }}
+              @if (persona.area) {
+                <div class="form-hint">{{ persona.area }}</div>
+              }
+            </td>
+            <td>{{ persona.type }}</td>
+            <td class="td-actions">
+              <button
+                type="button"
+                class="btn-icon"
+                (click)="abrirEditar(persona)"
+                aria-label="Editar"
+              >
+                <i class="fa fa-pen"></i>
+              </button>
+              <button
+                type="button"
+                class="btn-icon btn-delete"
+                (click)="confirm.set(persona)"
+                aria-label="Quitar"
+              >
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="5">No hay personas en este filtro.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<app-dialog [open]="formAbierto()" title="Ficha de personal" (openChange)="formAbierto.set($event)">
+  <div class="form-grid">
+    <div class="form-row">
+      <label>Nombres</label>
+      <input
+        type="text"
+        [value]="form().names"
+        (input)="patch('names', $any($event.target).value)"
+      />
+    </div>
+    <div class="form-row">
+      <label>Apellidos</label>
+      <input
+        type="text"
+        [value]="form().lastNames"
+        (input)="patch('lastNames', $any($event.target).value)"
+      />
+    </div>
+    <div class="form-row">
+      <label>Tipo</label>
+      <select [value]="form().type" (change)="patch('type', $any($event.target).value)">
+        @for (tipo of tipos; track tipo) {
+          <option [value]="tipo">{{ tipo }}</option>
+        }
+      </select>
+    </div>
+    <div class="form-row">
+      <label>Cargo</label>
+      <input
+        type="text"
+        [value]="form().position"
+        (input)="patch('position', $any($event.target).value)"
+      />
+    </div>
+    <div class="form-row">
+      <label>Área</label>
+      <input type="text" [value]="form().area" (input)="patch('area', $any($event.target).value)" />
+    </div>
+    <div class="form-row">
+      <label>Grado</label>
+      <input
+        type="text"
+        [value]="form().grade"
+        (input)="patch('grade', $any($event.target).value)"
+      />
+    </div>
+    <div class="form-row">
+      <label>Correo</label>
+      <input
+        type="email"
+        [value]="form().email"
+        (input)="patch('email', $any($event.target).value)"
+      />
+    </div>
+    <div class="form-row">
+      <label>Orden</label>
+      <input
+        type="number"
+        min="1"
+        [value]="form().order"
+        (input)="patch('order', toOrden($event))"
+      />
+    </div>
+    <div class="form-row span-2">
+      <label>Foto</label>
+      <input
+        type="url"
+        [value]="form().image"
+        (input)="patch('image', $any($event.target).value)"
+      />
+      <app-selector-archivo
+        modo="imagen"
+        [referencia]="form().image"
+        (referenciaChange)="patch('image', $event)"
+      />
+    </div>
+    <div class="form-row span-2">
+      <label>CV (PDF)</label>
+      <input
+        type="url"
+        [value]="form().cvUrl"
+        (input)="patch('cvUrl', $any($event.target).value)"
+      />
+      <app-selector-archivo
+        modo="pdf"
+        [referencia]="form().cvUrl"
+        (referenciaChange)="patch('cvUrl', $event)"
+      />
+    </div>
+  </div>
+  <div dialog-footer>
+    <button type="button" class="btn-cancel" (click)="formAbierto.set(false)">Cancelar</button>
+    <button type="button" class="btn-save" (click)="guardar()">Guardar</button>
+  </div>
+</app-dialog>
+
+<app-dialog
+  [open]="!!confirm()"
+  title="Quitar del directorio"
+  (openChange)="confirm.set($event ? confirm() : null)"
+>
+  <p>Dejará de verse en la web pública.</p>
+  <div dialog-footer>
+    <button type="button" class="btn-cancel" (click)="confirm.set(null)">Cancelar</button>
+    <button type="button" class="btn-danger" (click)="eliminar()">Eliminar</button>
+  </div>
+</app-dialog>

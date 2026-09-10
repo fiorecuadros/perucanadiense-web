@@ -1,0 +1,17 @@
+.site-footer { background: var(--inst-dark, #44425A); color: #fff; padding: 50px 24px 20px; border-top: 4px solid var(--inst-primary, #FF6600); }
+.footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; }
+.footer-block h4 { color: #fff; font-size: 1.1rem; margin-bottom: 14px; position: relative; padding-bottom: 6px; }
+.footer-block h4::after { content: ''; position: absolute; bottom: 0; left: 0; width: 30px; height: 2px; background: var(--inst-primary, #FF6600); }
+.footer-block p, .footer-block small { color: rgba(255,255,255,0.8); font-size: 0.9rem; line-height: 1.5; }
+.footer-logo { max-width: 220px; height: auto; margin-bottom: 14px; display: block; background: #fff; padding: 8px 12px; border-radius: 8px; }
+.footer-block a { display: block; color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.9rem; margin-bottom: 8px; transition: color 0.2s; }
+.footer-block a:hover { color: var(--inst-primary, #FF6600); }
+.footer-block i { margin-right: 8px; color: var(--inst-primary, #FF6600); }
+.libro-img { width: 140px; height: auto; display: block; margin-top: 8px; border-radius: 6px; }
+.social-btn { display: inline-flex !important; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.08); margin-top: 10px; }
+.social-btn:hover { background: var(--inst-primary, #FF6600); color: #fff; }
+.social-btn i { margin: 0; color: #fff; }
+.footer-bottom { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; color: rgba(255,255,255,0.6); }
+.footer-credito { margin-top: 8px; font-size: 0.78rem; color: rgba(255,255,255,0.45); }
+.footer-credito a { color: rgba(255,255,255,0.65); text-decoration: none; }
+.footer-credito a:hover { color: var(--inst-primary, #FF6600); }

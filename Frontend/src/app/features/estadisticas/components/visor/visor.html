@@ -1,0 +1,125 @@
+<section class="contenedor">
+  <div class="viewer-shell">
+    <nav class="sidebar" aria-label="Secciones de estadísticas">
+      @for (doc of docs; track doc.id) {
+        <button
+          type="button"
+          class="nav-item"
+          [class.active]="activeId() === doc.id"
+          [attr.aria-current]="activeId() === doc.id ? 'true' : null"
+          (click)="selectDoc(doc.id, $event)"
+        >
+          <span class="doc-label">{{ doc.label }}</span>
+        </button>
+      }
+    </nav>
+
+    <div class="panel" #panel tabindex="-1">
+      @if (activeDoc(); as doc) {
+        <article class="ficha">
+          @switch (doc.id) {
+            @case ('cifras') {
+              <h2>Cifras del periodo {{ info().metrics2025.period }}</h2>
+              <app-alert variant="primary">
+                <div class="det-content__html" [innerHTML]="copy().cifrasLead"></div>
+              </app-alert>
+              <ul class="score-list">
+                @for (metric of periodMetrics(); track metric.id) {
+                  <li>
+                    <span class="score-label">{{ metric.label }}</span>
+                    <app-badge>{{ metric.value }}</app-badge>
+                  </li>
+                }
+              </ul>
+            }
+            @case ('vacantes') {
+              <h2>{{ doc.label }}</h2>
+              <p>
+                {{ vacancyTotal() }} vacantes en {{ fidPrograms().length }} programas de Formación
+                Inicial Docente.
+              </p>
+              <ul class="score-list">
+                @for (program of fidPrograms(); track program.id) {
+                  <li>
+                    <a routerLink="/programas" class="score-label">
+                      {{ program.title }}
+                      <span class="score-meta">{{ program.normative }}</span>
+                    </a>
+                    <app-badge>{{ program.vacancies }}</app-badge>
+                  </li>
+                }
+              </ul>
+            }
+            @case ('pti') {
+              <h2>{{ doc.label }}</h2>
+              <div class="det-content__html" [innerHTML]="copy().ptiRubric"></div>
+              <app-alert variant="primary">
+                <p>
+                  El desglose por año y programa está en el informe del Portal de Transparencia.
+                  Aquí no se reproduce una serie que el instituto no publicó en el portal.
+                </p>
+              </app-alert>
+              <div class="cta-row">
+                @if (docsPti().length) {
+                  <app-lista-docs [docs]="docsPti()" />
+                } @else {
+                  <a appButton [href]="copy().ptiUrl" target="_blank" rel="noopener noreferrer">
+                    Abrir informe del PTI
+                  </a>
+                }
+                <a appButton variant="outline" routerLink="/transparencia"
+                  >Portal de transparencia</a
+                >
+              </div>
+              <figure class="cover">
+                <img [src]="copy().ptiCover.src" [alt]="copy().ptiCover.alt" />
+              </figure>
+            }
+            @case ('resultados') {
+              <h2>{{ doc.label }} {{ info().metrics2025.period }}</h2>
+              <div class="det-content__html" [innerHTML]="copy().resultadosLead"></div>
+              <div class="cta-row">
+                @if (docsResultados().length) {
+                  <app-lista-docs [docs]="docsResultados()" />
+                } @else {
+                  <a
+                    appButton
+                    [href]="copy().resultadosUrl"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Abrir resultados {{ info().metrics2025.period }}
+                  </a>
+                }
+                <a appButton variant="outline" routerLink="/admision">Ver admisión</a>
+              </div>
+            }
+            @case ('consultas') {
+              <h2>{{ doc.label }}</h2>
+              <p>
+                Informes sobre cifras institucionales:
+                {{ info().contact.whatsappFormatted }}, {{ info().contact.landline }} o
+                {{ info().contact.emailGeneral }}.
+              </p>
+              <div class="cta-row">
+                <a
+                  appButton
+                  variant="whatsapp"
+                  [href]="whatsappUrl()"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Informes por WhatsApp
+                </a>
+                <a appButton [href]="mailtoHref()">Redactar correo</a>
+                <a appButton variant="outline" routerLink="/transparencia"
+                  >Portal de transparencia</a
+                >
+              </div>
+            }
+          }
+        </article>
+      }
+    </div>
+  </div>
+</section>

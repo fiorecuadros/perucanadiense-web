@@ -1,0 +1,52 @@
+<section class="pilares" aria-label="Misión, visión, valores y organigrama">
+  <div class="pilares-grid">
+    @for (pillar of pillars; track pillar.id) {
+      <button
+        type="button"
+        class="pillar-btn"
+        [class.is-active]="active() === pillar.id"
+        [attr.aria-expanded]="active() === pillar.id"
+        [attr.aria-controls]="'pillar-' + pillar.id"
+        (click)="toggle(pillar.id)"
+      >
+        <i class="fa-solid {{ pillar.icon }}" aria-hidden="true"></i>
+        <span>{{ pillar.label }}</span>
+      </button>
+    }
+  </div>
+
+  @if (active(); as content) {
+    <div class="pillar-panel" [id]="'pillar-' + content" role="region">
+      @switch (content) {
+        @case ('mision') {
+          <h2>Nuestra misión</h2>
+          <div class="det-content__html" [innerHTML]="copy().mission"></div>
+        }
+        @case ('vision') {
+          <h2>Nuestra visión</h2>
+          <div class="det-content__html" [innerHTML]="copy().vision"></div>
+        }
+        @case ('valores') {
+          <h2>Nuestros valores</h2>
+          <div class="det-content__html values-list" [innerHTML]="copy().valuesText"></div>
+        }
+        @case ('organigrama') {
+          <h2>Organigrama institucional</h2>
+          <button type="button" class="org-btn" (click)="viewerOpen.set(true)">
+            <img [appSrc]="copy().organigrama.src" [alt]="copy().organigrama.alt" />
+            <span>Ampliar organigrama</span>
+          </button>
+        }
+      }
+    </div>
+  }
+</section>
+
+<app-dialog
+  [open]="viewerOpen()"
+  title="Organigrama institucional"
+  [showFooter]="false"
+  (openChange)="viewerOpen.set($event)"
+>
+  <img class="org-full" [appSrc]="copy().organigrama.src" [alt]="copy().organigrama.alt" />
+</app-dialog>

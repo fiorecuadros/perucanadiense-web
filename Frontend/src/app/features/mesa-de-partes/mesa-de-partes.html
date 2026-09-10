@@ -1,0 +1,231 @@
+<app-page-hero title="Mesa de partes virtual" [subtitle]="info().name" />
+
+<section class="mdp-main">
+  <div class="mdp-card">
+    <div class="mdp-intro">
+      <h2><i class="fas fa-inbox" aria-hidden="true"></i> Registrar un documento</h2>
+      <p>
+        Complete el formulario para presentar su documento ante la institución. Al enviarlo recibirá
+        un <strong>código de seguimiento</strong> y las instrucciones para remitirlo a
+        {{ info().contact.emailAdmin }}.
+      </p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="enviar()" novalidate>
+      <fieldset>
+        <legend><span>1</span> Datos del remitente</legend>
+        <label>
+          Nombre completo
+          <input
+            appInput
+            formControlName="nombres"
+            autocomplete="name"
+            placeholder="Ej. Juan Pérez Quispe"
+          />
+        </label>
+        @if (invalid('nombres')) {
+          <p class="field-error">Ingrese su nombre completo.</p>
+        }
+        <div class="half">
+          <label>
+            DNI / RUC
+            <input appInput formControlName="dni" inputmode="numeric" placeholder="Ej. 12345678" />
+          </label>
+          <label>
+            Celular / Teléfono
+            <input
+              appInput
+              formControlName="telefono"
+              type="tel"
+              autocomplete="tel"
+              placeholder="Ej. 938 146 082"
+            />
+          </label>
+        </div>
+        @if (invalid('dni')) {
+          <p class="field-error">Ingrese un DNI (8 dígitos) o RUC (11 dígitos).</p>
+        }
+        @if (invalid('telefono')) {
+          <p class="field-error">Ingrese un número de contacto.</p>
+        }
+        <label>
+          Correo electrónico
+          <input
+            appInput
+            formControlName="correo"
+            type="email"
+            autocomplete="email"
+            placeholder="nombre@correo.com"
+          />
+        </label>
+        @if (invalid('correo')) {
+          <p class="field-error">Ingrese un correo válido. Ahí se le notificará el trámite.</p>
+        }
+        <label>
+          Condición
+          <select formControlName="condicion">
+            <option value="" disabled>Seleccione su condición</option>
+            @for (option of conditions; track option) {
+              <option [value]="option">{{ option }}</option>
+            }
+          </select>
+        </label>
+        @if (invalid('condicion')) {
+          <p class="field-error">Seleccione su condición.</p>
+        }
+      </fieldset>
+
+      <fieldset>
+        <legend><span>2</span> Datos del documento</legend>
+        <div class="half">
+          <label>
+            Tipo de documento
+            <select formControlName="tipoDoc">
+              <option value="" disabled>Seleccione el tipo</option>
+              @for (option of docTypes; track option) {
+                <option [value]="option">{{ option }}</option>
+              }
+            </select>
+          </label>
+          <label>
+            Cantidad de folios
+            <input appInput formControlName="folios" type="number" min="1" />
+          </label>
+        </div>
+        <label>
+          Asunto
+          <input
+            appInput
+            formControlName="asunto"
+            maxlength="150"
+            placeholder="Resumen breve del pedido"
+          />
+        </label>
+        @if (invalid('asunto')) {
+          <p class="field-error">Escriba el asunto del documento.</p>
+        }
+        <label>
+          Mensaje o descripción
+          <textarea
+            formControlName="mensaje"
+            rows="5"
+            placeholder="Detalle su solicitud."
+          ></textarea>
+        </label>
+        <div class="file-field">
+          <label class="file-btn" for="mdp-file">
+            <i class="fas fa-paperclip" aria-hidden="true"></i>
+            {{ selectedFile() ? 'Cambiar archivo' : 'Elegir archivo' }}
+          </label>
+          <input
+            id="mdp-file"
+            type="file"
+            accept=".pdf,.jpg,.jpeg,.png"
+            (change)="onFileSelected($event)"
+          />
+          @if (selectedFile(); as file) {
+            <span class="file-chip">
+              {{ file.name }}
+              <button type="button" (click)="clearFile()" aria-label="Quitar archivo">
+                &times;
+              </button>
+            </span>
+          }
+        </div>
+        <small>PDF o imagen (JPG, PNG), hasta 10 MB.</small>
+        <label>
+          Enlace del documento (opcional)
+          <input appInput formControlName="linkDocumento" type="url" placeholder="https://…" />
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend><span>3</span> Verificación</legend>
+        <label>
+          Escriba el código que aparece
+          <div class="captcha-row">
+            <input appInput formControlName="captcha" inputmode="numeric" autocomplete="off" />
+            <span class="captcha-box" aria-label="Código de verificación">{{ captchaCode() }}</span>
+            <button
+              type="button"
+              class="captcha-refresh"
+              (click)="refreshCaptcha()"
+              aria-label="Generar otro código"
+            >
+              <i class="fas fa-rotate-right" aria-hidden="true"></i>
+            </button>
+          </div>
+        </label>
+        @if (captchaError()) {
+          <p class="field-error">{{ captchaError() }}</p>
+        }
+      </fieldset>
+
+      @if (submitError()) {
+        <app-alert variant="destructive">{{ submitError() }}</app-alert>
+      }
+
+      <button type="submit" appButton [disabled]="submitting()">
+        {{ submitting() ? 'Enviando…' : 'Enviar documento' }}
+      </button>
+    </form>
+
+    <div class="mdp-tracking">
+      <p>¿Ya tiene un código de seguimiento?</p>
+      <button type="button" appButton variant="outline" (click)="showTracking.update((v) => !v)">
+        Consultar mi trámite
+      </button>
+      @if (showTracking()) {
+        <div class="tracking-input">
+          <input
+            appInput
+            [value]="trackingCode()"
+            (input)="trackingCode.set($any($event.target).value)"
+            placeholder="MDP-XXXX"
+          />
+          <button type="button" appButton (click)="consultar()">Consultar</button>
+        </div>
+        @if (trackingError()) {
+          <p class="field-error">{{ trackingError() }}</p>
+        }
+      }
+    </div>
+  </div>
+</section>
+
+<app-dialog
+  [open]="!!success()"
+  title="Documento registrado"
+  [showFooter]="false"
+  (openChange)="success.set(null)"
+>
+  @if (success(); as result) {
+    <p>Su solicitud quedó registrada en esta sesión. Guarde el código para consultarla después.</p>
+    <p class="tracking-code">{{ result.trackingCode }}</p>
+    <p>
+      Envíe el expediente a
+      <a [href]="'mailto:' + result.emailAdmin">{{ result.emailAdmin }}</a>
+      o a
+      <a [href]="'mailto:' + result.emailIntake">{{ result.emailIntake }}</a
+      >.
+    </p>
+    <a appButton [href]="result.futUrl" target="_blank" rel="noopener noreferrer"
+      >Abrir FUT digital</a
+    >
+  }
+</app-dialog>
+
+<app-dialog
+  [open]="!!trackingResult()"
+  title="Detalle del trámite"
+  [showFooter]="false"
+  (openChange)="trackingResult.set(null)"
+>
+  @if (trackingResult(); as record) {
+    <app-badge>{{ statusLabel(record.status) }}</app-badge>
+    <p class="tracking-code">{{ record.trackingCode }}</p>
+    <p><strong>Remitente:</strong> {{ record.payload.nombres }}</p>
+    <p><strong>Documento:</strong> {{ record.payload.tipoDoc }} — {{ record.payload.asunto }}</p>
+    <p><strong>Fecha:</strong> {{ record.submittedAt }}</p>
+  }
+</app-dialog>

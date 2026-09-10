@@ -1,0 +1,25 @@
+<div class="admin-tabs">
+  @for (item of pestanas; track item.id) {
+    <button
+      type="button"
+      class="admin-tab"
+      [class.active]="pestana() === item.id"
+      (click)="pestana.set(item.id)"
+    >
+      {{ item.label }}
+    </button>
+  }
+</div>
+
+@if (actual(); as config) {
+  <app-bandeja-tramites
+    [titulo]="config.titulo"
+    [descripcion]="config.descripcion"
+    etiquetaRespuesta="Notas internas"
+    [columnas]="config.columnas"
+    [detalle]="config.detalle"
+    [estados]="config.estados"
+    [cargar]="config.cargar"
+    [guardar]="config.guardar"
+  />
+}

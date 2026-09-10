@@ -1,0 +1,171 @@
+[
+  {
+    "id": "educacion-inicial",
+    "title": "Educación Inicial",
+    "level": "FID",
+    "category": "Formación Inicial Docente",
+    "duration": "05 años (10 ciclos académicos)",
+    "durationSemesters": 10,
+    "degreeAwarded": "Profesor(a) de Educación Inicial a Nombre de la Nación",
+    "normative": "RVM N° 163-2019-MINEDU",
+    "vacancies": 90,
+    "ageRange": "Atención a la primera infancia (0 a 5 años)",
+    "shifts": [
+      "Mañana",
+      "Tarde"
+    ],
+    "description": "Formamos profesionales con sólida vocación pedagógica, capaces de diseñar y liderar experiencias de aprendizaje innovadoras en la primera infancia, con valores éticos y cristianos.",
+    "profile": "Especialista en desarrollo infantil integral, neuroeducación temprana y gestión de aulas lúdicas e inclusivas.",
+    "fieldOfWork": [
+      "Instituciones educativas de Educación Inicial públicas y privadas",
+      "Cunas y programas no escolarizados (PRONOEI)",
+      "Centros de estimulación temprana y desarrollo psicomotriz",
+      "Colegio de Aplicación Peruano Canadiense"
+    ],
+    "image": "images/pcanadiense/inicial.jpg",
+    "featured": true
+  },
+  {
+    "id": "educacion-primaria",
+    "title": "Educación Primaria",
+    "level": "FID",
+    "category": "Formación Inicial Docente",
+    "duration": "05 años (10 ciclos académicos)",
+    "durationSemesters": 10,
+    "degreeAwarded": "Profesor(a) de Educación Primaria a Nombre de la Nación",
+    "normative": "RVM N° 204-2019-MINEDU",
+    "vacancies": 30,
+    "ageRange": "Atención a niños de 6 a 12 años",
+    "shifts": [
+      "Tarde",
+      "Noche"
+    ],
+    "description": "Prepara educadores líderes con visión multidisciplinaria, preparados para consolidar las competencias lectoras, matemáticas y ciudadanas en el nivel primario.",
+    "profile": "Docente orientador, investigador y facilitador con dominio de metodologías activas y herramientas digitales.",
+    "fieldOfWork": [
+      "Colegios de Educación Primaria públicos y privados a nivel nacional",
+      "Asesoría pedagógica e investigación educativa",
+      "Dirección y coordinación de proyectos formativos escolares"
+    ],
+    "image": "images/pcanadiense/primaria.jpg",
+    "featured": true
+  },
+  {
+    "id": "educacion-secundaria-matematica",
+    "title": "Educación Secundaria: Matemática",
+    "level": "FID",
+    "category": "Formación Inicial Docente",
+    "duration": "05 años (10 ciclos académicos)",
+    "durationSemesters": 10,
+    "degreeAwarded": "Profesor(a) de Educación Secundaria - Especialidad Matemática",
+    "normative": "RVM N° 076-2020-MINEDU",
+    "vacancies": 30,
+    "ageRange": "Atención a adolescentes de 11 a 16 años",
+    "shifts": [
+      "Tarde",
+      "Noche"
+    ],
+    "description": "Especialistas en la enseñanza del razonamiento lógico-matemático mediante resolución de problemas aplicados a la vida real y el uso de tecnologías STEM.",
+    "profile": "Capacidad para promover el pensamiento analítico, modelado matemático y aplicación científica en la juventud.",
+    "fieldOfWork": [
+      "Instituciones de educación secundaria públicas y privadas",
+      "Academias y centros preuniversitarios",
+      "Desarrollo curricular e investigación en didáctica matemática"
+    ],
+    "image": "images/pcanadiense/secundaria.jpg",
+    "featured": true
+  },
+  {
+    "id": "educacion-secundaria-ciencias-sociales",
+    "title": "Educación Secundaria: Ciudadanía y Ciencias Sociales",
+    "level": "FID",
+    "category": "Formación Inicial Docente",
+    "duration": "05 años (10 ciclos académicos)",
+    "durationSemesters": 10,
+    "degreeAwarded": "Profesor(a) de Educación Secundaria - Especialidad Ciudadanía y CC.SS.",
+    "normative": "RVM N° 135-2020-MINEDU",
+    "vacancies": 30,
+    "ageRange": "Atención a adolescentes de 11 a 16 años",
+    "shifts": [
+      "Tarde",
+      "Noche"
+    ],
+    "description": "Forma formadores en ciencias sociales con profunda conciencia histórica, identidad regional y compromiso con la democracia y el desarrollo sustentable.",
+    "profile": "Líder en formación ciudadana, pensamiento histórico crítico y gestión de la convivencia pacífica.",
+    "fieldOfWork": [
+      "Colegios secundarios a nivel regional y nacional",
+      "Organizaciones no gubernamentales e instituciones culturales",
+      "Gestión de políticas educativas y proyectos comunitarios"
+    ],
+    "image": "images/pcanadiense/secundaria.jpg",
+    "featured": true
+  },
+  {
+    "id": "auxiliar-de-educacion",
+    "title": "Auxiliar de Educación",
+    "level": "Técnica",
+    "category": "Carrera Técnica Modular",
+    "duration": "12 meses (Módulos certificados)",
+    "degreeAwarded": "Certificación Modular a Nombre de la Nación (120 horas lectivas por módulo)",
+    "normative": "R.D.R.S. 2643-2010-GR-LAM/DREL",
+    "vacancies": 40,
+    "shifts": [
+      "Mañana",
+      "Tarde",
+      "Noche"
+    ],
+    "description": "Capacitación profesional para el acompañamiento y soporte socioeducativo en aulas de educación inicial y primaria.",
+    "profile": "Asistente pedagógico capacitado en primeros auxilios, convivencia escolar, control de asistencia y dinámicas de grupo.",
+    "fieldOfWork": [
+      "Instituciones públicas y privadas en educación inicial y primaria",
+      "Guarderías y centros de cuidado infantil"
+    ],
+    "image": "images/pcanadiense/inicial.jpg",
+    "featured": false
+  },
+  {
+    "id": "computacion-e-informatica",
+    "title": "Computación e Informática Aplicada a la Educación",
+    "level": "Técnica",
+    "category": "Carrera Técnica Modular",
+    "duration": "12 meses",
+    "degreeAwarded": "Certificado Técnico Modular",
+    "normative": "R.D.R.S. 2643-2010-GR-LAM/DREL",
+    "vacancies": 30,
+    "shifts": [
+      "Mañana",
+      "Tarde",
+      "Noche"
+    ],
+    "description": "Formación en herramientas ofimáticas, diseño educativo digital, plataformas EVA y gestión de recursos tecnológicos escolares.",
+    "profile": "Técnico capacitado en administración de plataformas LMS, suite Microsoft 365 y soporte de aulas virtuales.",
+    "fieldOfWork": [
+      "Aulas de innovación pedagógica (AIP)",
+      "Centros de cómputo educativos y soporte TIC escolar"
+    ],
+    "image": "images/pcanadiense/secundaria.jpg",
+    "featured": false
+  },
+  {
+    "id": "terapia-y-rehabilitacion",
+    "title": "Terapia y Rehabilitación Física",
+    "level": "Técnica",
+    "category": "Carrera Técnica Modular",
+    "duration": "12 meses",
+    "degreeAwarded": "Certificado Técnico Modular",
+    "normative": "R.D.R.S. 2643-2010-GR-LAM/DREL",
+    "vacancies": 25,
+    "shifts": [
+      "Mañana",
+      "Tarde"
+    ],
+    "description": "Técnicas de apoyo en psicomotricidad, rehabilitación neuromuscular y ergonomía en el ámbito escolar y comunitario.",
+    "profile": "Asistente técnico capacitado en estimulación motriz y protocolos de fisioterapia básica.",
+    "fieldOfWork": [
+      "Centros de educación especial (CEBE)",
+      "Clínicas y centros de terapia física y estimulación"
+    ],
+    "image": "images/pcanadiense/primaria.jpg",
+    "featured": false
+  }
+]

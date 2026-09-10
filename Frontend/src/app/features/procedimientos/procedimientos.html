@@ -1,0 +1,125 @@
+<app-page-hero [title]="copy().heroTitle" [subtitle]="info().name" />
+
+<section class="contenedor">
+  <div class="viewer-shell">
+    <nav class="sidebar" aria-label="Procedimientos institucionales">
+      @for (doc of docs(); track doc.id) {
+        <button
+          type="button"
+          class="nav-item"
+          [class.active]="activeId() === doc.id"
+          (click)="activeId.set(doc.id)"
+        >
+          <span class="doc-label">{{ doc.label }}</span>
+        </button>
+      }
+    </nav>
+
+    <div class="panel" tabindex="-1">
+      @if (activeDoc(); as doc) {
+        <article class="ficha">
+          @switch (doc.id) {
+            @case ('tupa') {
+              <h2>{{ doc.label }}</h2>
+              <div class="det-content__html" [innerHTML]="copy().legalRubric"></div>
+              <div class="det-content__html" [innerHTML]="copy().tupaLead"></div>
+              <app-alert variant="primary">
+                <p class="alert-title">{{ copy().emptyTitle }}</p>
+                <div class="det-content__html" [innerHTML]="copy().emptyBody"></div>
+              </app-alert>
+              <figure class="cover">
+                <img [src]="copy().tupaCover.src" [alt]="copy().tupaCover.alt" />
+              </figure>
+            }
+            @case ('reglamento') {
+              <h2>{{ doc.label }}</h2>
+              <div class="det-content__html" [innerHTML]="copy().reglamentoLead"></div>
+              <app-alert variant="primary">
+                <p class="alert-title">{{ copy().emptyTitle }}</p>
+                <div class="det-content__html" [innerHTML]="copy().emptyBody"></div>
+              </app-alert>
+              <figure class="cover">
+                <img [src]="copy().reglamentoCover.src" [alt]="copy().reglamentoCover.alt" />
+              </figure>
+            }
+            @case ('tasas') {
+              <h2>{{ doc.label }}</h2>
+              <div class="det-content__html" [innerHTML]="copy().tasasLead"></div>
+              <ul class="score-list">
+                <li>
+                  <span class="score-label">Admisión</span>
+                  <strong>{{ formatFee(info().fees.admissionExam) }}</strong>
+                </li>
+                <li>
+                  <span class="score-label">Matrícula</span>
+                  <strong>{{ formatFee(info().fees.enrollment) }}</strong>
+                </li>
+                <li>
+                  <span class="score-label">Pensión</span>
+                  <strong>{{ formatFee(info().fees.monthlyTuition) }}</strong>
+                </li>
+                <li>
+                  <span class="score-label">Reincorporación</span>
+                  <strong>{{ formatFee(info().fees.reinstatement) }}</strong>
+                </li>
+              </ul>
+              <div class="cta-row">
+                <a appButton routerLink="/costos">Ver costos</a>
+                <a
+                  appButton
+                  variant="outline"
+                  [href]="costos().tarifarioUrl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Abrir tarifario del PTI
+                </a>
+              </div>
+            }
+            @case ('matricula') {
+              <h2>{{ doc.label }}</h2>
+              <div class="det-content__html" [innerHTML]="copy().matriculaLead"></div>
+              <div class="cta-row">
+                <a appButton [href]="copy().futUrl" target="_blank" rel="noopener noreferrer">{{
+                  copy().futLabel
+                }}</a>
+                <a appButton variant="outline" routerLink="/mesa-de-partes">Mesa de partes</a>
+              </div>
+            }
+            @case ('reincorporacion') {
+              <h2>{{ doc.label }}</h2>
+              <div class="det-content__html" [innerHTML]="copy().reinstatementLead"></div>
+              <p>
+                Monto: {{ formatFee(info().fees.reinstatement) }}. Correo:
+                {{ info().contact.emailAdmin }}.
+              </p>
+              <div class="cta-row">
+                <a appButton routerLink="/mesa-de-partes">Presentar solicitud</a>
+                <a
+                  appButton
+                  variant="whatsapp"
+                  [href]="whatsappUrl()"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Consultar por WhatsApp
+                </a>
+              </div>
+            }
+            @case ('titulacion') {
+              <h2>{{ doc.label }}</h2>
+              <div class="det-content__html" [innerHTML]="copy().titulacionLead"></div>
+              <p>Para copias o trámites de título, use mesa de partes o el FUT digital.</p>
+              <div class="cta-row">
+                <a appButton [href]="copy().futUrl" target="_blank" rel="noopener noreferrer">{{
+                  copy().futLabel
+                }}</a>
+                <a appButton variant="outline" routerLink="/mesa-de-partes">Mesa de partes</a>
+              </div>
+            }
+          }
+        </article>
+      }
+    </div>
+  </div>
+</section>

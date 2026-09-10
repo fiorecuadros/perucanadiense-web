@@ -1,0 +1,49 @@
+<!doctype html>
+<!-- Desarrollado por el equipo Rocket -->
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>I.E.S.P.P. Peruano Canadiense</title>
+
+    <base href="/" />
+    <link rel="icon" type="image/png" href="images/pcanadiense/logopc2.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Política de Seguridad de Contenido (CSP) - Configuración segura pero funcional -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+    default-src 'self';
+    script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' https://cdnjs.cloudflare.com;
+    style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com;
+    font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com https://fonts.googleapis.com;
+    img-src 'self' data: blob: https: http:;
+    connect-src 'self' https://api.pcanadiense.edu.pe https://pcanadiense.edu.pe https://api.eespvirgendelcarmen.edu.pe http://localhost:3000;
+    worker-src 'self' blob:;
+    frame-src 'self' https://api.pcanadiense.edu.pe https://pcanadiense.edu.pe https://api.eespvirgendelcarmen.edu.pe http://localhost:3000;
+    media-src 'self';
+    object-src 'none';
+    base-uri 'self';
+    form-action 'self';
+  "
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <!-- Preconexión para mejorar el rendimiento de carga -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Aquí importas la fuente Poppins -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <app-root></app-root>
+  </body>
+</html>

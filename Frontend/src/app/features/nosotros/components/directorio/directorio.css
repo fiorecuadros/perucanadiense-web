@@ -1,0 +1,125 @@
+:host {
+  display: block;
+}
+
+.directorio {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px 72px;
+}
+
+.directorio-head h2 {
+  margin: 0 0 0.4rem;
+  color: var(--inst-text-heading);
+  font-size: 1.6rem;
+}
+
+.directorio-head p {
+  margin: 0 0 1.25rem;
+  color: var(--inst-text);
+}
+
+.filters {
+  display: grid;
+  gap: 0.7rem;
+  margin-bottom: 1.4rem;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chip {
+  border: 1px solid var(--inst-border);
+  background: #fff;
+  color: var(--inst-text-heading);
+  border-radius: 999px;
+  padding: 0.4rem 0.85rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.chip-area {
+  font-weight: 500;
+}
+
+.chip.is-active {
+  background: var(--inst-dark);
+  color: #fff;
+  border-color: var(--inst-dark);
+}
+
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid var(--inst-border);
+  border-radius: 16px;
+  padding: 1.3rem 1.1rem 1.2rem;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(68, 66, 90, 0.06);
+}
+
+.avatar {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 0.85rem;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--inst-primary);
+  background: var(--inst-primary-light);
+  display: grid;
+  place-items: center;
+  color: var(--inst-primary);
+  font-weight: 800;
+  font-size: 1.35rem;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card h3 {
+  margin: 0 0 0.25rem;
+  color: var(--inst-text-heading);
+  font-size: 1rem;
+}
+
+.role {
+  margin: 0 0 0.55rem;
+  color: var(--inst-text);
+  font-size: 0.88rem;
+}
+
+.meta,
+.card a {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.8rem;
+  color: var(--inst-text);
+}
+
+.card a {
+  color: var(--inst-primary);
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--inst-text);
+  padding: 2rem;
+}

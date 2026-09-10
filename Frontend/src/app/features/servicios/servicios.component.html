@@ -1,0 +1,46 @@
+<app-page-hero [title]="copy().heroTitle" [subtitle]="copy().heroSubtitle" />
+
+<section class="svc-wrap">
+  <div class="svc-grid">
+    @for (item of copy().hub; track item.ruta) {
+      <a class="svc-card" [routerLink]="item.ruta">
+        <div class="svc-icon" aria-hidden="true"><i class="fa-solid {{ item.icon }}"></i></div>
+        <h3>{{ item.titulo }}</h3>
+        <p>{{ item.descripcion }}</p>
+      </a>
+    }
+  </div>
+
+  <app-eva-hub />
+
+  <aside class="svc-panel">
+    <h2>Atención</h2>
+    <div class="svc-contact">
+      <div>
+        <i class="fa-solid fa-clock" aria-hidden="true"></i>
+        <div>
+          <strong>Horario administrativo</strong>
+          <p>{{ info().schedule.attention }}</p>
+        </div>
+      </div>
+      <div>
+        <i class="fa-solid fa-phone" aria-hidden="true"></i>
+        <div>
+          <strong>Central</strong>
+          <p>{{ info().contact.phoneFormatted }} · {{ info().contact.whatsappFormatted }}</p>
+        </div>
+      </div>
+      <div>
+        <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+        <div>
+          <strong>Correo</strong>
+          <p>{{ info().contact.emailGeneral }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="svc-actions">
+      <a appButton routerLink="/mesa-de-partes">Mesa de partes</a>
+      <a appButton variant="outline" routerLink="/reclamaciones">Libro de reclamaciones</a>
+    </div>
+  </aside>
+</section>

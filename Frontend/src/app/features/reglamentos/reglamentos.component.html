@@ -1,0 +1,63 @@
+<app-page-hero variant="breadcrumb" [title]="copy().heroTitle" [subtitle]="copy().heroSubtitle">
+  <app-breadcrumbs [items]="crumbs" />
+</app-page-hero>
+
+<section class="svc-wrap">
+  <div class="svc-toolbar">
+    <div class="svc-search">
+      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      <input
+        type="search"
+        placeholder="Buscar reglamento"
+        [value]="busqueda()"
+        (input)="onSearch($event)"
+      />
+    </div>
+    <div class="svc-chips">
+      @for (cat of categorias(); track cat.id) {
+        <button
+          type="button"
+          class="svc-chip"
+          [class.active]="categoria() === cat.id"
+          (click)="categoria.set(cat.id)"
+        >
+          {{ cat.nombre }}
+        </button>
+      }
+    </div>
+  </div>
+
+  @if (filtrados().length === 0) {
+    <div class="svc-empty">
+      <p>No hay documentos que coincidan con la búsqueda.</p>
+    </div>
+  } @else {
+    <div class="svc-list">
+      @for (item of filtrados(); track item.id) {
+        @if (item.estado === 'enlace' && item.ruta) {
+          <a class="svc-row" [routerLink]="item.ruta">
+            <div>
+              <h3>{{ item.titulo }}</h3>
+              <p>{{ item.descripcion }}</p>
+            </div>
+            <span class="svc-badge">Ver página</span>
+          </a>
+        } @else {
+          <div class="svc-row is-muted">
+            <div>
+              <h3>{{ item.titulo }}</h3>
+              <p>{{ item.descripcion }}</p>
+              <div class="svc-muted det-content__html" [innerHTML]="copy().emptyBody"></div>
+            </div>
+            <span class="svc-badge is-empty">Sin publicar</span>
+          </div>
+        }
+      }
+    </div>
+  }
+
+  <div class="svc-actions">
+    <a appButton routerLink="/procedimientos">Ir a procedimientos</a>
+    <a appButton variant="outline" routerLink="/mesa-de-partes">Mesa de partes</a>
+  </div>
+</section>

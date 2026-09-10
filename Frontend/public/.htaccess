@@ -1,0 +1,90 @@
+# ============================================================================
+# Portal IESPP Peruano Canadiense — configuración de Apache para public_html
+#
+# Este archivo SÍ es suyo: va en public_html, junto al index.html del build.
+# No confundir con el .htaccess de la aplicación Node en cPanel, que lo genera
+# Passenger y no debe tocarse nunca.
+#
+# Llega aquí solo: está en Frontend/public/ y el build de Angular copia esa
+# carpeta a la raíz de dist/frontend/browser/.
+# ============================================================================
+
+# ---------------------------------------------------------------- HTTPS ----
+# El panel manda el token de sesión en cada petición: sin HTTPS viaja en claro.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # El dominio ya tiene certificado Let's Encrypt comodín (*.pcanadiense.edu.pe),
+  # así que la redirección puede ir activa desde el primer despliegue y cubre
+  # también el subdominio api. Si alguna vez el certificado caduca sin renovarse,
+  # comente estas tres líneas o el sitio queda inaccesible.
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # ------------------------------------------------------ rutas de Angular --
+  # Angular resuelve las rutas en el navegador. Sin esto, entrar directo a
+  # /admin/noticias o recargar la página da un 404 de Apache: ese archivo no
+  # existe en disco. Se sirve index.html y el router hace el resto.
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# ------------------------------------------------------------ compresión ---
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+  AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+  AddOutputFilterByType DEFLATE application/json application/manifest+json
+  AddOutputFilterByType DEFLATE image/svg+xml font/ttf font/otf
+</IfModule>
+
+# ---------------------------------------------------------------- caché ----
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # El build pone un hash en el nombre de cada JS y CSS (outputHashing: all):
+  # si el contenido cambia, cambia el nombre. Se pueden cachear para siempre.
+  <FilesMatch "\.(js|css|woff2|woff|ttf|otf|eot)$">
+    ExpiresDefault "access plus 1 year"
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  <FilesMatch "\.(jpg|jpeg|png|gif|webp|svg|ico)$">
+    ExpiresDefault "access plus 6 months"
+  </FilesMatch>
+
+  # index.html NO lleva hash: es lo que apunta a los bundles nuevos. Si se
+  # cachea, tras un despliegue el navegador pide los JS viejos y la web se
+  # queda en blanco.
+  <FilesMatch "^index\.html$">
+    ExpiresDefault "access plus 0 seconds"
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+# ------------------------------------------------------------- seguridad ---
+<IfModule mod_headers.c>
+  # Evita que el navegador adivine el tipo de un archivo y lo ejecute.
+  Header set X-Content-Type-Options "nosniff"
+  # El portal no debe poder incrustarse en un iframe ajeno (clickjacking).
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+
+  # Descuelga la cabecera de los estáticos: no aporta y estorba en el visor PDF.
+  Header unset X-Powered-By
+</IfModule>
+
+# ------------------------------------------------------------- ficheros ----
+# Nada de listados de directorio.
+Options -Indexes
+
+# Ningún archivo de configuración debe poder pedirse por HTTP. No deberían
+# llegar aquí, pero un despliegue manual mal hecho los sube sin querer.
+<FilesMatch "^\.(env|htaccess|htpasswd|git)|\.(env|log|sql|bak|old|zip|tgz)$">
+  Require all denied
+</FilesMatch>
+
+ErrorDocument 404 /index.html

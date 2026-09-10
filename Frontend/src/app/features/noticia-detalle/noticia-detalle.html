@@ -1,0 +1,97 @@
+<div class="detalle-wrapper">
+  @if (item(); as noticia) {
+    <div class="breadcrumb-bar">
+      <a routerLink="/noticias" class="btn-volver">
+        <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Volver a noticias
+      </a>
+    </div>
+
+    <div class="hero-section">
+      <img [appSrc]="noticia.image" [alt]="noticia.imageAlt" class="hero-img" />
+      <div class="hero-overlay"></div>
+      <button
+        type="button"
+        class="expand-btn"
+        (click)="viewerOpen.set(true)"
+        title="Ver imagen completa"
+      >
+        <i class="fa-solid fa-expand" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <div class="contenido-outer">
+      <article class="contenido-card">
+        <div class="meta-info">
+          <time [attr.datetime]="noticia.createdAt">
+            <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+            {{ formatFecha(noticia.createdAt) }}
+          </time>
+          <app-badge variant="accent">{{ noticia.categoryLabel }}</app-badge>
+        </div>
+        <h1>{{ noticia.title }}</h1>
+        <div class="title-accent"></div>
+        <div class="det-content__html" [innerHTML]="cuerpo(noticia)"></div>
+
+        <div class="share-section">
+          <span>Compartir:</span>
+          <a
+            [href]="facebookUrl(shareUrl())"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Compartir en Facebook"
+          >
+            <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
+          </a>
+          <a
+            [href]="xUrl(shareUrl(), noticia.title)"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Compartir en X"
+          >
+            <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
+          </a>
+          <a
+            [href]="whatsappUrl(shareUrl(), noticia.title)"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Compartir en WhatsApp"
+          >
+            <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+          </a>
+        </div>
+      </article>
+    </div>
+
+    @if (related().length > 0) {
+      <section class="otras-noticias">
+        <h2>Otras noticias</h2>
+        <div class="otras-grid">
+          @for (otra of related(); track otra.id) {
+            <a [routerLink]="['/noticias', otra.id]" class="otra-card">
+              <img [appSrc]="otra.image" [alt]="otra.imageAlt" />
+              <div>
+                <time [attr.datetime]="otra.createdAt">{{ formatFecha(otra.createdAt) }}</time>
+                <h3>{{ otra.title }}</h3>
+                <p>{{ bajada(otra.excerpt) }}</p>
+              </div>
+            </a>
+          }
+        </div>
+      </section>
+    }
+
+    @if (viewerOpen()) {
+      <div class="image-viewer" (click)="viewerOpen.set(false)">
+        <img [appSrc]="noticia.image" [alt]="noticia.imageAlt" (click)="$event.stopPropagation()" />
+        <button
+          type="button"
+          class="close-viewer"
+          (click)="viewerOpen.set(false)"
+          aria-label="Cerrar imagen"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    }
+  }
+</div>

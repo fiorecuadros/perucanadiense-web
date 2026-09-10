@@ -1,0 +1,270 @@
+:host {
+  display: contents;
+}
+
+.admin-sidebar {
+  width: 280px;
+  height: 100vh;
+  background: linear-gradient(180deg, #2a2a3e 0%, #1e1e2e 100%);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 24px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.brand-mark {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #FF6600, #ff8533);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  box-shadow: 0 4px 12px rgba(255, 102, 0, 0.3);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.brand-title {
+  font-weight: 800;
+  font-size: 1rem;
+  color: #fff;
+  letter-spacing: 1.2px;
+  white-space: nowrap;
+}
+
+.brand-sub {
+  font-size: 0.76rem;
+  color: rgba(255, 255, 255, 0.6);
+  white-space: nowrap;
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 14px 12px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
+}
+
+.sidebar-nav::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 11px 14px;
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.sidebar-link::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 0;
+  background: linear-gradient(180deg, #FF6600, #ff8533);
+  border-radius: 0 2px 2px 0;
+  transition: height 0.2s ease;
+}
+
+.sidebar-link:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  transform: translateX(2px);
+}
+
+.sidebar-link:hover::before {
+  height: 60%;
+}
+
+.sidebar-link:focus-visible {
+  outline: 2px solid var(--inst-primary, #ff6600);
+  outline-offset: -2px;
+}
+
+.sidebar-link.active {
+  background: linear-gradient(135deg, rgba(255, 102, 0, 0.15), rgba(255, 133, 51, 0.1));
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 4px 16px rgba(255, 102, 0, 0.25);
+  border: 1px solid rgba(255, 102, 0, 0.2);
+}
+
+.sidebar-link.active::before {
+  height: 70%;
+}
+
+.sidebar-link i {
+  flex-shrink: 0;
+  width: 22px;
+  text-align: center;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.55);
+  transition: color 0.15s ease;
+}
+
+.sidebar-link:hover i,
+.sidebar-link.active i {
+  color: currentColor;
+}
+
+.nav-group-label {
+  margin: 14px 12px 4px;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.38);
+}
+
+.nav-group-label span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sidebar-footer {
+  padding: 12px 12px 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.exit-link {
+  color: #ffb380;
+}
+
+.exit-link:hover {
+  color: #fff;
+  background: rgba(255, 102, 0, 0.14);
+}
+
+/* ---------------------------------------------------------------------------
+   Escritorio: el cajón está fijo y el riel se puede contraer.
+   --------------------------------------------------------------------------- */
+@media (min-width: 901px) {
+  .admin-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 45;
+    transition: width 0.18s ease, box-shadow 0.18s ease;
+  }
+
+  .admin-sidebar.is-collapsed {
+    width: 74px;
+  }
+
+  /* Al pasar el cursor (o enfocar dentro) el riel se despliega por encima. */
+  .admin-sidebar.is-collapsed:hover,
+  .admin-sidebar.is-collapsed:focus-within {
+    width: 260px;
+    box-shadow: 12px 0 44px rgba(20, 19, 30, 0.45);
+  }
+
+  .admin-sidebar.is-collapsed:not(:hover):not(:focus-within) .brand-text,
+  .admin-sidebar.is-collapsed:not(:hover):not(:focus-within) .sidebar-link span,
+  .admin-sidebar.is-collapsed:not(:hover):not(:focus-within) .logout-btn span {
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+  }
+
+  .admin-sidebar.is-collapsed:not(:hover):not(:focus-within) .sidebar-brand,
+  .admin-sidebar.is-collapsed:not(:hover):not(:focus-within) .sidebar-link,
+  .admin-sidebar.is-collapsed:not(:hover):not(:focus-within) .logout-btn {
+    justify-content: center;
+    gap: 0;
+  }
+
+  .admin-sidebar.is-collapsed:not(:hover):not(:focus-within) .sidebar-link i,
+  .admin-sidebar.is-collapsed:not(:hover):not(:focus-within) .logout-btn i {
+    font-size: 1.2rem;
+    width: auto;
+  }
+
+  /* La etiqueta de grupo se vuelve un separador fino. */
+  .admin-sidebar.is-collapsed:not(:hover):not(:focus-within) .nav-group-label {
+    margin: 10px 16px;
+    height: 1px;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.14);
+    overflow: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-sidebar,
+  .sidebar-link {
+    transition: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Móvil: cajón deslizante controlado desde .admin-shell (componente padre).
+   --------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .admin-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 60;
+    transform: translateX(-100%);
+    transition: transform 0.22s ease;
+    box-shadow: 0 0 40px rgba(43, 41, 61, 0.35);
+  }
+
+  :host-context(.admin-shell.nav-open) .admin-sidebar {
+    transform: none;
+  }
+}
+
+@media (max-width: 900px) and (prefers-reduced-motion: reduce) {
+  .admin-sidebar {
+    transition: none;
+  }
+}

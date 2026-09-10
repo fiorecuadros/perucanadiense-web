@@ -1,0 +1,47 @@
+:host {
+  display: block;
+  background: var(--inst-secondary);
+}
+
+.nf-code {
+  margin: 0 0 0.4rem;
+  font-size: 4.5rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #fff;
+  line-height: 1;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+}
+
+.nf-page {
+  padding: 32px 20px 72px;
+}
+
+.nf-wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid var(--inst-border);
+  border-radius: 14px;
+  padding: 1.75rem;
+  text-align: center;
+}
+
+.nf-wrap p {
+  color: var(--inst-text);
+  line-height: 1.6;
+}
+
+.nf-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+@media (max-width: 480px) {
+  .nf-code {
+    font-size: 3.2rem;
+  }
+}

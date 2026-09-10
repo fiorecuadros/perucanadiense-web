@@ -1,0 +1,23 @@
+.privacidad-page {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-header {
+  margin-bottom: 30px;
+  border-bottom: 2px solid var(--inst-primary, #FF6600);
+  padding-bottom: 15px;
+}
+
+.page-header h1 {
+  color: var(--inst-dark, #44425A);
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.page-header p {
+  color: var(--inst-text, #6C6A74);
+  font-size: 0.95rem;
+}

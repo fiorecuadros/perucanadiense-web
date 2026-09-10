@@ -1,0 +1,85 @@
+<section class="stat-bar" aria-label="Estadísticas institucionales">
+  <div class="stat-container">
+    <div class="stat-period">
+      <span class="period-badge">Periodo académico {{ info().metrics2025.period }}</span>
+      <h2 class="stat-heading">Nuestras cifras de impacto</h2>
+    </div>
+
+    <div class="stats-grid">
+      <div
+        class="stat-item"
+        appReveal
+        [attr.aria-label]="info().metrics2025.teachersCount + ' docentes profesionales'"
+      >
+        <span class="stat-icon"><i class="fas fa-chalkboard-teacher" aria-hidden="true"></i></span>
+        <span class="stat-number" [appCountUp]="info().metrics2025.teachersCount">0</span>
+        <span class="stat-label">Docentes profesionales</span>
+      </div>
+
+      <div
+        class="stat-item"
+        appReveal
+        [appRevealDelay]="70"
+        [attr.aria-label]="info().metrics2025.studentsCount + ' estudiantes regulares'"
+      >
+        <span class="stat-icon"><i class="fas fa-chart-line" aria-hidden="true"></i></span>
+        <span
+          class="stat-number"
+          [appCountUp]="info().metrics2025.studentsCount"
+          [appCountUpDelay]="70"
+          >0</span
+        >
+        <span class="stat-label">Estudiantes regulares</span>
+      </div>
+
+      <div
+        class="stat-item"
+        appReveal
+        [appRevealDelay]="140"
+        [attr.aria-label]="info().metrics2025.enrolledCount + ' alumnos matriculados'"
+      >
+        <span class="stat-icon"><i class="fas fa-star" aria-hidden="true"></i></span>
+        <span
+          class="stat-number"
+          [appCountUp]="info().metrics2025.enrolledCount"
+          [appCountUpDelay]="140"
+          >0</span
+        >
+        <span class="stat-label">Alumnos matriculados</span>
+      </div>
+
+      <div
+        class="stat-item"
+        appReveal
+        [appRevealDelay]="210"
+        [attr.aria-label]="info().metrics2025.admittedCount + ' ingresantes por convocatoria'"
+      >
+        <span class="stat-icon"><i class="fas fa-users" aria-hidden="true"></i></span>
+        <span
+          class="stat-number"
+          [appCountUp]="info().metrics2025.admittedCount"
+          [appCountUpDelay]="210"
+          >0</span
+        >
+        <span class="stat-label">Ingresantes por convocatoria</span>
+      </div>
+
+      <div
+        class="stat-item"
+        appReveal
+        [appRevealDelay]="280"
+        [attr.aria-label]="'+' + info().yearsOfExperience + ' años de trayectoria desde 1995'"
+      >
+        <span class="stat-icon"><i class="fas fa-award" aria-hidden="true"></i></span>
+        <span
+          class="stat-number"
+          [appCountUp]="info().yearsOfExperience"
+          appCountUpPrefix="+"
+          [appCountUpDelay]="280"
+          >+0</span
+        >
+        <span class="stat-label">Años de trayectoria (1995)</span>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,149 @@
+<section class="gestion-section">
+  <h2 class="section-title">Transparencia y Gestión Institucional</h2>
+
+  <h3 class="gestion-heading">Información para postulantes</h3>
+  <div class="gestion-grid gestion-grid--featured">
+    <a routerLink="/admision" class="gestion-card" appReveal>
+      <i class="fa-solid fa-user-plus" aria-hidden="true"></i>
+      <p class="gestion-card-title">Admisión</p>
+      <p>Proceso de admisión</p>
+    </a>
+
+    <a routerLink="/becas" class="gestion-card" appReveal [appRevealDelay]="70">
+      <i class="fa-solid fa-medal" aria-hidden="true"></i>
+      <p class="gestion-card-title">Becas y créditos</p>
+      <p>Apoyos económicos</p>
+    </a>
+
+    <a routerLink="/costos" class="gestion-card" appReveal [appRevealDelay]="140">
+      <i class="fa-solid fa-money-bill-wave" aria-hidden="true"></i>
+      <p class="gestion-card-title">Costos</p>
+      <p>Matrícula, pensión y derechos</p>
+    </a>
+
+    <a routerLink="/nosotros" class="gestion-card" appReveal [appRevealDelay]="210">
+      <i class="fa-solid fa-chalkboard-user" aria-hidden="true"></i>
+      <p class="gestion-card-title">Plana docente</p>
+      <p>Autoridades y perfiles profesionales</p>
+    </a>
+  </div>
+
+  <h3 class="gestion-heading">Servicios académicos</h3>
+  <ul class="gestion-list">
+    <li>
+      <a
+        [href]="info().ecosystemEVA.office365"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="gestion-link"
+      >
+        <i class="fa-solid fa-laptop-code" aria-hidden="true"></i>
+        <span>Plataforma EVA</span>
+      </a>
+    </li>
+    <li>
+      <a
+        [href]="info().ecosystemEVA.teams"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="gestion-link"
+      >
+        <i class="fa-solid fa-chalkboard-teacher" aria-hidden="true"></i>
+        <span>Aula virtual</span>
+      </a>
+    </li>
+    <li>
+      <a
+        [href]="info().ecosystemEVA.outlook"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="gestion-link"
+      >
+        <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+        <span>Correo institucional</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/repositorio" class="gestion-link">
+        <i class="fa-solid fa-database" aria-hidden="true"></i>
+        <span>Repositorio</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/noticias" class="gestion-link">
+        <i class="fa-solid fa-newspaper" aria-hidden="true"></i>
+        <span>Noticias</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/estadisticas" class="gestion-link">
+        <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+        <span>Estadísticas</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/horarios" class="gestion-link">
+        <i class="fa-solid fa-clock" aria-hidden="true"></i>
+        <span>Horarios</span>
+      </a>
+    </li>
+  </ul>
+
+  <h3 class="gestion-heading">Gestión y normativa</h3>
+  <ul class="gestion-list">
+    <li>
+      <a routerLink="/transparencia" class="gestion-link">
+        <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+        <span>Transparencia</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/licenciamiento" class="gestion-link">
+        <i class="fa-solid fa-award" aria-hidden="true"></i>
+        <span>Licenciamiento</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/inversiones" class="gestion-link">
+        <i class="fa-solid fa-coins" aria-hidden="true"></i>
+        <span>Inversiones</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/reclamaciones" class="gestion-link">
+        <i class="fa-solid fa-book" aria-hidden="true"></i>
+        <span>Reclamaciones</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/costos" class="gestion-link">
+        <i class="fa-solid fa-money-bill-wave" aria-hidden="true"></i>
+        <span>Costos</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/becas" class="gestion-link">
+        <i class="fa-solid fa-medal" aria-hidden="true"></i>
+        <span>Becas y créditos</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/mesa-de-partes" class="gestion-link">
+        <i class="fa-solid fa-envelope-open-text" aria-hidden="true"></i>
+        <span>Mesa de Partes</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/privacidad" class="gestion-link">
+        <i class="fa-solid fa-user-shield" aria-hidden="true"></i>
+        <span>Privacidad</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/servicios" class="gestion-link">
+        <i class="fa-solid fa-list-check" aria-hidden="true"></i>
+        <span>Servicios</span>
+      </a>
+    </li>
+  </ul>
+</section>

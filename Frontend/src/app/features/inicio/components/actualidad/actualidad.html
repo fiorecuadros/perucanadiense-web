@@ -1,0 +1,108 @@
+<div class="top-grid">
+  <section class="panel" appReveal>
+    <header class="panel__head">
+      <h2>Últimas noticias</h2>
+      <a routerLink="/noticias" class="panel__link">Ver todas</a>
+    </header>
+
+    @if (loading() && sinNoticias()) {
+      <div class="skeleton skeleton--feat" aria-hidden="true"></div>
+    } @else if (error() && sinNoticias()) {
+      <p class="panel__empty">
+        {{ error() }}
+        <button type="button" class="panel__retry" (click)="reintentar()">Reintentar</button>
+      </p>
+    } @else if (noticiaDestacada(); as item) {
+      <a [routerLink]="['/noticias', item.id]" class="feat">
+        <span class="feat__media">
+          <img [appSrc]="item.image" [alt]="item.imageAlt" loading="lazy" decoding="async" />
+          <span class="feat__tag">{{ item.categoryLabel }}</span>
+        </span>
+        <span class="feat__title">{{ item.title }}</span>
+        <span class="feat__excerpt">{{ item.excerpt }}</span>
+        <span class="feat__date">
+          <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+          {{ formatFecha(item.createdAt) }}
+        </span>
+      </a>
+
+      @if (noticiasLista().length) {
+        <ul class="rows">
+          @for (nota of noticiasLista(); track nota.id) {
+            <li>
+              <a [routerLink]="['/noticias', nota.id]" class="row">
+                <span class="row__thumb">
+                  <img [appSrc]="nota.image" [alt]="" loading="lazy" decoding="async" />
+                </span>
+                <span class="row__text">
+                  <strong>{{ nota.title }}</strong>
+                  <span class="row__meta">{{ formatFecha(nota.createdAt) }}</span>
+                </span>
+                <i class="fa-solid fa-chevron-right row__go" aria-hidden="true"></i>
+              </a>
+            </li>
+          }
+        </ul>
+      }
+    } @else {
+      <div class="soon">
+        <i class="fa-regular fa-newspaper" aria-hidden="true"></i>
+        <p>Próximamente</p>
+      </div>
+    }
+
+    <a routerLink="/noticias" class="panel__cta">Ir a noticias</a>
+  </section>
+
+  <section class="panel" appReveal [appRevealDelay]="90">
+    <header class="panel__head">
+      <h2>Comunicados</h2>
+    </header>
+
+    @if (loading() && sinComunicados()) {
+      <div class="skeleton skeleton--com" aria-hidden="true"></div>
+    } @else if (error() && sinComunicados()) {
+      <p class="panel__empty">
+        {{ error() }}
+        <button type="button" class="panel__retry" (click)="reintentar()">Reintentar</button>
+      </p>
+    } @else if (comunicadoDestacado(); as item) {
+      <a [routerLink]="['/noticias', item.id]" class="feat feat--com">
+        <span class="feat__badge">
+          <i class="fa-regular fa-bell" aria-hidden="true"></i>
+          Comunicado
+        </span>
+        <span class="feat__title">{{ item.title }}</span>
+        <span class="feat__excerpt">{{ item.excerpt }}</span>
+        <span class="feat__date">
+          <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+          {{ formatFecha(item.createdAt) }}
+        </span>
+      </a>
+
+      @if (comunicadosLista().length) {
+        <ul class="rows">
+          @for (nota of comunicadosLista(); track nota.id) {
+            <li>
+              <a [routerLink]="['/noticias', nota.id]" class="row">
+                <span class="row__dot" aria-hidden="true"></span>
+                <span class="row__text">
+                  <strong>{{ nota.title }}</strong>
+                  <span class="row__meta">{{ formatFecha(nota.createdAt) }}</span>
+                </span>
+                <i class="fa-solid fa-chevron-right row__go" aria-hidden="true"></i>
+              </a>
+            </li>
+          }
+        </ul>
+      }
+    } @else {
+      <div class="soon">
+        <i class="fa-regular fa-bell" aria-hidden="true"></i>
+        <p>Próximamente</p>
+      </div>
+    }
+
+    <a routerLink="/noticias" class="panel__cta">Ver comunicados</a>
+  </section>
+</div>

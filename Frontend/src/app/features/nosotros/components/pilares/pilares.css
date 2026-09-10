@@ -1,0 +1,123 @@
+:host {
+  display: block;
+}
+
+.pilares {
+  max-width: 1100px;
+  margin: -3rem auto 0;
+  padding: 0 20px 48px;
+  position: relative;
+  z-index: 2;
+}
+
+.pilares-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.pillar-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 1.6rem 1rem;
+  border: 2px solid var(--inst-border);
+  border-radius: 16px;
+  background: #fff;
+  color: var(--inst-dark);
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 28px rgba(68, 66, 90, 0.1);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.pillar-btn i {
+  font-size: 1.4rem;
+  color: var(--inst-primary);
+}
+
+.pillar-btn:hover,
+.pillar-btn.is-active {
+  transform: translateY(-6px);
+  border-color: var(--inst-primary);
+  box-shadow: 0 16px 36px rgba(255, 102, 0, 0.16);
+}
+
+.pillar-panel {
+  margin-top: 1.25rem;
+  padding: 1.75rem 1.6rem;
+  background: #fff;
+  border: 1px solid var(--inst-border);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(68, 66, 90, 0.08);
+}
+
+.pillar-panel h2 {
+  margin: 0 0 0.75rem;
+  color: var(--inst-text-heading);
+  font-size: 1.45rem;
+}
+
+.pillar-panel p {
+  margin: 0;
+  color: var(--inst-text);
+  line-height: 1.7;
+  max-width: 72ch;
+}
+
+.values-list ul {
+  list-style: none;
+  display: grid;
+  gap: 0.85rem;
+  margin: 0;
+  padding: 0;
+}
+
+.values-list li {
+  color: var(--inst-text);
+  line-height: 1.6;
+}
+
+.values-list strong {
+  color: var(--inst-primary);
+}
+
+.org-btn {
+  all: unset;
+  display: grid;
+  gap: 0.75rem;
+  cursor: pointer;
+  width: 100%;
+}
+
+.org-btn img,
+.org-full {
+  width: 100%;
+  border-radius: 12px;
+  display: block;
+}
+
+.org-btn span {
+  color: var(--inst-primary);
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .pilares-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .pilares {
+    margin-top: -1.5rem;
+  }
+
+  .pilares-grid {
+    grid-template-columns: 1fr;
+  }
+}

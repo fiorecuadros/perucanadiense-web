@@ -1,0 +1,186 @@
+<div class="admin-page">
+  <header class="page-header">
+    <div>
+      <h1 class="page-title">Repositorio de investigaciones</h1>
+      <p class="page-sub">
+        Tesis y trabajos publicados en <code>/repositorio</code>. El PDF es opcional: sin él, la
+        ficha se ve igual y el portal avisa que el archivo no está archivado.
+      </p>
+    </div>
+    <div class="page-header-actions">
+      <span class="badge badge-publicado">{{ conPdf() }} con PDF</span>
+      <a class="btn-ghost" href="/repositorio" target="_blank" rel="noopener">Ver portal</a>
+      <button type="button" class="btn-add" (click)="abrirNueva()">
+        <i class="fa fa-plus"></i> Nueva investigación
+      </button>
+    </div>
+  </header>
+
+  <div class="admin-card">
+    <div class="form-row">
+      <label>Programa</label>
+      <select [value]="filtroPrograma()" (change)="filtroPrograma.set($any($event.target).value)">
+        @for (programa of programas(); track programa) {
+          <option [value]="programa">
+            {{ programa === 'todos' ? 'Todos los programas' : programa }}
+          </option>
+        }
+      </select>
+    </div>
+  </div>
+
+  <div class="admin-card">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Título</th>
+          <th>Autores</th>
+          <th>Programa</th>
+          <th>Año</th>
+          <th>PDF</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (tesis of visibles(); track tesis.id) {
+          <tr>
+            <td>
+              <strong>{{ tesis.titulo }}</strong>
+              @if (tesis.resumen) {
+                <div class="form-hint">{{ bajada(tesis.resumen) }}</div>
+              }
+            </td>
+            <td>{{ tesis.autores.join(', ') }}</td>
+            <td>{{ tesis.programa }}</td>
+            <td>{{ tesis.anio }}</td>
+            <td>
+              @if (tesis.pdfUrl) {
+                <a
+                  class="badge badge-publicado"
+                  [href]="tesis.pdfUrl"
+                  target="_blank"
+                  rel="noopener"
+                  >Ver PDF</a
+                >
+              } @else if (subiendo() === tesis.id) {
+                <span class="form-hint">Subiendo…</span>
+              } @else {
+                <label class="btn-ghost">
+                  Subir PDF
+                  <input
+                    type="file"
+                    hidden
+                    accept="application/pdf"
+                    (change)="subirPdf(tesis, $event)"
+                  />
+                </label>
+              }
+            </td>
+            <td class="td-actions">
+              <a
+                class="btn-icon"
+                [href]="'/repositorio/' + tesis.id"
+                target="_blank"
+                rel="noopener"
+                aria-label="Ver"
+              >
+                <i class="fa fa-eye"></i>
+              </a>
+              <button
+                type="button"
+                class="btn-icon"
+                (click)="abrirEditar(tesis)"
+                aria-label="Editar"
+              >
+                <i class="fa fa-pen"></i>
+              </button>
+              <button
+                type="button"
+                class="btn-icon btn-delete"
+                (click)="confirmar.set(tesis)"
+                aria-label="Quitar"
+              >
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="6">No hay investigaciones registradas en este filtro.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<app-dialog
+  [open]="formAbierto()"
+  [title]="editandoId() ? 'Editar investigación' : 'Nueva investigación'"
+  (openChange)="formAbierto.set($event)"
+>
+  <div class="form-grid">
+    <div class="form-row span-2">
+      <label>Título</label>
+      <textarea
+        rows="2"
+        [value]="form().titulo"
+        (input)="patch('titulo', $any($event.target).value)"
+      ></textarea>
+    </div>
+    <div class="form-row span-2">
+      <label>Autores</label>
+      <textarea
+        rows="3"
+        [value]="form().autores"
+        (input)="patch('autores', $any($event.target).value)"
+      ></textarea>
+      <p class="form-hint">Uno por línea.</p>
+    </div>
+    <div class="form-row">
+      <label>Programa</label>
+      <input
+        type="text"
+        [value]="form().programa"
+        (input)="patch('programa', $any($event.target).value)"
+      />
+    </div>
+    <div class="form-row">
+      <label>Año</label>
+      <input
+        type="text"
+        maxlength="4"
+        [value]="form().anio"
+        (input)="patch('anio', $any($event.target).value)"
+      />
+    </div>
+    <div class="form-row span-2">
+      <label>Nivel</label>
+      <input
+        type="text"
+        [value]="form().nivel"
+        (input)="patch('nivel', $any($event.target).value)"
+      />
+    </div>
+    <div class="form-row span-2">
+      <label>Resumen</label>
+      <app-editor-quill [html]="form().resumen" (htmlChange)="patch('resumen', $event)" />
+    </div>
+  </div>
+  <div dialog-footer>
+    <button type="button" class="btn-cancel" (click)="formAbierto.set(false)">Cancelar</button>
+    <button type="button" class="btn-save" (click)="guardar()">Guardar</button>
+  </div>
+</app-dialog>
+
+<app-dialog
+  [open]="!!confirmar()"
+  title="Quitar del repositorio"
+  (openChange)="confirmar.set($event ? confirmar() : null)"
+>
+  <p>Dejará de verse en <code>/repositorio</code>.</p>
+  <div dialog-footer>
+    <button type="button" class="btn-cancel" (click)="confirmar.set(null)">Cancelar</button>
+    <button type="button" class="btn-danger" (click)="eliminar()">Eliminar</button>
+  </div>
+</app-dialog>

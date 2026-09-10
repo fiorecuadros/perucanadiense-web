@@ -1,0 +1,41 @@
+<nav class="navbar">
+  <a routerLink="/inicio" class="logo" (click)="closeMenu()">
+    <img src="images/pcanadiense/logopc2.png" [alt]="info().shortName" />
+  </a>
+
+  <button
+    class="menu-toggle"
+    type="button"
+    (click)="toggleMenu()"
+    [class.active]="isMenuOpen()"
+    [attr.aria-expanded]="isMenuOpen()"
+    aria-controls="site-nav"
+    aria-label="Abrir menú"
+  >
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <div id="site-nav" class="nav-content" [class.active]="isMenuOpen()">
+    <ul class="menu">
+      @for (enlace of enlaces(); track enlace.id) {
+        <li>
+          <a app-enlace-menu [item]="enlace" claseActiva="nav-active" (navegar)="closeMenu()"></a>
+        </li>
+      }
+    </ul>
+
+    <div class="nav-actions">
+      @for (accion of acciones(); track accion.id) {
+        <a
+          app-enlace-menu
+          [item]="accion"
+          [clase]="'btn-' + (accion.variante || 'admision')"
+          [claseActiva]="'btn-' + (accion.variante || 'admision') + '-active'"
+          (navegar)="closeMenu()"
+        ></a>
+      }
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,27 @@
+:host {
+  display: block;
+}
+
+.trans-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.breadcrumb-sep {
+  opacity: 0.7;
+}
+
+.breadcrumb-link {
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumb-current {
+  font-weight: 600;
+}

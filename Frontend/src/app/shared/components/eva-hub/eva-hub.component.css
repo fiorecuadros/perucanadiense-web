@@ -1,0 +1,120 @@
+.eva-hub-section {
+  background: var(--inst-secondary, #F2F1F8);
+  padding: 80px 20px;
+}
+
+.eva-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.eva-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 50px;
+}
+
+.eva-badge {
+  display: inline-block;
+  background: rgba(255, 102, 0, 0.12);
+  color: #FF6600;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+.eva-title {
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: var(--inst-dark, #44425A);
+  margin-bottom: 16px;
+}
+
+.eva-subtitle {
+  font-size: 1.05rem;
+  color: var(--inst-text, #6C6A74);
+  line-height: 1.6;
+}
+
+.eva-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+}
+
+.eva-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 35px 28px;
+  box-shadow: 0 4px 20px rgba(68, 66, 90, 0.06);
+  border: 1px solid #e7e6f0;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.eva-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 32px rgba(255, 102, 0, 0.12);
+  border-color: #FF6600;
+}
+
+.eva-icon-box {
+  width: 65px;
+  height: 65px;
+  background: linear-gradient(135deg, rgba(255, 102, 0, 0.1) 0%, rgba(255, 102, 0, 0.03) 100%);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 22px;
+  color: #FF6600;
+  font-size: 1.8rem;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.eva-card:hover .eva-icon-box {
+  background: #FF6600;
+  color: #ffffff;
+}
+
+.eva-card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--inst-dark, #44425A);
+  margin-bottom: 12px;
+}
+
+.eva-card-desc {
+  font-size: 0.95rem;
+  color: var(--inst-text, #6C6A74);
+  line-height: 1.5;
+  margin-bottom: 24px;
+  flex-grow: 1;
+}
+
+.eva-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: #FF6600;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: gap 0.2s ease;
+}
+
+.eva-card-link:hover {
+  gap: 12px;
+  color: #e65c00;
+}
+
+@media (max-width: 600px) {
+  .eva-grid {
+    grid-template-columns: 1fr;
+  }
+}

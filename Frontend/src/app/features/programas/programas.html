@@ -1,0 +1,145 @@
+<app-page-hero title="Programas de estudio" [subtitle]="info().name" />
+
+<section class="oferta" aria-label="Oferta académica">
+  <div class="oferta-inner">
+    @if (nivelesVisibles().length > 1) {
+      <div class="niveles" role="tablist" aria-label="Tipo de programa">
+        @for (nivel of nivelesVisibles(); track nivel) {
+          <button
+            type="button"
+            role="tab"
+            class="nivel"
+            [class.is-active]="nivelActivo() === nivel"
+            [attr.aria-selected]="nivelActivo() === nivel"
+            [attr.aria-label]="etiquetaNivel[nivel] + ', ' + cuenta(nivel) + ' programas'"
+            (click)="selectLevel(nivel)"
+          >
+            <span>{{ etiquetaNivel[nivel] }}</span>
+            <span class="nivel-cuenta">{{ cuenta(nivel) }}</span>
+          </button>
+        }
+      </div>
+    }
+
+    @if (visiblePrograms().length) {
+      <div class="carrusel" role="radiogroup" [attr.aria-label]="etiquetaNivel[nivelActivo()]">
+        @for (program of visiblePrograms(); track program.id) {
+          <button
+            type="button"
+            role="radio"
+            class="pick"
+            [class.is-active]="ficha()[0]?.id === program.id"
+            [attr.aria-checked]="ficha()[0]?.id === program.id"
+            (click)="selectedId.set(program.id)"
+          >
+            @if (program.image) {
+              <span class="pick-foto">
+                <img [src]="program.image" [appSrc]="program.image" alt="" />
+              </span>
+            }
+            <span class="pick-copy">
+              <span class="pick-title">{{ program.title }}</span>
+              @if (program.featured) {
+                <span class="pick-marca">Destacada</span>
+              }
+            </span>
+          </button>
+        }
+      </div>
+    }
+
+    @for (program of ficha(); track program.id) {
+      <article class="ficha" [attr.aria-labelledby]="'programa-' + program.id">
+        <div class="ficha-hero">
+          @if (program.image) {
+            <figure class="ficha-foto">
+              <img [src]="program.image" [appSrc]="program.image" [alt]="program.title" />
+            </figure>
+          }
+          <div class="ficha-id">
+            <h2 [id]="'programa-' + program.id">{{ program.title }}</h2>
+            @if (hayTexto(program.description)) {
+              <div class="det-content__html ficha-lead" [innerHTML]="program.description"></div>
+            }
+            <div class="cta-row">
+              <a appButton routerLink="/admision">Postular a admisión</a>
+              <a
+                appButton
+                variant="whatsapp"
+                [href]="whatsappUrl()"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Informes por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <dl class="datos">
+          @if (program.vacancies) {
+            <div class="dato">
+              <dt>Vacantes</dt>
+              <dd>{{ program.vacancies }}</dd>
+            </div>
+          }
+          @if (program.duration) {
+            <div class="dato">
+              <dt>Duración</dt>
+              <dd>{{ program.duration }}</dd>
+            </div>
+          }
+          @if (program.shifts.length) {
+            <div class="dato">
+              <dt>Turnos</dt>
+              <dd class="dato-chips">
+                @for (turno of program.shifts; track turno) {
+                  <span>{{ turno }}</span>
+                }
+              </dd>
+            </div>
+          }
+          @if (program.normative) {
+            <div class="dato">
+              <dt>Resolución</dt>
+              <dd>{{ program.normative }}</dd>
+            </div>
+          }
+          @if (program.ageRange) {
+            <div class="dato">
+              <dt>Atención</dt>
+              <dd>{{ program.ageRange }}</dd>
+            </div>
+          }
+        </dl>
+
+        @if (program.degreeAwarded) {
+          <p class="grado">{{ program.degreeAwarded }}</p>
+        }
+
+        @if (hayTexto(program.profile) || program.fieldOfWork.length) {
+          <div class="columnas">
+            @if (hayTexto(program.profile)) {
+              <section class="columna" aria-labelledby="perfil-title">
+                <h3 id="perfil-title">Perfil del egresado</h3>
+                <div class="det-content__html" [innerHTML]="program.profile"></div>
+              </section>
+            }
+            @if (program.fieldOfWork.length) {
+              <section class="columna" aria-labelledby="campo-title">
+                <h3 id="campo-title">Campo laboral</h3>
+                <ul>
+                  @for (item of program.fieldOfWork; track item) {
+                    <li>{{ item }}</li>
+                  }
+                </ul>
+              </section>
+            }
+          </div>
+        }
+      </article>
+    } @empty {
+      <p class="vacio">Aún no hay programas publicados en este nivel.</p>
+    }
+  </div>
+</section>

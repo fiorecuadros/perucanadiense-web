@@ -1,0 +1,190 @@
+<div class="admin-page">
+  <header class="page-header">
+    <div>
+      <h1 class="page-title">Menú de navegación</h1>
+      <p class="page-sub">
+        Los enlaces de la cabecera y del pie del portal. Los cambios se ven en el sitio al
+        instante.
+      </p>
+    </div>
+    <div class="page-header-actions">
+      <button type="button" class="btn-ghost" (click)="cargar()">
+        <i class="fa fa-rotate"></i> Actualizar
+      </button>
+      <button type="button" class="btn-ghost" (click)="restaurar()">
+        <i class="fa fa-clock-rotate-left"></i> Restaurar original
+      </button>
+    </div>
+  </header>
+
+  @if (cargando()) {
+    <p class="form-hint">Cargando…</p>
+  } @else if (error()) {
+    <div class="empty-state">
+      <p>{{ error() }}</p>
+      <button type="button" class="btn-ghost" (click)="cargar()">Reintentar</button>
+    </div>
+  } @else {
+    @for (zona of zonas; track zona.id) {
+      <div class="admin-card">
+        <header class="page-header">
+          <div>
+            <h2 class="page-title">{{ zona.label }}</h2>
+            <p class="page-sub">{{ zona.descripcion }}</p>
+          </div>
+          <button type="button" class="btn-ghost" (click)="abrirNuevo(zona.id)">
+            <i class="fa fa-plus"></i> Añadir enlace
+          </button>
+        </header>
+
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Orden</th>
+              <th>Texto</th>
+              <th>Va a</th>
+              <th>Estado</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of porZona()[zona.id]; track item.id; let primero = $first, ultimo = $last) {
+              <tr>
+                <td class="td-actions">
+                  <button
+                    type="button"
+                    class="btn-icon"
+                    [disabled]="primero"
+                    (click)="mover(item, -1)"
+                    aria-label="Subir"
+                  >
+                    <i class="fa fa-arrow-up"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="btn-icon"
+                    [disabled]="ultimo"
+                    (click)="mover(item, 1)"
+                    aria-label="Bajar"
+                  >
+                    <i class="fa fa-arrow-down"></i>
+                  </button>
+                </td>
+                <td>{{ item.etiqueta }}</td>
+                <td>
+                  {{ item.destino }}
+                  @if (esExterno(item.destino)) {
+                    <span class="badge badge-borrador">externo</span>
+                  }
+                </td>
+                <td>
+                  <span [class]="item.visible ? 'badge badge-publicado' : 'badge badge-borrador'">
+                    {{ item.visible ? 'Visible' : 'Oculto' }}
+                  </span>
+                </td>
+                <td class="td-actions">
+                  <button
+                    type="button"
+                    class="btn-icon"
+                    (click)="alternarVisible(item)"
+                    [attr.aria-label]="item.visible ? 'Ocultar' : 'Mostrar'"
+                  >
+                    <i class="fa" [class.fa-eye-slash]="item.visible" [class.fa-eye]="!item.visible"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="btn-icon"
+                    (click)="abrirEdicion(item)"
+                    aria-label="Editar"
+                  >
+                    <i class="fa fa-pen"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="btn-icon"
+                    (click)="eliminar(item)"
+                    aria-label="Eliminar"
+                  >
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="5">Esta zona no tiene enlaces.</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  }
+</div>
+
+<app-dialog
+  [open]="formAbierto()"
+  [title]="editandoId() ? 'Editar enlace' : 'Nuevo enlace'"
+  [showFooter]="false"
+  (openChange)="formAbierto.set($event)"
+>
+  <div class="form-grid">
+    <div class="form-row">
+      <label for="menu-zona">Zona</label>
+      <select
+        id="menu-zona"
+        [value]="form().zona"
+        (change)="parche('zona', $any($event.target).value)"
+      >
+        @for (zona of zonas; track zona.id) {
+          <option [value]="zona.id">{{ zona.label }}</option>
+        }
+      </select>
+    </div>
+    <div class="form-row">
+      <label for="menu-etiqueta">Texto del enlace</label>
+      <input
+        id="menu-etiqueta"
+        type="text"
+        [value]="form().etiqueta"
+        (input)="parche('etiqueta', $any($event.target).value)"
+      />
+    </div>
+    <div class="form-row span-2">
+      <label for="menu-destino">Va a</label>
+      <input
+        id="menu-destino"
+        type="text"
+        placeholder="/nosotros"
+        [value]="form().destino"
+        (input)="parche('destino', $any($event.target).value)"
+      />
+      <p class="form-hint">
+        Una página del portal empieza por barra (<code>/nosotros</code>, <code>/admision</code>).
+        También admite una dirección completa (<code>https://…</code>), que se abrirá en una
+        pestaña nueva.
+      </p>
+    </div>
+    <div class="form-row span-2">
+      <label class="check-inline">
+        <input
+          type="checkbox"
+          [checked]="form().visible"
+          (change)="parche('visible', $any($event.target).checked)"
+        />
+        <span>Mostrarlo en el portal</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="save-bar">
+    <button type="button" class="btn-cancel" (click)="formAbierto.set(false)">Cancelar</button>
+    <button
+      type="button"
+      class="btn-save"
+      [disabled]="!puedeGuardar() || guardando()"
+      (click)="guardar()"
+    >
+      {{ guardando() ? 'Guardando…' : 'Guardar' }}
+    </button>
+  </div>
+</app-dialog>

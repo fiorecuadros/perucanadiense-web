@@ -1,0 +1,63 @@
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-block">
+      <img src="images/pcanadiense/logopc2.png" [alt]="info().shortName" class="footer-logo" />
+      <p>
+        {{ info().yearsOfExperience }} años formando maestros líderes con identidad regional y
+        valores cristianos.
+      </p>
+      <small>RUC: {{ info().ruc }} | Cód. Modular: {{ info().modularCode }}</small>
+    </div>
+    <div class="footer-block">
+      <h4>Enlaces rápidos</h4>
+      @for (enlace of institucional(); track enlace.id) {
+        <a app-enlace-menu [item]="enlace"></a>
+      }
+    </div>
+    <div class="footer-block">
+      <h4>Atención al alumno</h4>
+      @for (enlace of servicios(); track enlace.id) {
+        <a app-enlace-menu [item]="enlace"></a>
+      }
+      <a routerLink="/reclamaciones" class="libro-link">
+        <img
+          src="images/libro-de-reclamaciones.jpg"
+          alt="Libro de Reclamaciones"
+          class="libro-img"
+        />
+      </a>
+    </div>
+    <div class="footer-block">
+      <h4>Contacto</h4>
+      <p>
+        <i class="fa fa-map-marker-alt" aria-hidden="true"></i> {{ info().locations[0].address }},
+        {{ info().locations[0].city }}
+      </p>
+      <p><i class="fa fa-phone" aria-hidden="true"></i> {{ info().contact.landline }}</p>
+      <p>
+        <i class="fab fa-whatsapp" aria-hidden="true"></i> {{ info().contact.whatsappFormatted }}
+      </p>
+      <p><i class="fa fa-envelope" aria-hidden="true"></i> {{ info().contact.emailGeneral }}</p>
+      @if (info().social.facebook) {
+        <a
+          [href]="info().social.facebook"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="social-btn"
+          aria-label="Facebook institucional"
+        >
+          <i class="fa-brands fa-facebook" aria-hidden="true"></i>
+        </a>
+      }
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© {{ currentYear }} {{ info().shortName }}. Todos los derechos reservados.</p>
+    <p class="footer-credito">
+      Desarrollado por
+      <a href="https://mattinnovasolution.com" target="_blank" rel="noopener noreferrer">
+        mattinnovasolution.com
+      </a>
+    </p>
+  </div>
+</footer>

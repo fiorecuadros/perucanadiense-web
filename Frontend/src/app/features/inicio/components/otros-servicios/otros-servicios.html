@@ -1,0 +1,16 @@
+<div class="servicios-section">
+  <h2>Otros servicios</h2>
+  <div class="servicios-grid">
+    @for (service of services(); track service.src; let i = $index) {
+      <a routerLink="/programas" class="servicio-card" appReveal [appRevealDelay]="i * 80">
+        <span class="servicio-card__media">
+          <img [src]="service.src" [alt]="service.alt" loading="lazy" decoding="async" />
+        </span>
+        <span class="servicio-card__label">
+          {{ service.title }}
+          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </span>
+      </a>
+    }
+  </div>
+</div>

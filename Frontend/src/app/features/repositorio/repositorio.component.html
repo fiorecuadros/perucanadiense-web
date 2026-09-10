@@ -1,0 +1,68 @@
+<app-page-hero variant="breadcrumb" [title]="copy().heroTitle" [subtitle]="copy().heroSubtitle">
+  <app-breadcrumbs [items]="crumbs" />
+</app-page-hero>
+
+<section class="svc-wrap">
+  <div class="svc-toolbar">
+    <div class="svc-search">
+      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      <input
+        type="search"
+        placeholder="Buscar por título o autor"
+        [value]="busqueda()"
+        (input)="onSearch($event)"
+      />
+    </div>
+    <div class="svc-chips">
+      @for (item of programas(); track item) {
+        <button
+          type="button"
+          class="svc-chip"
+          [class.active]="programa() === item"
+          (click)="programa.set(item)"
+        >
+          {{ item === 'todos' ? 'Todos los programas' : item }}
+        </button>
+      }
+    </div>
+    <div class="svc-chips">
+      @for (item of anios(); track item) {
+        <button
+          type="button"
+          class="svc-chip"
+          [class.active]="anio() === item"
+          (click)="anio.set(item)"
+        >
+          {{ item === 'todos' ? 'Todos los años' : item }}
+        </button>
+      }
+    </div>
+  </div>
+
+  @if (filtrados().length === 0) {
+    <div class="svc-empty">
+      <p>No hay tesis publicadas que coincidan con la búsqueda.</p>
+      <button type="button" class="svc-chip" (click)="limpiar()">Limpiar filtros</button>
+    </div>
+  } @else {
+    <div class="svc-list">
+      @for (item of filtrados(); track item.id) {
+        <a class="svc-row" [routerLink]="['/repositorio', item.id]">
+          <div>
+            <p class="svc-kicker">{{ item.tipo }} · {{ item.anio }}</p>
+            <h3>{{ item.titulo }}</h3>
+            <div class="svc-meta">
+              <span>{{ item.autores.join(', ') }}</span>
+              <span>{{ item.programa }}</span>
+            </div>
+          </div>
+          @if (item.pdfUrl) {
+            <span class="svc-badge">Con PDF</span>
+          } @else {
+            <span class="svc-badge">Ver ficha</span>
+          }
+        </a>
+      }
+    </div>
+  }
+</section>

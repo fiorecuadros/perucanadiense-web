@@ -1,0 +1,107 @@
+<!-- Botón flotante -->
+<button class="chat-fab" (click)="toggle()" [class.chat-fab--open]="isOpen()" aria-label="Abrir asistente virtual">
+  @if (!isOpen()) {
+    <i class="fas fa-comments"></i>
+    <span class="chat-fab__badge">?</span>
+  } @else {
+    <i class="fas fa-times"></i>
+  }
+</button>
+
+<!-- Ventana del chat -->
+@if (isOpen()) {
+  <div class="chat-window" role="dialog" aria-label="Asistente Virtual">
+
+    <!-- Header -->
+    <div class="chat-header">
+      <div class="chat-header__avatar">
+        <img src="images/pcanadiense/logopc2.png" alt="Logo IESPP" />
+      </div>
+      <div class="chat-header__info">
+        <span class="chat-header__name">Asistente Virtual</span>
+        <span class="chat-header__sub">IESPP Privado "Peruano Canadiense"</span>
+      </div>
+      <button class="chat-header__close" (click)="close()" aria-label="Cerrar">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <!-- Mensajes -->
+    <div class="chat-messages" #messagesContainer>
+      @for (msg of messages(); track msg.id) {
+
+        <!-- Mensaje del bot -->
+        @if (msg.type === 'bot') {
+          <div class="msg msg--bot">
+            <div class="msg__avatar">
+              <i class="fas fa-robot"></i>
+            </div>
+            <div class="msg__content">
+              <div class="msg__bubble" [innerHTML]="formatText(msg.text)"></div>
+
+              @if (msg.links && msg.links.length) {
+                <div class="msg__links">
+                  @for (link of msg.links; track link.path) {
+                    <a [routerLink]="link.path" class="msg__link" (click)="close()">
+                      <i class="fas fa-arrow-right"></i> {{ link.label }}
+                    </a>
+                  }
+                </div>
+              }
+
+              <span class="msg__time">{{ msg.time }}</span>
+
+              @if (msg.quickReplies && msg.quickReplies.length) {
+                <div class="msg__quick-replies">
+                  @for (qr of msg.quickReplies; track qr) {
+                    <button class="quick-reply" (click)="sendQuickReply(qr)">{{ qr }}</button>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+        }
+
+        <!-- Mensaje del usuario -->
+        @if (msg.type === 'user') {
+          <div class="msg msg--user">
+            <div class="msg__content">
+              <div class="msg__bubble">{{ msg.text }}</div>
+              <span class="msg__time">{{ msg.time }}</span>
+            </div>
+          </div>
+        }
+
+      }
+
+      <!-- Indicador de escritura -->
+      @if (isTyping()) {
+        <div class="msg msg--bot">
+          <div class="msg__avatar"><i class="fas fa-robot"></i></div>
+          <div class="msg__content">
+            <div class="msg__bubble typing-indicator">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Input -->
+    <div class="chat-input-area">
+      <input
+        class="chat-input"
+        type="text"
+        placeholder="Escribe tu consulta..."
+        [(ngModel)]="userInput"
+        (keydown.enter)="sendMessage()"
+        maxlength="300"
+        autocomplete="off"
+      />
+      <button class="chat-send" (click)="sendMessage()" [disabled]="!userInput.trim()" aria-label="Enviar">
+        <i class="fas fa-paper-plane"></i>
+      </button>
+    </div>
+
+  </div>
+}

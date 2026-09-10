@@ -1,0 +1,25 @@
+:host {
+  display: block;
+}
+
+.main-content {
+  background: var(--inst-secondary);
+  padding: 48px 20px 60px;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 72px 15px 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 64px 12px 30px;
+  }
+}

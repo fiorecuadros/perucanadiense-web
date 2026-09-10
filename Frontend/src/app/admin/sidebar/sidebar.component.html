@@ -1,0 +1,47 @@
+<aside class="admin-sidebar" [class.is-collapsed]="colapsado()">
+  <div class="sidebar-brand">
+    <span class="brand-mark" aria-hidden="true">PC</span>
+    <span class="brand-text">
+      <span class="brand-title">PANEL ADMIN</span>
+      <span class="brand-sub">Peruano Canadiense</span>
+    </span>
+  </div>
+
+  <nav class="sidebar-nav" aria-label="Secciones del panel">
+    <a
+      [routerLink]="dashboard.route"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="sidebar-link"
+    >
+      <i class="fa {{ dashboard.icon }}" aria-hidden="true"></i>
+      <span>{{ dashboard.label }}</span>
+    </a>
+    @for (group of groups; track group.label) {
+      <h3 class="nav-group-label">
+        <span>{{ group.label }}</span>
+      </h3>
+      @for (link of group.items; track link.route) {
+        <a [routerLink]="link.route" routerLinkActive="active" class="sidebar-link">
+          <i class="fa {{ link.icon }}" aria-hidden="true"></i>
+          <span>{{ link.label }}</span>
+        </a>
+      }
+    }
+  </nav>
+
+  <div class="sidebar-footer">
+    <a routerLink="/admin/mi-cuenta" routerLinkActive="active" class="sidebar-link">
+      <i class="fa fa-user-gear" aria-hidden="true"></i>
+      <span>Mi cuenta</span>
+    </a>
+    <a routerLink="/inicio" class="sidebar-link exit-link">
+      <i class="fa fa-arrow-up-right-from-square" aria-hidden="true"></i>
+      <span>Ver portal público</span>
+    </a>
+    <button type="button" class="logout-btn" (click)="logout()">
+      <i class="fa fa-right-from-bracket" aria-hidden="true"></i>
+      <span>Cerrar sesión</span>
+    </button>
+  </div>
+</aside>

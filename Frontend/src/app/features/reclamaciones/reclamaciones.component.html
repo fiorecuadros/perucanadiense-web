@@ -1,0 +1,157 @@
+<app-page-hero variant="breadcrumb" [title]="copy().heroTitle" [subtitle]="copy().heroSubtitle">
+  <app-breadcrumbs [items]="crumbs" />
+</app-page-hero>
+
+<section class="svc-wrap">
+  <div class="svc-lead det-content__html" [innerHTML]="copy().lead"></div>
+
+  <div class="svc-steps">
+    @for (paso of pasos(); track paso.paso) {
+      <article class="svc-step">
+        <span>{{ paso.paso }}</span>
+        <h3>{{ paso.titulo }}</h3>
+        <p>{{ paso.descripcion }}</p>
+      </article>
+    }
+  </div>
+
+  <div class="svc-split">
+    <aside class="svc-panel">
+      <h2>Atención al consumidor</h2>
+      <p>El uso del libro es gratuito. Conservé su código para el seguimiento.</p>
+      <div class="svc-contact">
+        <div>
+          <i class="fa-solid fa-clock" aria-hidden="true"></i>
+          <div>
+            <strong>Horario</strong>
+            <p>{{ info().schedule.attention }}</p>
+          </div>
+        </div>
+        <div>
+          <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+          <div>
+            <strong>Correo</strong>
+            <p>{{ info().contact.emailGeneral }}</p>
+          </div>
+        </div>
+        <div>
+          <i class="fa-solid fa-phone" aria-hidden="true"></i>
+          <div>
+            <strong>Central</strong>
+            <p>{{ info().contact.phoneFormatted }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="svc-actions">
+        <a appButton variant="outline" routerLink="/privacidad">Política de privacidad</a>
+        <a appButton variant="outline" routerLink="/mesa-de-partes">Mesa de partes</a>
+      </div>
+    </aside>
+
+    <div class="svc-form">
+      @if (codigo(); as code) {
+        <div class="svc-success">
+          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+          <h3>Reclamo registrado</h3>
+          <p>
+            Código: <strong>{{ code }}</strong>
+          </p>
+          <p>
+            Quedó en el libro de reclamaciones del instituto. Conserve este código. El plazo máximo
+            de respuesta es de 30 días calendario.
+          </p>
+          <div class="svc-actions">
+            <button type="button" appButton variant="outline" (click)="reset()">
+              Nuevo reclamo
+            </button>
+          </div>
+        </div>
+      } @else {
+        <form [formGroup]="form" (ngSubmit)="enviar()" novalidate>
+          <h3>Hoja de reclamación</h3>
+          @if (errorEnvio(); as aviso) {
+            <p class="field-error" role="alert">{{ aviso }}</p>
+          }
+          <div class="svc-half">
+            <label>
+              Tipo de documento
+              <select formControlName="tipoDocumento">
+                <option value="">Seleccione</option>
+                @for (tipo of tiposDocumento(); track tipo) {
+                  <option [value]="tipo">{{ tipo }}</option>
+                }
+              </select>
+            </label>
+            <label
+              >Número <input appInput formControlName="numeroDocumento" inputmode="numeric"
+            /></label>
+          </div>
+          @if (invalid('numeroDocumento')) {
+            <p class="field-error">Ingrese un número de documento válido.</p>
+          }
+          <div class="svc-half">
+            <label
+              >Nombres <input appInput formControlName="nombres" autocomplete="given-name"
+            /></label>
+            <label
+              >Apellidos <input appInput formControlName="apellidos" autocomplete="family-name"
+            /></label>
+          </div>
+          <div class="svc-half">
+            <label
+              >Correo <input appInput formControlName="email" type="email" autocomplete="email"
+            /></label>
+            <label
+              >Celular <input appInput formControlName="telefono" type="tel" maxlength="9"
+            /></label>
+          </div>
+          @if (invalid('email')) {
+            <p class="field-error">Ingrese un correo válido.</p>
+          }
+          @if (invalid('telefono')) {
+            <p class="field-error">Celular de 7 a 9 dígitos.</p>
+          }
+          <label
+            >Dirección <input appInput formControlName="direccion" autocomplete="street-address"
+          /></label>
+          @if (invalid('direccion')) {
+            <p class="field-error">Indique una dirección (mínimo 10 caracteres).</p>
+          }
+          <label>
+            Tipo
+            <select formControlName="tipoReclamo">
+              <option value="">Seleccione</option>
+              @for (tipo of tiposReclamo(); track tipo) {
+                <option [value]="tipo">{{ tipo }}</option>
+              }
+            </select>
+          </label>
+          <label>Detalle <textarea formControlName="detalleReclamo" rows="4"></textarea></label>
+          @if (invalid('detalleReclamo')) {
+            <p class="field-error">Describa el hecho (mínimo 20 caracteres).</p>
+          }
+          <label>Pedido <textarea formControlName="pedido" rows="3"></textarea></label>
+          @if (invalid('pedido')) {
+            <p class="field-error">Indique lo que solicita (mínimo 10 caracteres).</p>
+          }
+          <label class="svc-check">
+            <input type="checkbox" formControlName="aceptoPrivacidad" />
+            <span
+              >Acepto la <a routerLink="/privacidad">política de privacidad</a> (Ley N°
+              29733).</span
+            >
+          </label>
+          @if (invalid('aceptoPrivacidad')) {
+            <p class="field-error">Debe aceptar la política de privacidad.</p>
+          }
+          <div class="svc-actions">
+            <button type="submit" appButton [disabled]="enviando()">
+              {{ enviando() ? 'Registrando…' : 'Registrar reclamo' }}
+            </button>
+            <button type="button" appButton variant="outline" (click)="reset()">Limpiar</button>
+          </div>
+        </form>
+      }
+    </div>
+  </div>
+</section>

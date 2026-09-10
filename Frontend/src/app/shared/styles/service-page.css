@@ -1,0 +1,362 @@
+:host {
+  display: block;
+  background: var(--inst-secondary);
+}
+
+.svc-wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 32px 20px 72px;
+  display: grid;
+  gap: 28px;
+}
+
+.svc-section h2,
+.svc-aside h2,
+.svc-panel h2,
+.svc-wrap > section > h2 {
+  margin: 0 0 14px;
+  color: var(--inst-text-heading);
+  font-size: 1.35rem;
+}
+
+.svc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.svc-card,
+.svc-panel,
+.svc-form {
+  background: #fff;
+  border: 1px solid var(--inst-border);
+  border-radius: 16px;
+  padding: 1.25rem 1.2rem;
+  box-shadow: 0 8px 24px rgba(68, 66, 90, 0.06);
+}
+
+a.svc-card {
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+a.svc-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--inst-primary);
+  box-shadow: 0 14px 32px rgba(68, 66, 90, 0.12);
+}
+
+.svc-icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 12px;
+  background: var(--inst-primary-light);
+  color: var(--inst-primary);
+  display: grid;
+  place-items: center;
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+}
+
+.svc-card h3,
+.svc-form h3,
+.svc-row h3,
+.svc-step h3 {
+  margin: 0 0 0.45rem;
+  color: var(--inst-text-heading);
+  font-size: 1.05rem;
+}
+
+.svc-card p,
+.svc-muted,
+.svc-form p,
+.svc-aside p,
+.svc-aside li,
+.svc-row p,
+.svc-step p {
+  margin: 0;
+  color: var(--inst-text);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.svc-card ul {
+  margin: 0.6rem 0 0;
+  padding-left: 1.1rem;
+  color: var(--inst-text);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.svc-split {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 1.4rem;
+  align-items: start;
+}
+
+.svc-contact {
+  display: grid;
+  gap: 0.85rem;
+  margin: 1rem 0;
+}
+
+.svc-contact div {
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+}
+
+.svc-contact i {
+  color: var(--inst-primary);
+  width: 1.2rem;
+  margin-top: 0.2rem;
+}
+
+.svc-contact strong {
+  display: block;
+  color: var(--inst-text-heading);
+  font-size: 0.9rem;
+}
+
+.svc-form label {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0.65rem 0;
+  color: var(--inst-text-heading);
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+
+.svc-form select,
+.svc-form textarea {
+  width: 100%;
+  border: 1px solid var(--inst-border);
+  border-radius: 12px;
+  padding: 0.7rem 0.9rem;
+  font: inherit;
+  color: var(--inst-text-heading);
+  background: #fff;
+}
+
+.svc-half {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.field-error {
+  color: #b42318;
+  font-size: 0.82rem;
+  margin: -0.25rem 0 0.4rem;
+}
+
+.svc-check {
+  display: flex;
+  gap: 0.55rem;
+  align-items: flex-start;
+  font-weight: 500;
+}
+
+.svc-check input {
+  margin-top: 0.25rem;
+}
+
+.svc-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 1rem;
+}
+
+.svc-success {
+  text-align: center;
+  padding: 1.5rem 0.5rem;
+}
+
+.svc-success i {
+  font-size: 2.2rem;
+  color: var(--inst-primary);
+}
+
+.svc-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.svc-search {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #fff;
+  border: 1px solid var(--inst-border);
+  border-radius: 999px;
+  padding: 0.45rem 0.9rem;
+  min-width: min(100%, 280px);
+}
+
+.svc-search i {
+  color: var(--inst-text);
+}
+
+.svc-search input {
+  border: 0;
+  outline: none;
+  width: 100%;
+  font: inherit;
+  background: transparent;
+}
+
+.svc-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.svc-chip {
+  border: 1px solid var(--inst-border);
+  background: #fff;
+  color: var(--inst-text-heading);
+  border-radius: 999px;
+  padding: 0.35rem 0.8rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.svc-chip.active {
+  background: var(--inst-dark);
+  color: #fff;
+  border-color: var(--inst-dark);
+}
+
+.svc-list {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.svc-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  align-items: center;
+  background: #fff;
+  border: 1px solid var(--inst-border);
+  border-radius: 14px;
+  padding: 1rem 1.1rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.svc-row:hover {
+  border-color: var(--inst-primary);
+}
+
+.svc-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  color: var(--inst-text);
+  font-size: 0.82rem;
+  margin-top: 0.35rem;
+}
+
+.svc-empty {
+  background: #fff;
+  border-radius: 14px;
+  padding: 2rem;
+  text-align: center;
+  color: var(--inst-text);
+}
+
+.svc-lead {
+  margin: 0;
+  max-width: 70ch;
+  color: var(--inst-text);
+  line-height: 1.7;
+}
+
+.svc-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.2rem 0.7rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: var(--inst-primary-light);
+  color: var(--inst-primary);
+}
+
+.svc-badge.is-empty {
+  background: #f4f3f8;
+  color: var(--inst-text);
+}
+
+.svc-kicker {
+  margin: 0 0 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--inst-text);
+}
+
+.svc-detail {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.svc-detail h2 {
+  margin: 0 0 0.4rem;
+  color: var(--inst-text-heading);
+  font-size: 1.45rem;
+  line-height: 1.35;
+}
+
+.svc-row.is-muted {
+  cursor: default;
+}
+
+.svc-row.is-muted:hover {
+  border-color: var(--inst-border);
+}
+
+.svc-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+}
+
+.svc-step {
+  background: #fff;
+  border: 1px solid var(--inst-border);
+  border-radius: 14px;
+  padding: 1rem;
+}
+
+.svc-step span {
+  display: inline-grid;
+  place-items: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  background: var(--inst-dark);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 860px) {
+  .svc-split,
+  .svc-half,
+  .svc-steps,
+  .svc-row {
+    grid-template-columns: 1fr;
+  }
+}

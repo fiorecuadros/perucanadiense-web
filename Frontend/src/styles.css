@@ -1,0 +1,209 @@
+@import 'quill/dist/quill.snow.css';
+@import './app/admin/admin-tokens.css';
+@import './app/admin/admin-base.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* === Arrastrar y soltar (Angular CDK) === */
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 14px;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.cdk-drop-list-dragging .cdk-drag:not(.cdk-drag-placeholder) {
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* === Override estilos inline de Quill en la vista pública === */
+.det-content__html * {
+  color: inherit;
+  background-color: transparent !important;
+  white-space: normal !important;
+  word-wrap: break-word !important;
+}
+
+.det-content__html p {
+  margin: 0 0 12px;
+}
+
+.det-content__html p:last-child {
+  margin-bottom: 0;
+}
+
+.det-content__html ul,
+.det-content__html ol {
+  margin: 0 0 12px;
+  padding-left: 1.4em;
+}
+
+.det-content__html a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.hero-component .hero-content p,
+.trans-hero .trans-hero-sub,
+.repo-hero .repo-hero__content p {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.trans-hero .trans-hero-sub p {
+  color: inherit;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+::selection {
+  background: var(--inst-primary-light);
+  color: var(--inst-text-heading);
+}
+
+:focus-visible {
+  outline: 3px solid var(--inst-primary);
+  outline-offset: 2px;
+}
+
+/* ===== Identidad Institucional IESPP Peruano Canadiense ===== */
+:root {
+  /* Marca Primaria */
+  --inst-primary: #ff6600;
+  --inst-primary-hover: #e65c00;
+  --inst-primary-light: #fff0e6;
+  --inst-primary-rgb: 255, 102, 0;
+
+  /* Estructura y Superficies */
+  --inst-dark: #44425a;
+  --inst-dark-surface: #302e42;
+  --inst-dark-deep: #302e42;
+  --inst-secondary: #f2f1f8;
+  --inst-surface: #ffffff;
+  --inst-text-heading: #2b293d;
+  --inst-text: #6c6a74;
+  --inst-text-light: #9a98a6;
+  --inst-border: #e2e1ec;
+
+  /* Contrastes y Entornos Oficiales */
+  --inst-blue-minedu: #0052a3;
+  --inst-blue-stats: #2173d1;
+  --inst-blue-navy: #213f77;
+  --inst-whatsapp: #2e6329;
+
+  /* Gradientes */
+  --inst-gradient: linear-gradient(135deg, #44425a 0%, #2e2c40 50%, #ff6600 120%);
+  --inst-gradient-orange: linear-gradient(135deg, #ff6600 0%, #ff8533 100%);
+
+  /* Compatibilidad con clases existentes */
+  --inst-blue-dark: #44425a;
+  --inst-blue: #ff6600;
+}
+
+.hero-component,
+.trans-hero,
+.repo-hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--inst-gradient);
+}
+
+.hero-component::before,
+.trans-hero::before,
+.repo-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('/images/banner-hero-nosotros.png') center/cover;
+  opacity: 0.15;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.hero-component .hero-content,
+.trans-hero .trans-hero-content,
+.repo-hero .repo-hero__content {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-component .hero-content h1,
+.trans-hero .trans-hero-title,
+.repo-hero .repo-hero__content h1 {
+  color: #ffffff;
+}
+
+.hero-component .hero-content p,
+.trans-hero .trans-hero-sub,
+.repo-hero .repo-hero__content p {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.trans-hero .breadcrumb-link,
+.trans-hero .breadcrumb-sep,
+.trans-hero .breadcrumb-current {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.trans-hero .breadcrumb-link:hover {
+  color: #fdba74;
+}
+
+/* ===== SCROLL REVEAL (directiva appReveal) ===== */
+/* El estado oculto solo se aplica con JS disponible: sin scripting el
+   contenido se muestra tal cual. */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .app-reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+
+  .app-reveal.is-revealed {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ===== PAGE TRANSITION ANIMATIONS (View Transitions API) ===== */
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes vt-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+::view-transition-old(root) {
+  animation: 300ms ease-in vt-fade-out both;
+}
+
+::view-transition-new(root) {
+  animation: 500ms ease-out vt-fade-in both;
+}

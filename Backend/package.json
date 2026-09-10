@@ -1,0 +1,43 @@
+{
+  "name": "pcanadiense-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "API del portal institucional IESPP Peruano Canadiense",
+  "main": "server.js",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "migrar": "node db/migrar.js",
+    "sembrar": "node db/sembrar.js",
+    "exportar-semillas": "node db/semillas/exportar-desde-frontend.mjs",
+    "crear-admin": "node db/crear-admin.js",
+    "preparar": "npm run migrar && npm run exportar-semillas && npm run sembrar",
+    "cpanel-preparar": "node scripts/cpanel-preparar.js",
+    "limpiar-archivos": "node db/limpiar-archivos.js",
+    "verificar-contenido": "node scripts/verificar-contenido.js",
+    "verificar-avisos": "node scripts/verificar-avisos.js",
+    "verificar-archivos": "node scripts/verificar-archivos.js",
+    "verificar-menu": "node scripts/verificar-menu.js",
+    "auditar-fugas": "node scripts/auditar-fugas.js",
+    "mover-almacen": "node scripts/mover-almacen.js",
+    "preparar-produccion": "node db/preparar-produccion.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^4.22.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^7.2.0",
+    "jsonwebtoken": "^9.0.3",
+    "morgan": "^1.11.0",
+    "multer": "^2.1.1",
+    "mysql2": "^3.22.4",
+    "nodemailer": "^9.1.1",
+    "zod": "^3.24.1"
+  }
+}

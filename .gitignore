@@ -1,0 +1,47 @@
+# ============================================================================
+# Portal IESPP Peruano Canadiense
+# ============================================================================
+
+# --- Credenciales: NUNCA se suben --------------------------------------------
+.env
+.env.*
+!.env.example
+!.env.produccion.ejemplo
+
+# --- Dependencias ------------------------------------------------------------
+node_modules/
+.npm/
+
+# --- Compilados --------------------------------------------------------------
+dist/
+build/
+.angular/
+*.tsbuildinfo
+
+# --- Archivos subidos por usuarios -------------------------------------------
+almacen/
+uploads/
+
+# --- Respaldos y volcados ----------------------------------------------------
+*.sql
+*.zip
+*.tar.gz
+*.bak
+htaccess-respaldo.txt
+
+# --- Logs --------------------------------------------------------------------
+*.log
+npm-debug.log*
+error_log
+logs/
+
+# --- Sistema operativo -------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Editores ----------------------------------------------------------------
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp

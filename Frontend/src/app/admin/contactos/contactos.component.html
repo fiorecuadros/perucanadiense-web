@@ -1,0 +1,363 @@
+<div class="admin-page">
+  <header class="page-header">
+    <div>
+      <h1 class="page-title">Contactos, sedes e identidad</h1>
+      <p class="page-sub">
+        Estos datos alimentan la cabecera, el pie de página, el botón de WhatsApp y las páginas
+        legales del portal. Son datos oficiales: cámbielos solo con la fuente a la vista.
+      </p>
+    </div>
+    <div class="page-header-actions">
+      <a class="btn-ghost" href="/inicio" target="_blank" rel="noopener">Ver portal</a>
+      <button
+        type="button"
+        class="btn-save"
+        [disabled]="guardando() || !ficha()"
+        (click)="guardar()"
+      >
+        {{ guardando() ? 'Guardando…' : 'Guardar cambios' }}
+      </button>
+    </div>
+  </header>
+
+  @if (cargando()) {
+    <div class="admin-card"><p class="form-hint">Cargando ficha institucional…</p></div>
+  } @else if (error()) {
+    <div class="admin-card">
+      <div class="empty-state">
+        <p>{{ error() }}</p>
+        <button type="button" class="btn-ghost" (click)="cargar()">Reintentar</button>
+      </div>
+    </div>
+  } @else if (ficha(); as datos) {
+    <div class="admin-tabs">
+      @for (item of pestanas; track item.id) {
+        <button
+          type="button"
+          class="admin-tab"
+          [class.active]="pestana() === item.id"
+          (click)="pestana.set(item.id)"
+        >
+          {{ item.label }}
+        </button>
+      }
+    </div>
+
+    <div class="admin-card">
+      @switch (pestana()) {
+        @case ('identidad') {
+          <div class="form-grid">
+            <div class="form-row span-2">
+              <label>Nombre legal</label>
+              <input
+                type="text"
+                [value]="datos.name"
+                (input)="patch('name', $any($event.target).value)"
+              />
+            </div>
+            <div class="form-row">
+              <label>Nombre corto</label>
+              <input
+                type="text"
+                [value]="datos.shortName"
+                (input)="patch('shortName', $any($event.target).value)"
+              />
+            </div>
+            <div class="form-row">
+              <label>Siglas</label>
+              <input
+                type="text"
+                [value]="datos.acronym"
+                (input)="patch('acronym', $any($event.target).value)"
+              />
+            </div>
+            <div class="form-row">
+              <label>RUC</label>
+              <input
+                type="text"
+                [value]="datos.ruc"
+                (input)="patch('ruc', $any($event.target).value)"
+              />
+            </div>
+            <div class="form-row">
+              <label>Código modular</label>
+              <input
+                type="text"
+                [value]="datos.modularCode"
+                (input)="patch('modularCode', $any($event.target).value)"
+              />
+            </div>
+            <div class="form-row">
+              <label>Norma de creación</label>
+              <input
+                type="text"
+                [value]="datos.legalDecree"
+                (input)="patch('legalDecree', $any($event.target).value)"
+              />
+            </div>
+            <div class="form-row">
+              <label>Norma de licenciamiento</label>
+              <input
+                type="text"
+                [value]="datos.licensingNorm"
+                (input)="patch('licensingNorm', $any($event.target).value)"
+              />
+            </div>
+            <div class="form-row">
+              <label>Años de trayectoria</label>
+              <input
+                type="number"
+                min="1"
+                [value]="datos.yearsOfExperience"
+                (input)="patch('yearsOfExperience', +$any($event.target).value)"
+              />
+            </div>
+            <div class="form-row">
+              <label>Ente rector</label>
+              <input
+                type="text"
+                [value]="datos.governingBody"
+                (input)="patch('governingBody', $any($event.target).value)"
+              />
+              <p class="form-hint">
+                MINEDU / DIFOID / DIGEDD. Nunca SUNEDU: este instituto no es universidad.
+              </p>
+            </div>
+            <div class="form-row">
+              <label>Dirección regional</label>
+              <input
+                type="text"
+                [value]="datos.regionalOffice"
+                (input)="patch('regionalOffice', $any($event.target).value)"
+              />
+            </div>
+            <div class="form-row">
+              <label>UGEL</label>
+              <input
+                type="text"
+                [value]="datos.ugel"
+                (input)="patch('ugel', $any($event.target).value)"
+              />
+            </div>
+            <div class="form-row span-2">
+              <label>Lema</label>
+              <input
+                type="text"
+                [value]="datos.slogan"
+                (input)="patch('slogan', $any($event.target).value)"
+              />
+            </div>
+            <div class="form-row span-2">
+              <label>Frase de portada</label>
+              <input
+                type="text"
+                [value]="datos.tagline"
+                (input)="patch('tagline', $any($event.target).value)"
+              />
+            </div>
+          </div>
+        }
+
+        @case ('contacto') {
+          <div class="form-grid">
+            <div class="form-row">
+              <label>Teléfono fijo</label>
+              <input
+                type="text"
+                [value]="datos.contact.landline"
+                (input)="patchContacto('landline', $any($event.target).value)"
+              />
+            </div>
+            <div class="form-row">
+              <label>Teléfono con formato</label>
+              <input
+                type="text"
+                [value]="datos.contact.phoneFormatted"
+                (input)="patchContacto('phoneFormatted', $any($event.target).value)"
+              />
+            </div>
+            <div class="form-row">
+              <label>WhatsApp (solo dígitos)</label>
+              <input
+                type="text"
+                [value]="datos.contact.whatsapp"
+                (input)="patchContacto('whatsapp', $any($event.target).value)"
+              />
+              <p class="form-hint">Sin +51: el portal lo antepone al armar el enlace.</p>
+            </div>
+            <div class="form-row">
+              <label>WhatsApp con formato</label>
+              <input
+                type="text"
+                [value]="datos.contact.whatsappFormatted"
+                (input)="patchContacto('whatsappFormatted', $any($event.target).value)"
+              />
+            </div>
+            <div class="form-row span-2">
+              <label>Mensaje prellenado de WhatsApp</label>
+              <textarea
+                rows="2"
+                [value]="datos.contact.whatsappMessage"
+                (input)="patchContacto('whatsappMessage', $any($event.target).value)"
+              ></textarea>
+            </div>
+            <div class="form-row">
+              <label>Correo institucional</label>
+              <input
+                type="email"
+                [value]="datos.contact.emailGeneral"
+                (input)="patchContacto('emailGeneral', $any($event.target).value)"
+              />
+            </div>
+            <div class="form-row">
+              <label>Correo de mesa de partes</label>
+              <input
+                type="email"
+                [value]="datos.contact.emailAdmin"
+                (input)="patchContacto('emailAdmin', $any($event.target).value)"
+              />
+              <p class="form-hint">A esta dirección llega el aviso de cada documento recibido.</p>
+            </div>
+            <div class="form-row">
+              <label>Correo alterno de trámites</label>
+              <input
+                type="email"
+                [value]="datos.contact.emailIntake"
+                (input)="patchContacto('emailIntake', $any($event.target).value)"
+              />
+            </div>
+          </div>
+        }
+
+        @case ('sedes') {
+          @for (sede of datos.locations; track $index) {
+            <div class="admin-card-body">
+              <div class="form-grid">
+                <div class="form-row">
+                  <label>Nombre de la sede</label>
+                  <input
+                    type="text"
+                    [value]="sede.name"
+                    (input)="patchSede($index, 'name', $any($event.target).value)"
+                  />
+                </div>
+                <div class="form-row">
+                  <label>Identificador</label>
+                  <input
+                    type="text"
+                    [value]="sede.id"
+                    (input)="patchSede($index, 'id', $any($event.target).value)"
+                  />
+                </div>
+                <div class="form-row span-2">
+                  <label>Dirección</label>
+                  <input
+                    type="text"
+                    [value]="sede.address"
+                    (input)="patchSede($index, 'address', $any($event.target).value)"
+                  />
+                </div>
+                <div class="form-row">
+                  <label>Ciudad</label>
+                  <input
+                    type="text"
+                    [value]="sede.city"
+                    (input)="patchSede($index, 'city', $any($event.target).value)"
+                  />
+                </div>
+                <div class="form-row">
+                  <label>Región</label>
+                  <input
+                    type="text"
+                    [value]="sede.region"
+                    (input)="patchSede($index, 'region', $any($event.target).value)"
+                  />
+                </div>
+                <div class="form-row span-2">
+                  <label>Referencia</label>
+                  <input
+                    type="text"
+                    [value]="sede.reference"
+                    (input)="patchSede($index, 'reference', $any($event.target).value)"
+                  />
+                </div>
+              </div>
+              <button type="button" class="btn-danger" (click)="quitarSede($index)">
+                Quitar sede
+              </button>
+            </div>
+          } @empty {
+            <div class="empty-state"><p>No hay sedes registradas.</p></div>
+          }
+          <button type="button" class="btn-add" (click)="agregarSede()">
+            <i class="fa fa-plus"></i> Agregar sede
+          </button>
+        }
+
+        @case ('redes') {
+          <div class="form-grid">
+            <div class="form-row span-2">
+              <label>Horario de atención</label>
+              <input
+                type="text"
+                [value]="datos.schedule.attention"
+                (input)="patchHorario('attention', $any($event.target).value)"
+              />
+            </div>
+            <div class="form-row span-2">
+              <label>Horario de clases presenciales</label>
+              <input
+                type="text"
+                [value]="datos.schedule.classesPresential"
+                (input)="patchHorario('classesPresential', $any($event.target).value)"
+              />
+            </div>
+            <div class="form-row">
+              <label>Facebook</label>
+              <input
+                type="url"
+                [value]="datos.social.facebook"
+                (input)="patchRed('facebook', $any($event.target).value)"
+              />
+            </div>
+            <div class="form-row">
+              <label>YouTube</label>
+              <input
+                type="url"
+                [value]="datos.social.youtube"
+                (input)="patchRed('youtube', $any($event.target).value)"
+              />
+            </div>
+            <div class="form-row">
+              <label>Instagram</label>
+              <input
+                type="url"
+                [value]="datos.social.instagram"
+                (input)="patchRed('instagram', $any($event.target).value)"
+              />
+            </div>
+            <div class="form-row">
+              <label>LinkedIn</label>
+              <input
+                type="url"
+                [value]="datos.social.linkedin"
+                (input)="patchRed('linkedin', $any($event.target).value)"
+              />
+            </div>
+          </div>
+          <p class="form-hint">
+            Deje vacía una red que el instituto no tenga abierta: el portal no debe enlazar a
+            perfiles genéricos.
+          </p>
+        }
+      }
+    </div>
+
+    <div class="save-bar">
+      <button type="button" class="btn-cancel" (click)="cargar()">Descartar cambios</button>
+      <button type="button" class="btn-save" [disabled]="guardando()" (click)="guardar()">
+        {{ guardando() ? 'Guardando…' : 'Guardar cambios' }}
+      </button>
+    </div>
+  }
+</div>

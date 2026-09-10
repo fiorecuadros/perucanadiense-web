@@ -1,0 +1,93 @@
+<section class="contenedor">
+  <div class="viewer-shell">
+    <nav class="sidebar" aria-label="Secciones de inversiones">
+      @for (doc of docs; track doc.id) {
+        <button
+          type="button"
+          class="nav-item"
+          [class.active]="activeId() === doc.id"
+          [attr.aria-current]="activeId() === doc.id ? 'true' : null"
+          (click)="selectDoc(doc.id, $event)"
+        >
+          <span class="doc-label">{{ doc.label }}</span>
+        </button>
+      }
+    </nav>
+
+    <div class="panel" #panel tabindex="-1">
+      @if (activeDoc(); as doc) {
+        <article class="ficha">
+          @switch (doc.id) {
+            @case ('informe') {
+              <h2>{{ doc.label }}</h2>
+              <div class="det-content__html" [innerHTML]="copy().legalRubric"></div>
+              @if (docsInforme().length) {
+                <app-lista-docs [docs]="docsInforme()" />
+              } @else {
+                <app-alert variant="primary">
+                  <p class="alert-title">{{ copy().emptyTitle }}</p>
+                  <div class="det-content__html" [innerHTML]="copy().emptyBody"></div>
+                </app-alert>
+              }
+              <div class="cta-row">
+                <a
+                  appButton
+                  variant="whatsapp"
+                  [href]="whatsappUrl()"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Consultar por WhatsApp
+                </a>
+                <a appButton variant="outline" routerLink="/transparencia"
+                  >Portal de transparencia</a
+                >
+              </div>
+              <figure class="cover">
+                <img [src]="copy().cover.src" [alt]="copy().cover.alt" />
+              </figure>
+            }
+            @case ('campus') {
+              <h2>{{ doc.label }}</h2>
+              <div class="det-content__html" [innerHTML]="copy().campusLead"></div>
+              <ul class="score-list">
+                <li>
+                  <span class="score-label">Área de construcción</span>
+                  <app-badge>{{ info().metrics2025.campusAreaM2 }} m²</app-badge>
+                </li>
+              </ul>
+              <div class="det-content__html plain-list" [innerHTML]="copy().facilitiesText"></div>
+              <div class="cta-row">
+                <a appButton routerLink="/nosotros">Ver nosotros</a>
+                <a appButton variant="outline" routerLink="/transparencia"
+                  >Portal de transparencia</a
+                >
+              </div>
+            }
+            @case ('consultas') {
+              <h2>{{ doc.label }}</h2>
+              <p>
+                Informes sobre el rubro de inversiones, cuando existan documentos publicados:
+                {{ info().contact.whatsappFormatted }}, {{ info().contact.landline }} o
+                {{ info().contact.emailGeneral }}.
+              </p>
+              <div class="cta-row">
+                <a
+                  appButton
+                  variant="whatsapp"
+                  [href]="whatsappUrl()"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Informes por WhatsApp
+                </a>
+                <a appButton [href]="mailtoHref()">Redactar correo</a>
+                <a appButton variant="outline" routerLink="/mesa-de-partes">Mesa de partes</a>
+              </div>
+            }
+          }
+        </article>
+      }
+    </div>
+  </div>
+</section>

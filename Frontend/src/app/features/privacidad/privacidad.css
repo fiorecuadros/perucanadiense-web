@@ -1,0 +1,37 @@
+:host {
+  display: block;
+  background: var(--inst-secondary);
+}
+
+.legal-page {
+  padding: 32px 20px 72px;
+}
+
+.legal-card {
+  max-width: 760px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid var(--inst-border);
+  border-radius: 14px;
+  padding: 2rem 1.75rem;
+  box-shadow: 0 8px 24px rgba(68, 66, 90, 0.08);
+}
+
+.legal-card h2 {
+  margin: 1.5rem 0 0.6rem;
+  color: var(--inst-text-heading);
+  font-size: 1.15rem;
+}
+
+.legal-card p {
+  margin: 0 0 0.85rem;
+  color: var(--inst-text);
+  line-height: 1.7;
+}
+
+.legal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}

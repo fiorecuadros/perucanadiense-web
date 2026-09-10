@@ -1,0 +1,146 @@
+<app-page-hero variant="breadcrumb" [title]="copy().heroTitle" [subtitle]="copy().heroSubtitle">
+  <app-breadcrumbs [items]="crumbs" />
+</app-page-hero>
+
+<section class="svc-wrap">
+  <div class="svc-grid">
+    @for (item of servicios(); track item.titulo) {
+      <article class="svc-card">
+        <div class="svc-icon" aria-hidden="true"><i class="fa-solid {{ item.icon }}"></i></div>
+        <h3>{{ item.titulo }}</h3>
+        <p>{{ item.descripcion }}</p>
+      </article>
+    }
+  </div>
+
+  <div class="svc-split">
+    <aside class="svc-aside svc-panel">
+      <h2>Solicitar una cita</h2>
+      <p>
+        Complete el formulario. Recibirá un código de seguimiento y podrá enviarlo a
+        {{ info().contact.emailGeneral }}.
+      </p>
+      <div class="svc-contact">
+        <div>
+          <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+          <div>
+            <strong>{{ info().locations[0].name }}</strong>
+            <p>{{ info().locations[0].address }}, {{ info().locations[0].city }}</p>
+          </div>
+        </div>
+        <div>
+          <i class="fa-solid fa-clock" aria-hidden="true"></i>
+          <div>
+            <strong>Horario</strong>
+            <p>{{ info().schedule.attention }}</p>
+          </div>
+        </div>
+        <div>
+          <i class="fa-solid fa-phone" aria-hidden="true"></i>
+          <div>
+            <strong>Contacto</strong>
+            <p>{{ info().contact.phoneFormatted }} · {{ info().contact.whatsappFormatted }}</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="svc-form">
+      @if (codigo(); as code) {
+        <div class="svc-success">
+          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+          <h3>Solicitud registrada en este equipo</h3>
+          <p>
+            Código de cita: <strong>{{ code }}</strong>
+          </p>
+          <p>Envíela a {{ info().contact.emailGeneral }} indicando este código.</p>
+          <div class="svc-actions">
+            <a appButton [href]="mailtoHref(code)">Abrir correo</a>
+            <button type="button" appButton variant="outline" (click)="reset()">
+              Nueva solicitud
+            </button>
+          </div>
+        </div>
+      } @else {
+        <form [formGroup]="form" (ngSubmit)="enviar()" novalidate>
+          <h3>Formulario de cita</h3>
+          <div class="svc-half">
+            <label
+              >Nombres <input appInput formControlName="nombres" autocomplete="given-name"
+            /></label>
+            <label
+              >Apellidos <input appInput formControlName="apellidos" autocomplete="family-name"
+            /></label>
+          </div>
+          @if (invalid('nombres')) {
+            <p class="field-error">Ingrese sus nombres.</p>
+          }
+          @if (invalid('apellidos')) {
+            <p class="field-error">Ingrese sus apellidos.</p>
+          }
+          <div class="svc-half">
+            <label
+              >DNI <input appInput formControlName="dni" inputmode="numeric" maxlength="8"
+            /></label>
+            <label
+              >Celular <input appInput formControlName="telefono" type="tel" maxlength="9"
+            /></label>
+          </div>
+          @if (invalid('dni')) {
+            <p class="field-error">DNI de 8 dígitos.</p>
+          }
+          @if (invalid('telefono')) {
+            <p class="field-error">Celular de 9 dígitos.</p>
+          }
+          <label
+            >Correo <input appInput formControlName="email" type="email" autocomplete="email"
+          /></label>
+          @if (invalid('email')) {
+            <p class="field-error">Ingrese un correo válido.</p>
+          }
+          <div class="svc-half">
+            <label>
+              Programa
+              <select formControlName="programa">
+                <option value="">Seleccione</option>
+                @for (programa of programas(); track programa.id) {
+                  <option [value]="programa.title">{{ programa.title }}</option>
+                }
+              </select>
+            </label>
+            <label>
+              Ciclo
+              <select formControlName="semestre">
+                <option value="">Seleccione</option>
+                @for (ciclo of ciclos; track ciclo) {
+                  <option [value]="ciclo">{{ ciclo }}</option>
+                }
+              </select>
+            </label>
+          </div>
+          <label>Motivo <textarea formControlName="motivo" rows="4"></textarea></label>
+          @if (invalid('motivo')) {
+            <p class="field-error">Describa el motivo (mínimo 10 caracteres).</p>
+          }
+          <label
+            >Fecha preferida <input appInput formControlName="fechaPreferida" type="date"
+          /></label>
+          <label class="svc-check">
+            <input type="checkbox" formControlName="aceptoPrivacidad" />
+            <span
+              >Acepto la <a routerLink="/privacidad">política de privacidad</a> (Ley N°
+              29733).</span
+            >
+          </label>
+          @if (invalid('aceptoPrivacidad')) {
+            <p class="field-error">Debe aceptar la política de privacidad.</p>
+          }
+          <div class="svc-actions">
+            <button type="submit" appButton>Enviar solicitud</button>
+            <button type="button" appButton variant="outline" (click)="reset()">Limpiar</button>
+          </div>
+        </form>
+      }
+    </div>
+  </div>
+</section>

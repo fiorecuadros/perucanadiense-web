@@ -1,0 +1,124 @@
+<section class="contenedor">
+  <div class="viewer-shell">
+    <nav class="sidebar" aria-label="Secciones de costos">
+      @for (doc of docs; track doc.id) {
+        <button
+          type="button"
+          class="nav-item"
+          [class.active]="activeId() === doc.id"
+          [attr.aria-current]="activeId() === doc.id ? 'true' : null"
+          (click)="selectDoc(doc.id, $event)"
+        >
+          <span class="doc-label">{{ doc.label }}</span>
+        </button>
+      }
+    </nav>
+
+    <div class="panel" #panel tabindex="-1">
+      @if (activeDoc(); as doc) {
+        <article class="ficha">
+          @switch (doc.id) {
+            @case ('tarifario') {
+              <h2>{{ doc.label }}</h2>
+              <div class="det-content__html" [innerHTML]="copy().legalRubric"></div>
+              <div class="det-content__html" [innerHTML]="copy().tarifarioLead"></div>
+              <ul class="score-list">
+                @for (fee of feeItems(); track fee.id) {
+                  <li>
+                    <span class="score-label">{{ fee.label }}</span>
+                    <app-badge>{{ formatFee(fee.amount) }}</app-badge>
+                  </li>
+                }
+              </ul>
+              <div class="cta-row">
+                @if (docsTarifario().length) {
+                  <app-lista-docs [docs]="docsTarifario()" />
+                } @else {
+                  <a
+                    appButton
+                    [href]="copy().tarifarioUrl"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Abrir tarifario del PTI
+                  </a>
+                }
+                <a appButton variant="outline" routerLink="/admision">Ver admisión</a>
+              </div>
+              <h3>Cuentas institucionales</h3>
+              <div class="accounts">
+                @for (account of info().bankAccounts; track account.accountNumber) {
+                  <app-card>
+                    <app-card-header>
+                      <app-card-title class="text-base">{{ account.bank }}</app-card-title>
+                    </app-card-header>
+                    <app-card-content>
+                      <p>{{ account.accountType }} {{ account.accountNumber }}</p>
+                      <p>CCI {{ account.cci }}</p>
+                      <p>{{ account.holder }}</p>
+                      <button
+                        type="button"
+                        appButton
+                        variant="ghost"
+                        size="sm"
+                        (click)="copyText(account.accountNumber, account.accountNumber)"
+                      >
+                        {{ copiedKey() === account.accountNumber ? 'Copiado' : 'Copiar cuenta' }}
+                      </button>
+                    </app-card-content>
+                  </app-card>
+                }
+              </div>
+              <figure class="cover">
+                <img [src]="copy().cover.src" [alt]="copy().cover.alt" />
+              </figure>
+            }
+            @case ('matricula') {
+              <h2>{{ doc.label }}</h2>
+              <div class="det-content__html" [innerHTML]="copy().matriculaLead"></div>
+              <div class="det-content__html steps" [innerHTML]="copy().paymentStepsText"></div>
+              <div class="cta-row">
+                @if (docsMatricula().length) {
+                  <app-lista-docs [docs]="docsMatricula()" />
+                } @else {
+                  <a appButton [href]="copy().futUrl" target="_blank" rel="noopener noreferrer">
+                    {{ copy().futLabel }}
+                  </a>
+                }
+                <a appButton variant="outline" routerLink="/mesa-de-partes">Mesa de partes</a>
+              </div>
+              <div class="det-content__html" [innerHTML]="copy().reinstatementNote"></div>
+              <p>
+                El monto es {{ formatFee(info().fees.reinstatement) }}. Correo:
+                {{ info().contact.emailAdmin }}.
+              </p>
+              <figure class="cover cover-wide">
+                <img [src]="copy().matriculaImage.src" [alt]="copy().matriculaImage.alt" />
+              </figure>
+            }
+            @case ('consultas') {
+              <h2>{{ doc.label }}</h2>
+              <p>
+                Informes de pagos: {{ info().contact.whatsappFormatted }},
+                {{ info().contact.landline }} o {{ info().contact.emailGeneral }}.
+              </p>
+              <div class="cta-row">
+                <a
+                  appButton
+                  variant="whatsapp"
+                  [href]="whatsappUrl()"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Informes por WhatsApp
+                </a>
+                <a appButton [href]="mailtoHref()">Redactar correo</a>
+                <a appButton variant="outline" routerLink="/becas">Becas y créditos</a>
+              </div>
+            }
+          }
+        </article>
+      }
+    </div>
+  </div>
+</section>

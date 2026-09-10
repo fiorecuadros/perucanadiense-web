@@ -1,0 +1,125 @@
+<app-page-hero
+  title="Noticias"
+  subtitle="Novedades, actividades y comunicados de la comunidad educativa"
+/>
+
+<section class="noticias-page">
+  <div class="noticias-wrap">
+    @if (loading()) {
+      <div class="noticias-skels" aria-busy="true" aria-label="Cargando noticias">
+        <div class="skel skel-featured"></div>
+        <div class="skel skel-row"></div>
+        <div class="skel skel-row"></div>
+      </div>
+    } @else if (error()) {
+      <div class="noticias-estado">
+        <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+        <h2>No se pudieron cargar las noticias</h2>
+        <p>{{ error() }}</p>
+      </div>
+    } @else if (newsEmpty()) {
+      <div class="noticias-estado">
+        <i class="fa-regular fa-newspaper" aria-hidden="true"></i>
+        <h2>Aún no hay noticias publicadas</h2>
+        <p>Cuando el instituto publique una novedad, aparecerá aquí.</p>
+      </div>
+    } @else {
+      @if (destacada(); as item) {
+        <a class="noticia-destacada" [routerLink]="['/noticias', item.id]">
+          <div class="destacada-img">
+            <img [appSrc]="item.image" [alt]="item.imageAlt" />
+          </div>
+          <div class="destacada-body">
+            <app-badge>Destacada</app-badge>
+            <h2>{{ item.title }}</h2>
+            <p>{{ bajada(item.excerpt) }}</p>
+            <div class="destacada-meta">
+              <time [attr.datetime]="item.createdAt">{{ formatFecha(item.createdAt) }}</time>
+              <span class="leer"
+                >Leer noticia <i class="fa-solid fa-arrow-right" aria-hidden="true"></i
+              ></span>
+            </div>
+          </div>
+        </a>
+      }
+
+      <div class="noticias-list">
+        <div class="noticias-toolbar">
+          <h2>{{ query().trim() ? 'Resultados' : 'Más noticias' }}</h2>
+          <label class="noticias-search">
+            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+            <input
+              type="search"
+              [value]="query()"
+              (input)="onSearch($any($event.target).value)"
+              placeholder="Buscar noticias"
+              aria-label="Buscar noticias"
+            />
+          </label>
+        </div>
+
+        @if (paginadas().length === 0) {
+          <p class="noticias-vacio-busqueda">No hay resultados para “{{ query() }}”.</p>
+        } @else {
+          <ul class="noticias-filas">
+            @for (item of paginadas(); track item.id) {
+              <li>
+                <a class="noticia-fila" [routerLink]="['/noticias', item.id]">
+                  <div class="img-container">
+                    <img [appSrc]="item.image" class="img-noticia" [alt]="item.imageAlt" />
+                  </div>
+                  <div class="noticia-cuerpo">
+                    <h3>{{ item.title }}</h3>
+                    <p>{{ bajada(item.excerpt) }}</p>
+                    <time [attr.datetime]="item.createdAt">{{ formatFecha(item.createdAt) }}</time>
+                  </div>
+                  <span class="fila-leer"
+                    >Leer <i class="fa-solid fa-arrow-right" aria-hidden="true"></i
+                  ></span>
+                </a>
+              </li>
+            }
+          </ul>
+        }
+
+        @if (totalPages() > 1) {
+          <nav class="paginacion" aria-label="Páginas de noticias">
+            <button
+              type="button"
+              class="pag-btn pag-arrow"
+              [disabled]="currentPage() === 1"
+              (click)="goToPage(currentPage() - 1)"
+              aria-label="Página anterior"
+            >
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            @for (page of pages(); track $index) {
+              @if (page === '…') {
+                <span class="pag-ellipsis" aria-hidden="true">…</span>
+              } @else {
+                <button
+                  type="button"
+                  class="pag-btn pag-num"
+                  [class.active]="currentPage() === page"
+                  [attr.aria-current]="currentPage() === page ? 'page' : null"
+                  (click)="goToPage(page)"
+                >
+                  {{ page }}
+                </button>
+              }
+            }
+            <button
+              type="button"
+              class="pag-btn pag-arrow"
+              [disabled]="currentPage() === totalPages()"
+              (click)="goToPage(currentPage() + 1)"
+              aria-label="Página siguiente"
+            >
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </nav>
+        }
+      </div>
+    }
+  </div>
+</section>

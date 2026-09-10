@@ -1,0 +1,4 @@
+.admin-view-header { margin-bottom: 24px; }
+.admin-view-header h2 { font-size: 1.6rem; font-weight: 700; color: var(--inst-dark, #44425A); margin-bottom: 4px; }
+.admin-view-header p { color: var(--inst-text, #6C6A74); font-size: 0.9rem; }
+.admin-card { background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 2px 10px rgba(0,0,0,0.04); border: 1px solid #e7e6f0; }

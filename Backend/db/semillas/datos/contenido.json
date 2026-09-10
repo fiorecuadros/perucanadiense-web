@@ -1,0 +1,675 @@
+{
+  "inicio": {
+    "heroImages": [
+      {
+        "src": "images/pcanadiense/Fondo1.jpeg",
+        "alt": "Comunidad educativa del IESPP Peruano Canadiense en Chiclayo"
+      },
+      {
+        "src": "images/pcanadiense/programas.jpg",
+        "alt": "Programas de estudio del IESPP Peruano Canadiense"
+      },
+      {
+        "src": "images/pcanadiense/inicial.jpg",
+        "alt": "Formación docente en Educación Inicial"
+      }
+    ],
+    "licensingImage": {
+      "src": "images/pcanadiense/licenciamiento.jpg",
+      "alt": "Ficha de licenciamiento MINEDU"
+    },
+    "services": [
+      {
+        "src": "images/pcanadiense/computacion-1.jpg",
+        "title": "Carreras Técnicas",
+        "alt": "Carreras técnicas del IESPP Peruano Canadiense"
+      },
+      {
+        "src": "images/pcanadiense/x_seminario.jpg",
+        "title": "Formación Continua",
+        "alt": "Formación continua y seminarios institucionales"
+      }
+    ],
+    "logos": [
+      {
+        "image": "images/pcanadiense/logo_minedu.png",
+        "url": "https://www.gob.pe/minedu",
+        "alt": "Ministerio de Educación"
+      },
+      {
+        "image": "images/pcanadiense/logo_difoid.png",
+        "url": "https://www.minedu.gob.pe/superiorpedagogica/",
+        "alt": "DIFOID — Educación Superior Pedagógica"
+      },
+      {
+        "image": "images/pcanadiense/logo_sia.png",
+        "url": "https://www.gob.pe/minedu",
+        "alt": "Sistema de Información Académica"
+      },
+      {
+        "image": "images/pcanadiense/logo_bnp.png",
+        "url": "https://www.bnp.gob.pe/",
+        "alt": "Biblioteca Nacional del Perú"
+      },
+      {
+        "image": "images/pcanadiense/logo%20perueduca.jpg",
+        "url": "https://www.perueduca.pe/",
+        "alt": "PerúEduca"
+      },
+      {
+        "image": "images/pcanadiense/logo_M365.png",
+        "url": "https://www.office.com/",
+        "alt": "Microsoft 365"
+      }
+    ]
+  },
+  "nosotros": {
+    "heroTitle": "Nosotros",
+    "heroLead": "31 años formando maestros con identidad regional, valores cristianos y título a nombre de la Nación.",
+    "mission": "El IESPP “PERUANO CANADIENSE” basa su proceso formativo en el perfil profesional de una educación de calidad, con líderes e identidad regional, práctica de valores cristianos que aporta a través de la práctica e investigación el desarrollo sustentable de la región y el país.",
+    "vision": "Al 2029 somos una Escuela de Educación Superior Pedagógico Privado Peruano Canadiense, con excelencia educativa que ejerce liderazgo en la formación de profesionales con calidad, identidad, valores cristianos y base científica-tecnológica, que aporta al desarrollo sostenible de la región y el país.",
+    "valuesText": "<ul><li><strong>Libertad.</strong> Capacidad del ser humano de actuar según sus valores, criterios, razón y voluntad.</li><li><strong>Justicia.</strong> Bien común que busca lo mejor para todos.</li><li><strong>Equidad.</strong> Igualdad de oportunidad y trato justo a las personas, dando a cada cual lo que le pertenece.</li><li><strong>Honestidad.</strong> Implica mostrar respeto hacia los demás y tener integridad y conciencia de sí mismo.</li><li><strong>Solidaridad.</strong> Colaboración mutua entre las personas.</li><li><strong>Responsabilidad.</strong> Capacidad de las personas de actuar de la manera correcta y comprometerse con propósitos conjuntos.</li></ul>",
+    "organigrama": {
+      "src": "images/pcanadiense/organigrama.jpg",
+      "alt": "Organigrama institucional del IESPP Peruano Canadiense"
+    },
+    "historiaImage": {
+      "src": "images/pcanadiense/historia.jpg",
+      "alt": "Sede e historia del IESPP Peruano Canadiense"
+    },
+    "historyLead": "El Instituto de Educación Superior Pedagógico Privado “Peruano Canadiense” fue creado por Decreto Supremo N° 04-95-ED, del 11 de enero de 1995. Su promotor y fundador es el Mg. William José Ballena Díaz; el Director General actual es el Dr. Jorge Luis Meoño Ballena. Cumple 31 años formando docentes en Lambayeque, con sede en Chiclayo y campus en la carretera Monsefú–La Victoria.",
+    "historyTimeline": "<ul><li><strong>1993 · Escuela Santa Leonor.</strong> El 10 de diciembre se expide la Resolución N° 1722-93-DRE-ED creando la escuela “Santa Leonor” en Chiclayo (inicial y primaria), semilla del proyecto pedagógico.</li><li><strong>1994 · Expediente ante el MINEDU.</strong> Se elabora y eleva el Expediente N° 705333-94 para la creación del instituto pedagógico.</li><li><strong>1995 · Creación oficial.</strong> El 11 de enero, mediante D.S. N° 04-95-ED, se autoriza la creación y funcionamiento del IESPP “Peruano Canadiense”. El 13 de marzo se convoca el primer examen de admisión, con ceremonia en el salón consistorial de la Municipalidad de Monsefú.</li><li><strong>2000 · Centro de Aplicación.</strong> La Resolución N° 459-200-CTAR/LAMB del 25 de octubre apertura el Centro de Aplicación “Peruano Canadiense”. La DREL autoriza el traslado a la sede central de Chiclayo.</li><li><strong>2003–2004 · Mejoramiento institucional.</strong> Se implementa el Plan de Mejoramiento Institucional, se crea el Colegio de Aplicación de secundaria y se renueva el sistema de admisión.</li><li><strong>2010 · Denominación IESPP y DCBN.</strong> La R.D.R.S. N° 2643-2010-GR-LAM/DREL formaliza la denominación de Instituto de Educación Superior Pedagógico Privado. Se adopta el DCBN (R.D. 0165-2010-ED) con enfoque por competencias.</li><li><strong>2015–2024 · Modernización y licenciamiento.</strong> Nueva etapa de modernización educativa y adecuación como Escuela de Educación Superior Pedagógica (EESP), en el marco de la Ley N° 30512 y la RVM-097-2022-MINEDU.</li></ul>"
+  },
+  "admision": {
+    "year": 2026,
+    "heroTitle": "Admisión 2026",
+    "presentation": "La carrera profesional de educación es una de las alternativas que hoy cobra protagonismo en el ámbito local y nacional. Para el Estado peruano el sector educación es una prioridad; estudiar educación constituye una oportunidad para construir el futuro.",
+    "convocatoriaNota": "La fecha de la siguiente convocatoria se confirma por WhatsApp o correo.",
+    "modality": "Presencial, con soporte sincrónico y asincrónico en Microsoft Teams.",
+    "inscriptionSteps": [
+      "Pagar el derecho de examen de admisión en las cuentas institucionales.",
+      "Enviar un correo a la mesa de partes de admisión aceptando las normas del proceso y solicitando la inscripción."
+    ],
+    "emailFields": [
+      "Nombres y apellidos",
+      "Carrera a la que postula",
+      "Número de teléfono celular",
+      "Declaración jurada de aceptación de las normas del proceso",
+      "Fotografía y requisitos adjuntos"
+    ],
+    "emailTemplate": "Buen día, por medio de la presente yo: [Nombres y Apellidos] con DNI N° [Número] con domicilio en: [Dirección] y con número de celular o teléfono: [Número]. Solicito la inscripción al examen de admisión presencial en la especialidad de: [Especialidad].\n\nPara ello acepto contar con las condiciones técnicas necesarias para rendir dicho examen y también con los requisitos que se me solicitan para poder matricularme.\n\nSin otro particular adjunto lo solicitado.",
+    "requirements": [
+      "Partida de nacimiento original.",
+      "Certificado original de estudios secundarios completos.",
+      "04 fotografías tamaño carné a colores.",
+      "02 copias del DNI.",
+      "02 micas transparentes tamaño A4.",
+      "Voucher de depósito bancario por derecho de examen de admisión.",
+      "Declaración jurada de aceptación del reglamento del proceso."
+    ],
+    "norms": [
+      "Registrarse para el proceso enviando un correo electrónico con los datos indicados en Inscripción.",
+      "No se efectúan devoluciones del importe del examen de admisión una vez inscritos.",
+      "Los requisitos se presentan de manera virtual y, posteriormente, en físico para la matrícula. De no completarlos, no será responsabilidad de la institución."
+    ],
+    "passingScore": 11,
+    "writtenWeight": 50,
+    "interviewWeight": 50,
+    "writtenItems": [
+      {
+        "label": "Comunicación en lengua materna",
+        "score": 20
+      },
+      {
+        "label": "Resolución de problemas matemáticos",
+        "score": 20
+      },
+      {
+        "label": "Convivencia y participación democrática",
+        "score": 10
+      }
+    ],
+    "interviewItems": [
+      {
+        "label": "Pensamiento crítico y creativo",
+        "score": 20
+      },
+      {
+        "label": "Trabajo colaborativo",
+        "score": 20
+      },
+      {
+        "label": "Tecnologías de la información y comunicación",
+        "score": 10
+      }
+    ]
+  },
+  "becas": {
+    "heroTitle": "Becas y créditos",
+    "legalRubric": "Relación y número de becas y créditos educativos otorgados en el año en curso.",
+    "emptyTitle": "Sin documentos publicados",
+    "emptyBody": "Este rubro del Portal de Transparencia aún no tiene una relación ni un PDF institucional en el sitio. Cuando el instituto la publique, aparecerá aquí.",
+    "cover": {
+      "src": "images/pcanadiense/becas%20600x400.jpg",
+      "alt": "Imagen del rubro Becas y créditos en el Portal de Transparencia Institucional"
+    },
+    "tasasLead": "Las tasas de admisión, matrícula, pensión y reincorporación están publicadas en Costos. No son becas ni créditos educativos."
+  },
+  "costos": {
+    "heroTitle": "Costos",
+    "legalRubric": "Relación de derechos, tasas, montos de pensiones u otros pagos que deben realizar los estudiantes por toda índole.",
+    "tarifarioLead": "Montos vigentes de admisión, matrícula, pensión y reincorporación. El voucher debe consignar nombres, apellidos y DNI del estudiante.",
+    "tarifarioUrl": "https://pcanadiense-my.sharepoint.com/:b:/g/personal/supervisor_pcanadiense_edu_pe/EdKV0g3T6CJIk7FgHKvbjFkBvViLDzc7Ews0xSeTYDSt1A?e=lIcKL2",
+    "cover": {
+      "src": "images/pcanadiense/derechos%20y%20tasas.jpg",
+      "alt": "Imagen del rubro Derechos y tasas en el Portal de Transparencia Institucional"
+    },
+    "matriculaImage": {
+      "src": "images/pcanadiense/img_matricula_2025.jpeg",
+      "alt": "Atención de matrícula en el IESPP Peruano Canadiense"
+    },
+    "matriculaLead": "Proceso de matrícula de Formación Inicial Docente publicado por el instituto. Los ciclos convocados en ese proceso son I, III, IV, VI, VII, VIII y X.",
+    "paymentStepsText": "<ol><li>Abonar en las cuentas institucionales. En el voucher deben figurar los nombres completos y el DNI del estudiante.</li><li>Enviar el voucher desde el correo institucional. El destinatario vigente se confirma por WhatsApp o mesa de partes; el portal original no publicó un correo de pagos.</li><li>Registrar la matrícula en el FUT con los datos y el número de boleta.</li></ol>",
+    "futLabel": "FUT — ficha de matrícula",
+    "futUrl": "https://goo.su/58tk5",
+    "reinstatementNote": "Quienes se reincorporan presentan solicitud y boleta del derecho de trámite por mesa de partes."
+  },
+  "estadisticas": {
+    "heroTitle": "Estadísticas",
+    "cifrasLead": "Cifras publicadas en el portal institucional para el periodo indicado. No sustituyen el reporte por programa del Portal de Transparencia.",
+    "ptiRubric": "El número de ingresantes, matriculados y egresados por año y programa formativo.",
+    "ptiUrl": "https://pcanadiense-my.sharepoint.com/:b:/g/personal/supervisor_pcanadiense_edu_pe/EcVz9jCUAnhEocDnFDnqDdUBvVclw2Fgu15yuP4JCW3uNA?e=y9MNmn",
+    "ptiCover": {
+      "src": "images/pcanadiense/matriculados-egresados.jpg",
+      "alt": "Imagen del rubro Matriculados y egresados en el Portal de Transparencia Institucional"
+    },
+    "resultadosLead": "Resultados de admisión del periodo 2025-II publicados por el instituto.",
+    "resultadosUrl": "https://pcanadiense-my.sharepoint.com/:b:/g/personal/supervisor_pcanadiense_edu_pe/ERLuz5GigO5Aj_xmNdrLX_0B7M7v-3ZnwbIipFouj5aM2w?e=djfKj6"
+  },
+  "horarios": {
+    "heroTitle": "Horarios",
+    "clasesLead": "Clases presenciales de Formación Inicial Docente, con soporte sincrónico y asincrónico en Microsoft Teams.",
+    "clasesEmpty": "El instituto no publicó una grilla semanal por programa. El horario de clases vigente es el de esta sección.",
+    "workingNote": "El portal institucional presenta estos horarios como compatibles con personas que trabajan."
+  },
+  "inversiones": {
+    "heroTitle": "Inversiones",
+    "legalRubric": "Inversiones, reinversiones, donaciones, obras de infraestructura, recursos de diversa índole que reciba, cualquiera sea su origen o naturaleza, y los fines a que se destinan.",
+    "emptyTitle": "Sin documentos publicados",
+    "emptyBody": "Este rubro del Portal de Transparencia aún no tiene un informe ni un PDF institucional en el sitio. Cuando el instituto lo publique, aparecerá aquí.",
+    "cover": {
+      "src": "images/pcanadiense/reinversiones.jpg",
+      "alt": "Imagen del rubro Inversiones y reinversiones en el Portal de Transparencia Institucional"
+    },
+    "campusLead": "Descripción publicada del campus: área de construcción, biblioteca, auditorio, sala de audiovisuales, taller de computación y áreas verdes, además del colegio de aplicación de secundaria. No sustituye el informe de inversiones del PTI.",
+    "facilitiesText": "<ul><li>Biblioteca</li><li>Auditorio</li><li>Sala de audiovisuales</li><li>Taller de computación</li><li>Áreas verdes</li><li>Colegio de aplicación de educación secundaria</li></ul>"
+  },
+  "licenciamiento": {
+    "heroTitle": "Licenciamiento",
+    "identityLead": "Instituto de Educación Superior Pedagógico Privado, autorizado por el Ministerio de Educación. No es universidad ni instituto público; el rectorado es MINEDU / DIFOID / DIGEDD y la DREL, no SUNEDU.",
+    "rumboNote": "El portal institucional usa el lema «Rumbo al Licenciamiento» en el marco de la adecuación como Escuela de Educación Superior Pedagógica. Eso no sustituye la autorización vigente como instituto pedagógico privado.",
+    "recognitionNorm": "R.D.R.S. N° 2643-2010-GR-LAM/DREL",
+    "legalRubric": "Periodo de vigencia de su licenciamiento.",
+    "emptyTitle": "Sin periodo publicado en el PTI",
+    "emptyBody": "El rubro 10 del Portal de Transparencia no tiene un PDF con el periodo de vigencia. El instituto sí publica la RVM-097-2022-MINEDU en el organigrama.",
+    "rvmUrl": "/docs/RVM-097-2022-MINEDU.pdf",
+    "rvmLabel": "Abrir RVM-097-2022-MINEDU",
+    "cover": {
+      "src": "images/pcanadiense/licenciamiento.jpg",
+      "alt": "Ficha de licenciamiento MINEDU del IESPP Peruano Canadiense"
+    },
+    "carrerasLead": "Programas de Formación Inicial Docente con resolución viceministerial publicada. Las carreras técnicas se autorizan por la R.D.R.S. N° 2643-2010-GR-LAM/DREL."
+  },
+  "servicios": {
+    "heroTitle": "Servicios",
+    "heroSubtitle": "Atención al estudiante, bienestar y entorno virtual Microsoft 365",
+    "hub": [
+      {
+        "titulo": "Servicio psicopedagógico",
+        "descripcion": "Orientación y acompañamiento en dificultades de aprendizaje, salud mental y desarrollo académico.",
+        "icon": "fa-user-graduate",
+        "ruta": "/psicopedagogico"
+      },
+      {
+        "titulo": "Servicio social",
+        "descripcion": "Apoyo socioeconómico y programas de asistencia para estudiantes. Las becas del año se publican en el rubro 8 del PTI.",
+        "icon": "fa-handshake",
+        "ruta": "/servicio-social"
+      },
+      {
+        "titulo": "Soporte médico",
+        "descripcion": "Primeros auxilios, orientación en salud y contactos de emergencia.",
+        "icon": "fa-kit-medical",
+        "ruta": "/soporte-medico"
+      },
+      {
+        "titulo": "Repositorio institucional",
+        "descripcion": "Tesis y proyectos de investigación publicados por el instituto.",
+        "icon": "fa-book-open",
+        "ruta": "/repositorio"
+      },
+      {
+        "titulo": "Mesa de partes",
+        "descripcion": "Recepción de documentos, solicitudes y trámites administrativos.",
+        "icon": "fa-inbox",
+        "ruta": "/mesa-de-partes"
+      },
+      {
+        "titulo": "Procedimientos y TUPA",
+        "descripcion": "Trámites institucionales, reglamento interno, matrícula y titulación.",
+        "icon": "fa-file-lines",
+        "ruta": "/procedimientos"
+      },
+      {
+        "titulo": "Libro de reclamaciones",
+        "descripcion": "Hoja de reclamación virtual conforme a la Ley N° 29571.",
+        "icon": "fa-scale-balanced",
+        "ruta": "/reclamaciones"
+      },
+      {
+        "titulo": "Transparencia",
+        "descripcion": "Portal de Transparencia Institucional (Ley N° 30512) y acceso a la información.",
+        "icon": "fa-landmark",
+        "ruta": "/transparencia"
+      }
+    ]
+  },
+  "transparencia": {
+    "heroTitle": "Transparencia institucional",
+    "heroSubtitle": "Ley N° 30512 (Portal de Transparencia) y Ley N° 27806 (acceso a la información pública)",
+    "lead": "Los diez rubros del Portal de Transparencia Institucional. Si un PDF no está archivado en este sitio, la página del rubro lo indica con “Sin documentos publicados”.",
+    "rubros": [
+      {
+        "id": "reglamento",
+        "titulo": "Reglamento interno",
+        "descripcion": "Estatuto y normas de convivencia (rubro 1).",
+        "icon": "fa-file-shield",
+        "ruta": "/procedimientos",
+        "estado": "publicado"
+      },
+      {
+        "id": "tasas",
+        "titulo": "Derechos y tasas",
+        "descripcion": "Admisión, matrícula, pensión y reincorporación (rubro 2).",
+        "icon": "fa-coins",
+        "ruta": "/costos",
+        "estado": "publicado"
+      },
+      {
+        "id": "investigacion",
+        "titulo": "Proyectos de investigación",
+        "descripcion": "Tesis y producción académica publicada (rubro 3).",
+        "icon": "fa-flask",
+        "ruta": "/repositorio",
+        "estado": "publicado"
+      },
+      {
+        "id": "personal",
+        "titulo": "Personal docente",
+        "descripcion": "Directorio de autoridades, administrativos y docentes (rubro 4).",
+        "icon": "fa-chalkboard-user",
+        "ruta": "/nosotros",
+        "estado": "publicado"
+      },
+      {
+        "id": "estadisticas",
+        "titulo": "Matriculados y egresados",
+        "descripcion": "Cifras del periodo y reportes del PTI (rubro 5).",
+        "icon": "fa-chart-column",
+        "ruta": "/estadisticas",
+        "estado": "publicado"
+      },
+      {
+        "id": "programas",
+        "titulo": "Programas y horarios",
+        "descripcion": "Oferta FID y técnica, más horarios de atención (rubro 6).",
+        "icon": "fa-graduation-cap",
+        "ruta": "/programas",
+        "estado": "publicado"
+      },
+      {
+        "id": "tupa",
+        "titulo": "TUPA",
+        "descripcion": "Texto Único de Procedimientos Administrativos (rubro 7).",
+        "icon": "fa-scroll",
+        "ruta": "/procedimientos",
+        "estado": "publicado"
+      },
+      {
+        "id": "becas",
+        "titulo": "Becas y créditos",
+        "descripcion": "Relación del año. El rubro 8 del PTI oficial está vacío.",
+        "icon": "fa-award",
+        "ruta": "/becas",
+        "estado": "vacio"
+      },
+      {
+        "id": "inversiones",
+        "titulo": "Inversiones y reinversiones",
+        "descripcion": "Informe de infraestructura. El rubro 9 del PTI oficial está vacío.",
+        "icon": "fa-building",
+        "ruta": "/inversiones",
+        "estado": "vacio"
+      },
+      {
+        "id": "licenciamiento",
+        "titulo": "Periodo de licenciamiento",
+        "descripcion": "Identidad legal y RVM-097-2022-MINEDU (rubro 10).",
+        "icon": "fa-stamp",
+        "ruta": "/licenciamiento",
+        "estado": "publicado"
+      }
+    ]
+  },
+  "reglamentos": {
+    "heroTitle": "Reglamentos",
+    "heroSubtitle": "Normativa institucional. Solo se enlazan documentos o páginas que el instituto ha publicado.",
+    "emptyTitle": "Sin documento publicado",
+    "emptyBody": "Este instrumento no tiene un PDF archivado en el portal. Cuando el instituto lo publique, aparecerá aquí o en Procedimientos.",
+    "categorias": [
+      {
+        "id": "todos",
+        "nombre": "Todos"
+      },
+      {
+        "id": "reglamento",
+        "nombre": "Reglamento institucional"
+      },
+      {
+        "id": "directivas",
+        "nombre": "Directivas académicas"
+      },
+      {
+        "id": "etica",
+        "nombre": "Ética"
+      },
+      {
+        "id": "manuales",
+        "nombre": "Manuales"
+      }
+    ],
+    "items": [
+      {
+        "id": "interno",
+        "titulo": "Reglamento interno e institucional",
+        "descripcion": "Estatuto y normas de convivencia (rubro 1 del PTI). El PDF vive en SharePoint.",
+        "categoria": "reglamento",
+        "estado": "enlace",
+        "ruta": "/procedimientos"
+      },
+      {
+        "id": "tupa",
+        "titulo": "TUPA institucional",
+        "descripcion": "Texto Único de Procedimientos Administrativos (rubro 7 del PTI).",
+        "categoria": "reglamento",
+        "estado": "enlace",
+        "ruta": "/procedimientos"
+      },
+      {
+        "id": "tasas",
+        "titulo": "Derechos y tasas",
+        "descripcion": "Tarifario oficial de admisión, matrícula, pensión y reincorporación.",
+        "categoria": "manuales",
+        "estado": "enlace",
+        "ruta": "/costos"
+      },
+      {
+        "id": "admision",
+        "titulo": "Normas del proceso de admisión",
+        "descripcion": "Requisitos, evaluación y pagos del proceso vigente.",
+        "categoria": "directivas",
+        "estado": "enlace",
+        "ruta": "/admision"
+      },
+      {
+        "id": "etica-docente",
+        "titulo": "Código de ética del docente",
+        "descripcion": "El portal institucional no publicó este PDF en el sitio archivado.",
+        "categoria": "etica",
+        "estado": "sin-publicar"
+      },
+      {
+        "id": "etica-estudiante",
+        "titulo": "Código de ética del estudiante",
+        "descripcion": "El portal institucional no publicó este PDF en el sitio archivado.",
+        "categoria": "etica",
+        "estado": "sin-publicar"
+      },
+      {
+        "id": "mof",
+        "titulo": "Manual de organización y funciones",
+        "descripcion": "El portal institucional no publicó este PDF en el sitio archivado.",
+        "categoria": "manuales",
+        "estado": "sin-publicar"
+      }
+    ]
+  },
+  "procedimientos": {
+    "heroTitle": "Procedimientos",
+    "legalRubric": "Texto Único de Procedimientos Administrativos y trámites institucionales del IESPP Peruano Canadiense.",
+    "emptyTitle": "Sin documento publicado",
+    "emptyBody": "Este procedimiento aún no tiene un PDF institucional en el portal. Cuando el instituto lo publique, aparecerá aquí.",
+    "tupaLead": "El TUPA institucional (rubro 7 del Portal de Transparencia, Ley N° 30512) describe los trámites administrativos, requisitos y plazos. El archivo vive en SharePoint y no está archivado en este sitio.",
+    "tupaCover": {
+      "src": "images/pcanadiense/tupa.jpg",
+      "alt": "Imagen del rubro TUPA en el Portal de Transparencia Institucional"
+    },
+    "reglamentoLead": "El reglamento interno e institucional (rubro 1 del PTI) contiene el estatuto y las normas de convivencia. El PDF no está archivado en este repositorio.",
+    "reglamentoCover": {
+      "src": "images/pcanadiense/reglamento.jpg",
+      "alt": "Imagen del rubro Reglamento interno en el Portal de Transparencia Institucional"
+    },
+    "tasasLead": "Las tasas vigentes de admisión, matrícula, pensión y reincorporación están publicadas en Costos. El tarifario del PTI se abre desde esa página.",
+    "matriculaLead": "El proceso de matrícula FID se registra en el FUT digital. Los ciclos atendidos en el último proceso publicado son I, III, IV, VI, VII, VIII y X.",
+    "futLabel": "FUT — ficha de matrícula",
+    "futUrl": "https://goo.su/58tk5",
+    "reinstatementLead": "Quienes se reincorporan presentan solicitud y boleta del derecho de trámite por mesa de partes o al correo institucional de trámites.",
+    "titulacionLead": "El instituto emite títulos profesionales pedagógicos a nombre de la Nación, inscritos ante la DREL. El registro publicado cubre emisiones 2021–2022.",
+    "tramites": [
+      {
+        "id": "tupa",
+        "label": "TUPA"
+      },
+      {
+        "id": "reglamento",
+        "label": "Reglamento interno"
+      },
+      {
+        "id": "tasas",
+        "label": "Derechos y tasas"
+      },
+      {
+        "id": "matricula",
+        "label": "Matrícula"
+      },
+      {
+        "id": "reincorporacion",
+        "label": "Reincorporación"
+      },
+      {
+        "id": "titulacion",
+        "label": "Grados y títulos"
+      }
+    ]
+  },
+  "psicopedagogico": {
+    "heroTitle": "Servicio psicopedagógico",
+    "heroSubtitle": "Orientación, acompañamiento y apoyo para el bienestar académico y emocional",
+    "servicios": [
+      {
+        "titulo": "Orientación psicopedagógica",
+        "descripcion": "Acompañamiento en dificultades de aprendizaje y estrategias de estudio.",
+        "icon": "fa-compass"
+      },
+      {
+        "titulo": "Salud mental",
+        "descripcion": "Apoyo emocional y manejo de estrés o ansiedad académica.",
+        "icon": "fa-heart-pulse"
+      },
+      {
+        "titulo": "Acompañamiento académico",
+        "descripcion": "Seguimiento del rendimiento y planes de mejora.",
+        "icon": "fa-book"
+      },
+      {
+        "titulo": "Talleres de habilidades",
+        "descripcion": "Técnicas de estudio y habilidades de convivencia.",
+        "icon": "fa-chalkboard-user"
+      }
+    ]
+  },
+  "servicio-social": {
+    "heroTitle": "Servicio social",
+    "heroSubtitle": "Asistencia socioeconómica y orientación para estudiantes",
+    "servicios": [
+      {
+        "titulo": "Asistencia social",
+        "descripcion": "Orientación en situaciones de vulnerabilidad socioeconómica.",
+        "icon": "fa-handshake",
+        "requisitos": "Ficha de inscripción actualizada\nDNI del estudiante\nDocumentos de sustento que indique el área"
+      },
+      {
+        "titulo": "Programas de apoyo",
+        "descripcion": "Las becas y créditos del año se publican en el Portal de Transparencia cuando el instituto las registra.",
+        "icon": "fa-award",
+        "requisitos": "Solicitud formal\nEvaluación socioeconómica"
+      },
+      {
+        "titulo": "Categorización socioeconómica",
+        "descripcion": "Evaluación para determinar el nivel de apoyo, según la normativa vigente.",
+        "icon": "fa-clipboard-list",
+        "requisitos": "Ficha de categorización\nDocumentos de ingresos familiares"
+      },
+      {
+        "titulo": "Derivaciones",
+        "descripcion": "Coordinación con instituciones externas cuando el caso lo requiere.",
+        "icon": "fa-arrow-up-right-from-square",
+        "requisitos": "Evaluación previa\nConsentimiento informado"
+      }
+    ],
+    "tiposApoyo": [
+      "Apoyo económico (beca)",
+      "Apoyo con alimentación",
+      "Apoyo con transporte",
+      "Apoyo con materiales de estudio",
+      "Apoyo psicosocial",
+      "Otro"
+    ]
+  },
+  "soporte-medico": {
+    "heroTitle": "Soporte médico",
+    "heroSubtitle": "Primeros auxilios y orientación en salud para la comunidad educativa",
+    "campanasLead": "Las campañas preventivas se anuncian por los canales institucionales cuando se programan. Aquí no se publican fechas que el instituto no haya fijado.",
+    "servicios": [
+      {
+        "titulo": "Primeros auxilios",
+        "descripcion": "Atención inmediata de emergencias y accidentes en el campus.",
+        "icon": "fa-kit-medical"
+      },
+      {
+        "titulo": "Campañas de salud",
+        "descripcion": "Vacunación, chequeos y promoción de la salud, cuando hay convocatoria publicada.",
+        "icon": "fa-syringe"
+      },
+      {
+        "titulo": "Orientación en salud",
+        "descripcion": "Consejería sobre hábitos saludables y derivación a centros especializados.",
+        "icon": "fa-stethoscope"
+      }
+    ],
+    "emergencias": [
+      {
+        "titulo": "Instituto",
+        "descripcion": "Central institucional para reportar una emergencia en el campus.",
+        "telefono": "",
+        "icon": "fa-phone"
+      },
+      {
+        "titulo": "SAMU",
+        "descripcion": "Atención médica de urgencia.",
+        "telefono": "106",
+        "icon": "fa-truck-medical"
+      },
+      {
+        "titulo": "Policía Nacional",
+        "descripcion": "Situaciones que requieran intervención policial.",
+        "telefono": "105",
+        "icon": "fa-shield-halved"
+      },
+      {
+        "titulo": "Bomberos",
+        "descripcion": "Emergencias relacionadas con incendios.",
+        "telefono": "116",
+        "icon": "fa-fire-extinguisher"
+      }
+    ]
+  },
+  "reclamaciones": {
+    "heroTitle": "Libro de reclamaciones",
+    "heroSubtitle": "Ley N° 29571 — Código de Protección y Defensa del Consumidor",
+    "lead": "El Libro de Reclamaciones es el mecanismo de atención al consumidor. Su uso es gratuito. El plazo máximo de respuesta es de 30 días calendario.",
+    "pasos": [
+      {
+        "paso": 1,
+        "titulo": "Registro",
+        "descripcion": "Complete el formulario con sus datos y el detalle del reclamo o queja."
+      },
+      {
+        "paso": 2,
+        "titulo": "Recepción",
+        "descripcion": "Recibirá un código para el seguimiento de su solicitud."
+      },
+      {
+        "paso": 3,
+        "titulo": "Evaluación",
+        "descripcion": "El área correspondiente evalúa el caso en el plazo legal."
+      },
+      {
+        "paso": 4,
+        "titulo": "Respuesta",
+        "descripcion": "La institución responde por el medio de contacto que usted indicó."
+      }
+    ],
+    "tiposDocumento": [
+      "DNI",
+      "Carnet de extranjería",
+      "Pasaporte"
+    ],
+    "tiposReclamo": [
+      "Reclamo",
+      "Queja"
+    ]
+  },
+  "privacidad": {
+    "heroTitle": "Política de privacidad",
+    "heroSubtitle": "Protección de datos personales — Ley N.° 29733",
+    "intro": "El Instituto de Educación Superior Pedagógico Privado “Peruano Canadiense” (RUC 20606550937) trata datos personales de postulantes, estudiantes, egresados, docentes y público en general para atender trámites institucionales, de conformidad con la Ley N.° 29733, Ley de Protección de Datos Personales, y su reglamento.",
+    "sections": [
+      {
+        "title": "Titular del banco de datos",
+        "body": "El titular es el IESPP Peruano Canadiense, con sedes en Calle Francisco Cabrera #1288, Chiclayo, y Prolongación Grau Km. 0, Carretera Monsefú–La Victoria. Correo de informes: informes@pcanadiense.edu.pe. Teléfono: +074 239644."
+      },
+      {
+        "title": "Finalidad del tratamiento",
+        "body": "Los datos se recaban para gestionar admisión, matrícula, mesa de partes, libro de reclamaciones, comunicaciones institucionales y el entorno virtual de aprendizaje Microsoft 365. No se venden ni se ceden con fines comerciales."
+      },
+      {
+        "title": "Datos que recabamos",
+        "body": "En admisión y mesa de partes se solicitan nombres, DNI o RUC, domicilio, teléfono, correo, condición (estudiante, docente, egresado u otro), asunto del trámite y documentos de sustento. El EVA asigna correo institucional @pcanadiense.edu.pe."
+      },
+      {
+        "title": "Plazo de conservación",
+        "body": "Los expedientes se conservan el tiempo necesario para el trámite, las obligaciones académicas y las normas de archivo de educación superior. Superado ese plazo se eliminan o se archivan según la normativa aplicable."
+      },
+      {
+        "title": "Derechos ARCO",
+        "body": "El titular de los datos puede ejercer acceso, rectificación, cancelación y oposición a través de la Mesa de Partes Virtual o del correo mesa-de-partes-virtual@pcanadiense.edu.pe, identificándose con DNI y precisando el derecho que solicita."
+      }
+    ]
+  },
+  "repositorio-copy": {
+    "heroTitle": "Repositorio institucional",
+    "heroSubtitle": "Tesis y proyectos de investigación publicados por el IESPP Peruano Canadiense",
+    "emptyPdf": "El archivo PDF de esta tesis no está archivado en este portal. Consulte mesa de partes o el área de investigación."
+  }
+}

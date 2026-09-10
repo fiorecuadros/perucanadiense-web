@@ -1,0 +1,79 @@
+<section class="hero">
+  <div class="hero-slides">
+    @for (img of heroImages(); track img.src; let i = $index) {
+      <img
+        [src]="img.src"
+        [alt]="img.alt"
+        class="hero-bg"
+        [class.active]="i === currentHeroIndex()"
+      />
+    }
+  </div>
+
+  <div class="overlay"></div>
+
+  <div class="hero-stage">
+    <div class="hero-content">
+      <h1>{{ info().legalCategory }}</h1>
+      <p>{{ info().tagline }}</p>
+    </div>
+
+    <div class="buttons-section">
+      <div class="buttons-container">
+        <a routerLink="/programas" class="btn-card carreras">
+          <div class="icon">
+            <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+          </div>
+          <span>Carreras</span>
+        </a>
+
+        <a routerLink="/licenciamiento" class="btn-card licencia">
+          <div class="licencia-inner">
+            <div class="front">
+              <div class="icon">
+                <i class="fas fa-award" aria-hidden="true"></i>
+              </div>
+              <span>Licenciamiento</span>
+            </div>
+            <div class="licencia-popup">
+              <img [src]="copy().licensingImage.src" [alt]="copy().licensingImage.alt" />
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <nav class="side-buttons" aria-label="Plataformas institucionales">
+      <a
+        class="side-item"
+        [href]="info().ecosystemEVA.office365"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <div class="side-btn">
+          <img src="icons/icon_eva.png" alt="" />
+        </div>
+        <span class="side-text">Plataforma EVA</span>
+      </a>
+
+      <a
+        class="side-item"
+        [href]="info().ecosystemEVA.teams"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <div class="side-btn">
+          <img src="icons/icon_aula.png" alt="" />
+        </div>
+        <span class="side-text">Aula virtual</span>
+      </a>
+
+      <a routerLink="/repositorio" class="side-item">
+        <div class="side-btn">
+          <img src="icons/icon_biblioteca.png" alt="" />
+        </div>
+        <span class="side-text">Biblioteca virtual</span>
+      </a>
+    </nav>
+  </div>
+</section>

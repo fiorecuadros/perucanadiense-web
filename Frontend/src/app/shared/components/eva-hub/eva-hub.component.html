@@ -1,0 +1,28 @@
+<section class="eva-hub-section" aria-label="Servicios del Entorno Virtual de Aprendizaje">
+  <div class="eva-container">
+    <div class="eva-header">
+      <span class="eva-badge">Ecosistema Tecnológico Microsoft 365</span>
+      <h2 class="eva-title">Entorno Virtual de Aprendizaje — EVA</h2>
+      <p class="eva-subtitle">
+        Plataforma educativa moderna que brinda a nuestra comunidad docente y estudiantil
+        herramientas de vanguardia para la interacción pedagógica activa.
+      </p>
+    </div>
+
+    <div class="eva-grid">
+      @for (srv of services; track srv.title) {
+        <div class="eva-card">
+          <div class="eva-icon-box">
+            <i class="fa {{ srv.icon }}"></i>
+          </div>
+          <h3 class="eva-card-title">{{ srv.title }}</h3>
+          <p class="eva-card-desc">{{ srv.desc }}</p>
+          <a [href]="srv.link" target="_blank" rel="noopener noreferrer" class="eva-card-link">
+            <span>{{ srv.cta }}</span>
+            <i class="fa fa-angle-right"></i>
+          </a>
+        </div>
+      }
+    </div>
+  </div>
+</section>

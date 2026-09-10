@@ -1,0 +1,56 @@
+@if (item(); as tesis) {
+  <app-page-hero variant="breadcrumb" title="Ficha de tesis" [subtitle]="tesis.programa">
+    <app-breadcrumbs [items]="crumbs()" />
+  </app-page-hero>
+
+  <section class="svc-wrap">
+    <article class="svc-panel svc-detail">
+      <p class="svc-kicker">{{ tesis.tipo }} · {{ tesis.anio }} · {{ tesis.nivel }}</p>
+      <h2>{{ tesis.titulo }}</h2>
+      <div class="svc-meta">
+        <span>{{ tesis.autores.join(', ') }}</span>
+        <span>{{ tesis.programa }}</span>
+      </div>
+      <div class="svc-lead det-content__html" [innerHTML]="tesis.resumen"></div>
+      @if (tesis.pdfUrl) {
+        <app-visor-pdf [src]="tesis.pdfUrl" modo="mini" />
+        <div class="svc-actions">
+          <a appButton [href]="hrefPdf(tesis.pdfUrl)" target="_blank" rel="noopener">
+            Descargar PDF
+          </a>
+          <a appButton variant="outline" routerLink="/repositorio">Volver al repositorio</a>
+        </div>
+      } @else {
+        <app-alert variant="primary">
+          <div class="det-content__html" [innerHTML]="copy().emptyPdf"></div>
+        </app-alert>
+        <div class="svc-actions">
+          <a appButton routerLink="/repositorio">Volver al repositorio</a>
+          <a appButton variant="outline" routerLink="/mesa-de-partes"
+            >Consultar en mesa de partes</a
+          >
+        </div>
+      }
+    </article>
+
+    @if (relacionados().length > 0) {
+      <section>
+        <h2>Otras tesis del mismo programa</h2>
+        <div class="svc-list">
+          @for (rel of relacionados(); track rel.id) {
+            <a class="svc-row" [routerLink]="['/repositorio', rel.id]">
+              <div>
+                <h3>{{ rel.titulo }}</h3>
+                <div class="svc-meta">
+                  <span>{{ rel.autores.join(', ') }}</span>
+                  <span>{{ rel.anio }}</span>
+                </div>
+              </div>
+              <span class="svc-badge">Ver ficha</span>
+            </a>
+          }
+        </div>
+      </section>
+    }
+  </section>
+}

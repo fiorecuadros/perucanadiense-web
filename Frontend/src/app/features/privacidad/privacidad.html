@@ -1,0 +1,23 @@
+<app-page-hero variant="breadcrumb" [title]="copy().heroTitle" [subtitle]="copy().heroSubtitle">
+  <app-breadcrumbs [items]="crumbs" />
+</app-page-hero>
+
+<section class="legal-page">
+  <article class="legal-card">
+    <div class="det-content__html" [innerHTML]="copy().intro"></div>
+    @for (section of copy().sections; track section.title) {
+      <h2>{{ section.title }}</h2>
+      @for (paragraph of parrafos(section.body); track $index) {
+        <p>{{ paragraph }}</p>
+      }
+    }
+    <p>
+      Titular: {{ info().shortName }}. RUC {{ info().ruc }}. Código modular
+      {{ info().modularCode }}.
+    </p>
+    <div class="legal-actions">
+      <a appButton routerLink="/mesa-de-partes">Ir a mesa de partes</a>
+      <a appButton variant="outline" routerLink="/transparencia">Ver transparencia</a>
+    </div>
+  </article>
+</section>

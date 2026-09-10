@@ -1,0 +1,322 @@
+<div class="procedimientos-page">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <div class="hero-breadcrumb">
+        <a routerLink="/inicio" class="breadcrumb-link">Inicio</a>
+        <span class="breadcrumb-separator">/</span>
+        <span class="breadcrumb-current">Procedimientos y TUPA</span>
+      </div>
+      <h1 class="hero-title">Procedimientos y TUPA</h1>
+      <p class="hero-subtitle">
+        Texto Único de Procedimientos Administrativos, requisitos, costos oficializados y Formulario
+        Único de Trámite
+      </p>
+    </div>
+  </section>
+
+  <!-- TUPA Section -->
+  <section class="tupa-section">
+    <div class="container">
+      <div class="tupa-header">
+        <h2 class="section-title">Texto Único de Procedimientos Administrativos (TUPA)</h2>
+        <p class="section-subtitle">
+          Consulta los trámites administrativos, requisitos, costos y tiempos de atención
+          oficializados
+        </p>
+      </div>
+
+      <div class="filter-wrapper">
+        <div class="search-bar">
+          <input
+            type="text"
+            [(ngModel)]="searchTerm"
+            placeholder="Buscar trámites..."
+            class="search-input"
+          />
+          <span class="search-icon">🔍</span>
+        </div>
+
+        <div class="category-tabs">
+          <button
+            *ngFor="let categoria of categorias"
+            (click)="selectCategory(categoria.id)"
+            class="category-tab"
+            [class.active]="selectedCategory === categoria.id"
+          >
+            {{ categoria.nombre }}
+          </button>
+        </div>
+      </div>
+
+      <div class="results-info">
+        <p>{{ filteredTupa.length }} trámite(s) encontrado(s)</p>
+      </div>
+
+      <div class="tupa-grid" *ngIf="filteredTupa.length > 0">
+        <div class="tupa-card" *ngFor="let item of filteredTupa">
+          <div class="tupa-header-card">
+            <span class="tupa-category">{{ getCategoriaNombre(item.categoria) }}</span>
+            <h3 class="tupa-title">{{ item.nombre }}</h3>
+          </div>
+          <div class="tupa-details">
+            <div class="detail-row">
+              <span class="detail-label">Costo:</span>
+              <span class="detail-value costo">{{ item.costo }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Tiempo:</span>
+              <span class="detail-value tiempo">{{ item.tiempo }}</span>
+            </div>
+          </div>
+          <div class="tupa-requirements">
+            <h4>Requisitos:</h4>
+            <ul>
+              <li *ngFor="let req of item.requisitos">{{ req }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="no-results" *ngIf="filteredTupa.length === 0">
+        <div class="no-results-icon">📭</div>
+        <h3>No se encontraron trámites</h3>
+        <p>Intenta con otros términos de búsqueda o selecciona otra categoría.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FUT Form Section -->
+  <section class="fut-section">
+    <div class="container">
+      <div class="fut-wrapper">
+        <div class="fut-info">
+          <h2 class="info-title">Formulario Único de Trámite (FUT)</h2>
+          <p class="info-description">
+            Utiliza este formulario para realizar trámites administrativos de manera virtual. Tu
+            solicitud será procesada según los tiempos establecidos en el TUPA.
+          </p>
+
+          <div class="fut-download">
+            <button (click)="downloadFUT()" class="btn-download-fut">
+              <span>📄</span> Descargar FUT PDF
+            </button>
+          </div>
+
+          <div class="info-contact">
+            <div class="contact-item">
+              <span class="contact-icon">📍</span>
+              <div>
+                <strong>Sede Chiclayo</strong>
+                <p>Calle Francisco Cabrera #1288</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">📞</span>
+              <div>
+                <strong>Teléfono</strong>
+                <p>(074) 239644</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">✉️</span>
+              <div>
+                <strong>Correo</strong>
+                <p>informes@pcanadiense.edu.pe</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-notice">
+            <p class="notice-text">
+              <strong>⏰ Horario de Atención:</strong> Lunes a Viernes de 8:00 AM a 6:00 PM
+            </p>
+          </div>
+        </div>
+
+        <div class="fut-form-container">
+          <div *ngIf="showSuccess" class="success-message">
+            <div class="success-icon">✅</div>
+            <h3>¡Solicitud Enviada!</h3>
+            <p>
+              Tu código de trámite es: <strong>{{ codigoTramite }}</strong>
+            </p>
+            <p>Te contactaremos pronto para continuar con el proceso.</p>
+            <button (click)="onReset()" class="btn-secondary">Nueva Solicitud</button>
+          </div>
+
+          <form *ngIf="!showSuccess" [formGroup]="futForm" (ngSubmit)="onSubmit()" class="fut-form">
+            <h3 class="form-title">Formulario Único de Trámite Virtual</h3>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="nombres">Nombres *</label>
+                <input
+                  type="text"
+                  id="nombres"
+                  formControlName="nombres"
+                  class="form-control"
+                  [class.invalid]="submitted && f['nombres'].invalid"
+                />
+                <div *ngIf="submitted && f['nombres'].errors?.['required']" class="error-message">
+                  Los nombres son requeridos
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="apellidos">Apellidos *</label>
+                <input
+                  type="text"
+                  id="apellidos"
+                  formControlName="apellidos"
+                  class="form-control"
+                  [class.invalid]="submitted && f['apellidos'].invalid"
+                />
+                <div *ngIf="submitted && f['apellidos'].errors?.['required']" class="error-message">
+                  Los apellidos son requeridos
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="dni">DNI *</label>
+                <input
+                  type="text"
+                  id="dni"
+                  formControlName="dni"
+                  class="form-control"
+                  maxlength="8"
+                  [class.invalid]="submitted && f['dni'].invalid"
+                />
+                <div *ngIf="submitted && f['dni'].errors?.['required']" class="error-message">
+                  El DNI es requerido
+                </div>
+                <div *ngIf="submitted && f['dni'].errors?.['pattern']" class="error-message">
+                  DNI inválido (8 dígitos)
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="telefono">Teléfono *</label>
+                <input
+                  type="tel"
+                  id="telefono"
+                  formControlName="telefono"
+                  class="form-control"
+                  maxlength="9"
+                  [class.invalid]="submitted && f['telefono'].invalid"
+                />
+                <div *ngIf="submitted && f['telefono'].errors?.['required']" class="error-message">
+                  El teléfono es requerido
+                </div>
+                <div *ngIf="submitted && f['telefono'].errors?.['pattern']" class="error-message">
+                  Teléfono inválido (9 dígitos)
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Correo Electrónico *</label>
+              <input
+                type="email"
+                id="email"
+                formControlName="email"
+                class="form-control"
+                [class.invalid]="submitted && f['email'].invalid"
+              />
+              <div *ngIf="submitted && f['email'].errors?.['required']" class="error-message">
+                El correo es requerido
+              </div>
+              <div *ngIf="submitted && f['email'].errors?.['email']" class="error-message">
+                Correo inválido
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="tipoTramite">Tipo de Trámite *</label>
+              <select
+                id="tipoTramite"
+                formControlName="tipoTramite"
+                class="form-control"
+                [class.invalid]="submitted && f['tipoTramite'].invalid"
+              >
+                <option value="">Seleccione tipo de trámite</option>
+                <option *ngFor="let tipo of tiposTramite" [value]="tipo">
+                  {{ tipo }}
+                </option>
+              </select>
+              <div *ngIf="submitted && f['tipoTramite'].errors?.['required']" class="error-message">
+                Seleccione tipo de trámite
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="asunto">Asunto *</label>
+              <input
+                type="text"
+                id="asunto"
+                formControlName="asunto"
+                class="form-control"
+                [class.invalid]="submitted && f['asunto'].invalid"
+              />
+              <div *ngIf="submitted && f['asunto'].errors?.['required']" class="error-message">
+                El asunto es requerido
+              </div>
+              <div *ngIf="submitted && f['asunto'].errors?.['minlength']" class="error-message">
+                Mínimo 10 caracteres
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="descripcion">Descripción Detallada *</label>
+              <textarea
+                id="descripcion"
+                formControlName="descripcion"
+                class="form-control"
+                rows="5"
+                placeholder="Describe detalladamente tu solicitud..."
+                [class.invalid]="submitted && f['descripcion'].invalid"
+              ></textarea>
+              <div *ngIf="submitted && f['descripcion'].errors?.['required']" class="error-message">
+                La descripción es requerida
+              </div>
+              <div
+                *ngIf="submitted && f['descripcion'].errors?.['minlength']"
+                class="error-message"
+              >
+                Mínimo 20 caracteres
+              </div>
+            </div>
+
+            <div class="form-group checkbox-group">
+              <label class="checkbox-label">
+                <input
+                  type="checkbox"
+                  formControlName="aceptoPrivacidad"
+                  [class.invalid]="submitted && f['aceptoPrivacidad'].invalid"
+                />
+                <span>
+                  Acepto la
+                  <a routerLink="/privacidad" class="link-primary">Política de Privacidad</a>
+                  y el tratamiento de mis datos personales conforme a la Ley N° 29733 *
+                </span>
+              </label>
+              <div
+                *ngIf="submitted && f['aceptoPrivacidad'].errors?.['required']"
+                class="error-message"
+              >
+                Debes aceptar la política de privacidad
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">Enviar Solicitud</button>
+              <button type="button" (click)="onReset()" class="btn-secondary">Limpiar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

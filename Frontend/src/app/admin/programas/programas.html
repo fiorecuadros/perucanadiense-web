@@ -1,0 +1,263 @@
+<div class="admin-page">
+  <header class="page-header">
+    <div>
+      <h1 class="page-title">Programas de estudio</h1>
+      <p class="page-sub">
+        Oferta que lee <code>/programas</code>. Formación continua aparece en la web
+        cuando exista al menos un programa de ese nivel.
+      </p>
+    </div>
+    <div class="page-header-actions">
+      <a class="btn-ghost" href="/programas" target="_blank" rel="noopener">Ver portal</a>
+      <button type="button" class="btn-add" (click)="abrirNuevo()">
+        <i class="fa fa-plus"></i> Nuevo programa
+      </button>
+    </div>
+  </header>
+
+  <div class="admin-tabs" role="tablist">
+    <button
+      type="button"
+      class="admin-tab"
+      [class.active]="filtro() === 'todos'"
+      (click)="filtro.set('todos')"
+    >
+      Todos
+    </button>
+    @for (nivel of niveles; track nivel) {
+      <button
+        type="button"
+        class="admin-tab"
+        [class.active]="filtro() === nivel"
+        (click)="filtro.set(nivel)"
+      >
+        {{ nivel }}
+      </button>
+    }
+  </div>
+
+  <div class="admin-card">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Programa</th>
+          <th>Nivel</th>
+          <th>Normativa</th>
+          <th>Vacantes</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of visibles(); track item.id) {
+          <tr>
+            <td>
+              <strong>{{ item.title }}</strong>
+              <div class="form-hint">{{ item.duration }}</div>
+            </td>
+            <td>{{ item.level }}</td>
+            <td>{{ item.normative }}</td>
+            <td>{{ item.vacancies }}</td>
+            <td class="td-actions">
+              <a class="btn-icon" href="/programas" target="_blank" rel="noopener" aria-label="Ver">
+                <i class="fa fa-eye"></i>
+              </a>
+              <button
+                type="button"
+                class="btn-icon"
+                (click)="abrirEditar(item)"
+                aria-label="Editar"
+              >
+                <i class="fa fa-pen"></i>
+              </button>
+              <button
+                type="button"
+                class="btn-icon btn-delete"
+                (click)="confirmar.set(item)"
+                aria-label="Quitar"
+              >
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="5">{{ cargando() ? 'Cargando…' : 'No hay programas en este filtro.' }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<app-dialog
+  [open]="formAbierto()"
+  [title]="editandoId() ? 'Editar programa' : 'Nuevo programa'"
+  (openChange)="formAbierto.set($event)"
+>
+  <div class="form-secciones">
+    <app-seccion-bloque
+      titulo="Portada de la ficha"
+      sub="Título, foto y texto que abren la carrera en la web."
+    >
+      <div class="form-grid">
+        <div class="form-row span-2">
+          <label>Título del programa *</label>
+          <input
+            type="text"
+            placeholder="ejemplo: Educación Inicial"
+            [value]="form().title"
+            (input)="patch('title', $any($event.target).value)"
+          />
+        </div>
+        <div class="form-row">
+          <label>Nivel</label>
+          <select [value]="form().level" (change)="patch('level', $any($event.target).value)">
+            @for (nivel of niveles; track nivel) {
+              <option [value]="nivel">{{ nivel }}</option>
+            }
+          </select>
+        </div>
+        <div class="form-row">
+          <label>Categoría</label>
+          <input
+            type="text"
+            [value]="form().category"
+            (input)="patch('category', $any($event.target).value)"
+          />
+        </div>
+        <div class="form-row span-2">
+          <label>Descripción</label>
+          <app-editor-quill [html]="form().description" (htmlChange)="patch('description', $event)" />
+        </div>
+        <div class="form-row span-2">
+          <label>Imagen</label>
+          <input
+            type="url"
+            [value]="form().image"
+            (input)="patch('image', $any($event.target).value)"
+          />
+          <app-selector-archivo
+            modo="imagen"
+            [referencia]="form().image"
+            (referenciaChange)="patch('image', $event)"
+          />
+        </div>
+      </div>
+      <label class="svc-check" style="display: flex; gap: 8px; align-items: center; margin-top: 8px">
+        <input
+          type="checkbox"
+          [checked]="form().featured"
+          (change)="patch('featured', $any($event.target).checked)"
+        />
+        Destacar en la oferta
+      </label>
+    </app-seccion-bloque>
+
+    <app-seccion-bloque
+      titulo="Datos de la ficha"
+      sub="Vacantes, duración, turnos, resolución y grado. Se muestran en mosaico bajo la foto."
+    >
+      <div class="form-grid">
+        <div class="form-row">
+          <label>Duración</label>
+          <input
+            type="text"
+            [value]="form().duration"
+            (input)="patch('duration', $any($event.target).value)"
+          />
+        </div>
+        <div class="form-row">
+          <label>Semestres o ciclos</label>
+          <input
+            type="number"
+            min="0"
+            [value]="form().durationSemesters"
+            (input)="patch('durationSemesters', toNumero($event))"
+          />
+        </div>
+        <div class="form-row">
+          <label>Vacantes</label>
+          <input
+            type="number"
+            min="0"
+            [value]="form().vacancies"
+            (input)="patch('vacancies', toNumero($event))"
+          />
+        </div>
+        <div class="form-row">
+          <label>Normativa RVM *</label>
+          <input
+            type="text"
+            placeholder="ejemplo: RVM N° 163-2019-MINEDU"
+            [value]="form().normative"
+            (input)="patch('normative', $any($event.target).value)"
+          />
+          <p class="form-hint">
+            Resolución viceministerial que autoriza la carrera. En Formación continua puede
+            dejarse vacío.
+          </p>
+        </div>
+        <div class="form-row span-2">
+          <label>Título otorgado</label>
+          <input
+            type="text"
+            [value]="form().degreeAwarded"
+            (input)="patch('degreeAwarded', $any($event.target).value)"
+          />
+        </div>
+        <div class="form-row span-2">
+          <label>Rango de edad</label>
+          <input
+            type="text"
+            [value]="form().ageRange"
+            (input)="patch('ageRange', $any($event.target).value)"
+          />
+        </div>
+        <div class="form-row span-2">
+          <label>Turnos</label>
+          <app-campo-lista
+            modo="lista"
+            [items]="form().shifts"
+            (itemsChange)="patch('shifts', $any($event))"
+          />
+        </div>
+      </div>
+    </app-seccion-bloque>
+
+    <app-seccion-bloque
+      titulo="Perfil y campo laboral"
+      sub="Las dos columnas de la ficha pública, debajo del grado."
+    >
+      <div class="form-grid">
+        <div class="form-row span-2">
+          <label>Perfil del egresado</label>
+          <app-editor-quill compacto [html]="form().profile" (htmlChange)="patch('profile', $event)" />
+        </div>
+        <div class="form-row span-2">
+          <label>Campo laboral</label>
+          <app-campo-lista
+            modo="lista"
+            [items]="form().fieldOfWork"
+            (itemsChange)="patch('fieldOfWork', $any($event))"
+          />
+        </div>
+      </div>
+    </app-seccion-bloque>
+  </div>
+  <div dialog-footer>
+    <button type="button" class="btn-cancel" (click)="formAbierto.set(false)">Cancelar</button>
+    <button type="button" class="btn-save" (click)="guardar()">Guardar</button>
+  </div>
+</app-dialog>
+
+<app-dialog
+  [open]="!!confirmar()"
+  title="Quitar programa"
+  (openChange)="confirmar.set($event ? confirmar() : null)"
+>
+  <p>Dejará de verse en <code>/programas</code>.</p>
+  <div dialog-footer>
+    <button type="button" class="btn-cancel" (click)="confirmar.set(null)">Cancelar</button>
+    <button type="button" class="btn-danger" (click)="eliminar()">Eliminar</button>
+  </div>
+</app-dialog>

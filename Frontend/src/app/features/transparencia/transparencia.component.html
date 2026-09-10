@@ -1,0 +1,134 @@
+<app-page-hero variant="breadcrumb" [title]="copy().heroTitle" [subtitle]="copy().heroSubtitle">
+  <app-breadcrumbs [items]="crumbs" />
+</app-page-hero>
+
+<section class="svc-wrap">
+  <div class="svc-lead det-content__html" [innerHTML]="copy().lead"></div>
+
+  <div class="svc-grid">
+    @for (rubro of rubros(); track rubro.id) {
+      <a class="svc-card" [routerLink]="rubro.ruta">
+        <div class="svc-icon" aria-hidden="true"><i class="fa-solid {{ rubro.icon }}"></i></div>
+        <h3>{{ rubro.titulo }}</h3>
+        <p>{{ rubro.descripcion }}</p>
+        <div class="svc-meta">
+          @if (rubro.estado === 'vacio') {
+            <span class="svc-badge is-empty">Sin documentos publicados</span>
+          } @else {
+            <span class="svc-badge">Ver rubro</span>
+          }
+        </div>
+      </a>
+    }
+  </div>
+
+  <div class="svc-split">
+    <aside class="svc-panel">
+      <h2>Funcionario responsable</h2>
+      @if (director(); as persona) {
+        <p>
+          <strong>{{ persona.grade }} {{ persona.names }} {{ persona.lastNames }}</strong>
+        </p>
+        <p>{{ persona.position }}</p>
+        <div class="svc-contact">
+          <div>
+            <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+            <div>
+              <strong>Correo</strong>
+              <p>{{ persona.email }}</p>
+            </div>
+          </div>
+          <div>
+            <i class="fa-solid fa-phone" aria-hidden="true"></i>
+            <div>
+              <strong>Central</strong>
+              <p>{{ info().contact.phoneFormatted }}</p>
+            </div>
+          </div>
+          <div>
+            <i class="fa-solid fa-clock" aria-hidden="true"></i>
+            <div>
+              <strong>Horario</strong>
+              <p>{{ info().schedule.attention }}</p>
+            </div>
+          </div>
+          <div>
+            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+            <div>
+              <strong>{{ info().locations[0].name }}</strong>
+              <p>{{ info().locations[0].address }}, {{ info().locations[0].city }}</p>
+            </div>
+          </div>
+        </div>
+      }
+      <div class="svc-actions">
+        <a appButton variant="outline" routerLink="/privacidad">Política de privacidad</a>
+      </div>
+    </aside>
+
+    <div class="svc-form">
+      @if (codigo(); as code) {
+        <div class="svc-success">
+          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+          <h3>Solicitud registrada en este equipo</h3>
+          <p>
+            Código: <strong>{{ code }}</strong>
+          </p>
+          <p>
+            Envíela a {{ info().contact.emailGeneral }}. El trámite se atiende conforme a la Ley N°
+            27806.
+          </p>
+          <div class="svc-actions">
+            <a appButton [href]="mailtoHref(code)">Abrir correo</a>
+            <button type="button" appButton variant="outline" (click)="reset()">
+              Nueva solicitud
+            </button>
+          </div>
+        </div>
+      } @else {
+        <form [formGroup]="form" (ngSubmit)="enviar()" novalidate>
+          <h3>Solicitud de acceso a la información</h3>
+          <p class="svc-muted">
+            Ley N° 27806. Use este formulario si el documento no está en el portal.
+          </p>
+          <div class="svc-half">
+            <label>Nombres <input appInput formControlName="nombres" /></label>
+            <label>Apellidos <input appInput formControlName="apellidos" /></label>
+          </div>
+          <div class="svc-half">
+            <label
+              >DNI <input appInput formControlName="dni" inputmode="numeric" maxlength="8"
+            /></label>
+            <label
+              >Celular <input appInput formControlName="telefono" type="tel" maxlength="9"
+            /></label>
+          </div>
+          @if (invalid('dni')) {
+            <p class="field-error">DNI de 8 dígitos.</p>
+          }
+          <label>Correo <input appInput formControlName="email" type="email" /></label>
+          <label>Dirección <input appInput formControlName="direccion" /></label>
+          <label
+            >Información solicitada
+            <textarea formControlName="informacionSolicitada" rows="4"></textarea>
+          </label>
+          @if (invalid('informacionSolicitada')) {
+            <p class="field-error">Describa el pedido (mínimo 20 caracteres).</p>
+          }
+          <label>Motivo <textarea formControlName="motivo" rows="3"></textarea></label>
+          <label class="svc-check">
+            <input type="checkbox" formControlName="aceptoPrivacidad" />
+            <span>Acepto la <a routerLink="/privacidad">política de privacidad</a>.</span>
+          </label>
+          @if (invalid('aceptoPrivacidad')) {
+            <p class="field-error">Debe aceptar la política de privacidad.</p>
+          }
+          <div class="svc-actions">
+            <button type="submit" appButton>Registrar solicitud</button>
+            <button type="button" appButton variant="outline" (click)="reset()">Limpiar</button>
+          </div>
+        </form>
+      }
+    </div>
+  </div>
+</section>

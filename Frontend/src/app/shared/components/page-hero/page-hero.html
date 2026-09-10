@@ -1,0 +1,13 @@
+<section [class]="variant() === 'breadcrumb' ? 'trans-hero page-hero' : 'hero-component page-hero'">
+  <div [class]="variant() === 'breadcrumb' ? 'trans-hero-content' : 'hero-content'">
+    <ng-content />
+    <h1 [class.trans-hero-title]="variant() === 'breadcrumb'">{{ title() }}</h1>
+    @if (subtitle()) {
+      <div
+        class="hero-sub"
+        [class.trans-hero-sub]="variant() === 'breadcrumb'"
+        [innerHTML]="subtitle()"
+      ></div>
+    }
+  </div>
+</section>

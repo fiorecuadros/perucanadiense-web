@@ -1,0 +1,157 @@
+<div class="admin-page">
+  <header class="page-header">
+    <div>
+      <h1 class="page-title">Documentos del portal</h1>
+      <p class="page-sub">
+        Todos los PDFs, enlaces e imágenes publicados en los módulos, incluidos los rubros del
+        Portal de Transparencia. Para subir uno nuevo, entre al módulo que le corresponde.
+      </p>
+    </div>
+    <div class="page-header-actions">
+      <span class="badge badge-publicado">{{ publicados() }} publicados</span>
+      <span class="badge badge-borrador">{{ borradores() }} en borrador</span>
+    </div>
+  </header>
+
+  <div class="admin-card">
+    <div class="form-grid">
+      <div class="form-row">
+        <label>Módulo</label>
+        <select [value]="filtroModulo()" (change)="filtroModulo.set($any($event.target).value)">
+          <option value="todos">Todos los módulos</option>
+          @for (modulo of modulos; track modulo.id) {
+            <option [value]="modulo.id">{{ modulo.titulo }}</option>
+          }
+        </select>
+      </div>
+      <div class="form-row">
+        <label>Estado</label>
+        <select [value]="filtroEstado()" (change)="filtroEstado.set($any($event.target).value)">
+          <option value="todos">Todos</option>
+          <option value="publicado">Publicados</option>
+          <option value="borrador">Borradores</option>
+        </select>
+      </div>
+      @if (filtroModulo() !== 'todos') {
+        <div class="form-row">
+          <label>Acciones del módulo</label>
+          <div class="page-header-actions">
+            <a class="btn-ghost" [routerLink]="rutaAdmin(filtroModulo())">Abrir editor</a>
+            <button
+              type="button"
+              class="btn-ghost"
+              [disabled]="restaurando() === filtroModulo()"
+              (click)="restaurar($any(filtroModulo()))"
+            >
+              {{ restaurando() === filtroModulo() ? 'Restaurando…' : 'Restaurar originales' }}
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="admin-card">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Documento</th>
+          <th>Módulo</th>
+          <th>Sección</th>
+          <th>Tipo</th>
+          <th>Actualizado</th>
+          <th>Estado</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (documento of lista(); track documento.id) {
+          <tr>
+            <td>
+              <strong>{{ documento.titulo }}</strong>
+              @if (documento.descripcion) {
+                <div class="form-hint">{{ documento.descripcion }}</div>
+              }
+              @if (documento.anio) {
+                <div class="form-hint">Año {{ documento.anio }}</div>
+              }
+            </td>
+            <td>{{ tituloModulo(documento.modulo) }}</td>
+            <td>{{ documento.seccion }}</td>
+            <td>{{ documento.tipo }}</td>
+            <td>{{ fecha(documento.actualizadoEn) }}</td>
+            <td>
+              @if (documento.estado === 'publicado') {
+                <span class="badge badge-publicado">Publicado</span>
+              } @else {
+                <span class="badge badge-borrador">Borrador</span>
+              }
+            </td>
+            <td class="td-actions">
+              <a
+                class="btn-icon"
+                [href]="documento.url"
+                target="_blank"
+                rel="noopener"
+                aria-label="Abrir documento"
+              >
+                <i class="fa fa-up-right-from-square"></i>
+              </a>
+              <button
+                type="button"
+                class="btn-icon"
+                [attr.aria-label]="
+                  documento.estado === 'publicado' ? 'Pasar a borrador' : 'Publicar'
+                "
+                (click)="alternarEstado(documento)"
+              >
+                <i
+                  class="fa"
+                  [class.fa-eye-slash]="documento.estado === 'publicado'"
+                  [class.fa-eye]="documento.estado !== 'publicado'"
+                ></i>
+              </button>
+              <a
+                class="btn-icon"
+                [routerLink]="rutaAdmin(documento.modulo)"
+                aria-label="Editar en su módulo"
+              >
+                <i class="fa fa-pen"></i>
+              </a>
+              <button
+                type="button"
+                class="btn-icon btn-delete"
+                (click)="confirmar.set(documento)"
+                aria-label="Eliminar"
+              >
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="7">
+              No hay documentos con este filtro. Los rubros vacíos del PTI se muestran así en el
+              portal hasta que alguien suba el archivo oficial.
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<app-dialog
+  [open]="!!confirmar()"
+  title="Eliminar documento"
+  (openChange)="confirmar.set($event ? confirmar() : null)"
+>
+  <p>
+    Se quita del portal y se borra el archivo subido. Si solo quiere ocultarlo, use “pasar a
+    borrador”.
+  </p>
+  <div dialog-footer>
+    <button type="button" class="btn-cancel" (click)="confirmar.set(null)">Cancelar</button>
+    <button type="button" class="btn-danger" (click)="eliminar()">Eliminar</button>
+  </div>
+</app-dialog>

@@ -1,0 +1,180 @@
+<div class="admin-page">
+  <header class="page-header">
+    <div>
+      <h1 class="page-title">{{ titulo() }}</h1>
+      @if (descripcion()) {
+        <p class="page-sub">{{ descripcion() }}</p>
+      }
+    </div>
+    <div class="page-header-actions">
+      @if (pendientes()) {
+        <span class="badge badge-borrador">{{ pendientes() }} sin atender</span>
+      }
+      <button type="button" class="btn-ghost" (click)="recargar()">
+        <i class="fa fa-rotate"></i> Actualizar
+      </button>
+    </div>
+  </header>
+
+  <div class="admin-tabs">
+    <button
+      type="button"
+      class="admin-tab"
+      [class.active]="filtro() === 'todos'"
+      (click)="filtro.set('todos')"
+    >
+      Todos ({{ items().length }})
+    </button>
+    @for (estado of estados(); track estado) {
+      <button
+        type="button"
+        class="admin-tab"
+        [class.active]="filtro() === estado"
+        (click)="filtro.set(estado)"
+      >
+        {{ etiquetaEstado(estado) }}
+      </button>
+    }
+  </div>
+
+  <div class="admin-card">
+    @if (cargando()) {
+      <p class="form-hint">Cargando…</p>
+    } @else if (error()) {
+      <div class="empty-state">
+        <p>{{ error() }}</p>
+        <button type="button" class="btn-ghost" (click)="recargar()">Reintentar</button>
+      </div>
+    } @else {
+      <table class="admin-table">
+        <thead>
+          <tr>
+            @for (columna of columnas(); track columna.campo) {
+              <th>{{ columna.label }}</th>
+            }
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (tramite of visibles(); track tramite.id) {
+            <tr>
+              @for (columna of columnas(); track columna.campo) {
+                <td>
+                  @if (columna.campo === 'estado') {
+                    <span [class]="claseEstado(tramite.estado)">{{
+                      etiquetaEstado(tramite.estado)
+                    }}</span>
+                  } @else {
+                    {{ valor(tramite, columna.campo) }}
+                  }
+                </td>
+              }
+              <td class="td-actions">
+                <button
+                  type="button"
+                  class="btn-icon"
+                  (click)="abrir(tramite)"
+                  aria-label="Ver detalle"
+                >
+                  <i class="fa fa-eye"></i>
+                </button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td [attr.colspan]="columnas().length + 1">No hay solicitudes en este filtro.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </div>
+</div>
+
+<app-dialog
+  [open]="!!abierto()"
+  title="Detalle de la solicitud"
+  [showFooter]="false"
+  (openChange)="abierto.set($event ? abierto() : null)"
+>
+  @if (abierto(); as tramite) {
+    <p class="page-title">{{ tramite.codigo }}</p>
+    <p class="form-hint">Recibido el {{ fecha(tramite.submittedAt) }}</p>
+
+    <div class="form-grid">
+      @for (campo of detalle(); track campo.campo) {
+        <div
+          class="form-row"
+          [class.span-2]="campo.campo === 'mensaje' || campo.campo === 'detalleReclamo'"
+        >
+          <label>{{ campo.label }}</label>
+          @if (esArchivoDelApi(valor(tramite, campo.campo))) {
+            <button
+              type="button"
+              class="btn-ghost"
+              (click)="abrirAdjunto(valor(tramite, campo.campo))"
+            >
+              Abrir adjunto
+            </button>
+          } @else if (esEnlace(valor(tramite, campo.campo))) {
+            <a
+              class="btn-ghost"
+              [href]="urlAbsoluta(valor(tramite, campo.campo))"
+              target="_blank"
+              rel="noopener"
+            >
+              Abrir
+            </a>
+          } @else {
+            <p>{{ valor(tramite, campo.campo) }}</p>
+          }
+        </div>
+      }
+    </div>
+
+    @if (!soloLectura() && guardar()) {
+      <div class="form-grid">
+        <div class="form-row">
+          <label>Estado</label>
+          <select [value]="estadoEditado()" (change)="estadoEditado.set($any($event.target).value)">
+            @for (estado of estados(); track estado) {
+              <option [value]="estado">{{ etiquetaEstado(estado) }}</option>
+            }
+          </select>
+        </div>
+        <div class="form-row span-2">
+          <label>{{ etiquetaRespuesta() }}</label>
+          <textarea
+            rows="4"
+            [value]="respuestaEditada()"
+            (input)="respuestaEditada.set($any($event.target).value)"
+          ></textarea>
+          <p class="form-hint">
+            Queda registrado en el expediente. El solicitante solo lo recibe si marca la casilla.
+          </p>
+        </div>
+        <div class="form-row span-2">
+          <label class="check-inline">
+            <input
+              type="checkbox"
+              [checked]="notificar()"
+              [disabled]="!correoDe(tramite)"
+              (change)="notificar.set($any($event.target).checked)"
+            />
+            @if (correoDe(tramite); as correo) {
+              <span>Enviar esta respuesta a {{ correo }}</span>
+            } @else {
+              <span>El solicitante no dejó un correo de contacto</span>
+            }
+          </label>
+        </div>
+      </div>
+      <div class="save-bar">
+        <button type="button" class="btn-cancel" (click)="abierto.set(null)">Cerrar</button>
+        <button type="button" class="btn-save" [disabled]="guardando()" (click)="aplicar()">
+          {{ guardando() ? 'Guardando…' : 'Guardar cambios' }}
+        </button>
+      </div>
+    }
+  }
+</app-dialog>

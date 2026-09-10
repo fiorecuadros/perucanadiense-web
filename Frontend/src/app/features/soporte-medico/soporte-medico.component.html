@@ -1,0 +1,49 @@
+<app-page-hero variant="breadcrumb" [title]="copy().heroTitle" [subtitle]="copy().heroSubtitle">
+  <app-breadcrumbs [items]="crumbs" />
+</app-page-hero>
+
+<section class="svc-wrap">
+  <div class="svc-grid">
+    @for (item of servicios(); track item.titulo) {
+      <article class="svc-card">
+        <div class="svc-icon" aria-hidden="true"><i class="fa-solid {{ item.icon }}"></i></div>
+        <h3>{{ item.titulo }}</h3>
+        <p>{{ item.descripcion }}</p>
+        <p class="svc-muted">{{ info().schedule.attention }}</p>
+      </article>
+    }
+  </div>
+
+  <app-alert variant="primary">
+    <div class="det-content__html" [innerHTML]="copy().campanasLead"></div>
+  </app-alert>
+
+  <section>
+    <h2>Contactos de emergencia</h2>
+    <div class="svc-grid">
+      @for (item of emergencias(); track item.titulo) {
+        <article class="svc-card">
+          <div class="svc-icon" aria-hidden="true"><i class="fa-solid {{ item.icon }}"></i></div>
+          <h3>{{ item.titulo }}</h3>
+          <p>{{ item.descripcion }}</p>
+          <div class="svc-actions">
+            <a appButton [href]="telHref(item)">{{ telefono(item) }}</a>
+          </div>
+        </article>
+      }
+    </div>
+  </section>
+
+  <div class="svc-actions">
+    <a
+      appButton
+      variant="whatsapp"
+      [href]="whatsappUrl()"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      WhatsApp institucional
+    </a>
+    <a appButton variant="outline" routerLink="/servicios">Volver a servicios</a>
+  </div>
+</section>

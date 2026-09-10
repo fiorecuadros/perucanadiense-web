@@ -1,0 +1,265 @@
+<section class="proceso" aria-label="Proceso de admisión">
+  <div class="proceso-inner">
+    <div class="pasos" role="tablist" aria-label="Secciones de admisión">
+      @for (doc of docs; track doc.id) {
+        <button
+          type="button"
+          role="tab"
+          class="paso"
+          [class.is-active]="activeId() === doc.id"
+          [attr.aria-selected]="activeId() === doc.id"
+          (click)="selectDoc(doc.id)"
+        >
+          {{ doc.label }}
+        </button>
+      }
+    </div>
+
+    @if (activeDoc(); as doc) {
+      @switch (doc.id) {
+        @case ('convocatoria') {
+          <article class="escenario" [attr.aria-labelledby]="'admision-' + doc.id">
+            <div class="escenario-copy">
+              <h1 [id]="'admision-' + doc.id">{{ copy().heroTitle }}</h1>
+              <p class="lema">{{ info().slogan }}</p>
+              @if (hayTexto(copy().presentation)) {
+                <div class="det-content__html lead" [innerHTML]="copy().presentation"></div>
+              }
+              <dl class="hechos">
+                <div>
+                  <dt>Derecho de examen</dt>
+                  <dd>{{ formatFee(info().fees.admissionExam) }}</dd>
+                </div>
+                <div>
+                  <dt>Nota mínima</dt>
+                  <dd>{{ formatScore(copy().passingScore) }}</dd>
+                </div>
+                <div>
+                  <dt>Año</dt>
+                  <dd>{{ copy().year }}</dd>
+                </div>
+              </dl>
+              <div class="cta-row">
+                <a
+                  appButton
+                  variant="whatsapp"
+                  [href]="whatsappUrl()"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Informes por WhatsApp
+                </a>
+                <a appButton [href]="mailtoHref()">Redactar correo de inscripción</a>
+                <a appButton variant="outline" routerLink="/programas">Ver carreras</a>
+              </div>
+              @if (hayTexto(copy().convocatoriaNota)) {
+                <p class="aviso">{{ copy().convocatoriaNota }}</p>
+              }
+            </div>
+            <div class="escenario-afiche">
+              @if (docsActivos().length) {
+                <app-lista-docs variante="afiche" [docs]="docsActivos()" />
+              } @else if (doc.src) {
+                <button type="button" class="poster" (click)="openAfiche(doc)">
+                  <img [src]="doc.src" [appSrc]="doc.src" [alt]="doc.alt || doc.label" />
+                  <span>Ver afiche completo</span>
+                </button>
+              }
+            </div>
+          </article>
+        }
+        @case ('horarios') {
+          <article class="escenario escenario-solo" [attr.aria-labelledby]="'admision-' + doc.id">
+            <div class="escenario-copy">
+              <h2 [id]="'admision-' + doc.id">{{ doc.label }}</h2>
+              <p class="lead-plain">{{ info().schedule.attention }}</p>
+              <div class="cta-row">
+                <a appButton routerLink="/horarios">Ver horarios</a>
+              </div>
+            </div>
+            <div class="escenario-afiche">
+              @if (docsActivos().length) {
+                <app-lista-docs variante="afiche" [docs]="docsActivos()" />
+              } @else if (doc.src) {
+                <button type="button" class="poster" (click)="openAfiche(doc)">
+                  <img [src]="doc.src" [appSrc]="doc.src" [alt]="doc.alt || doc.label" />
+                  <span>Ver afiche completo</span>
+                </button>
+              }
+            </div>
+          </article>
+        }
+        @default {
+          <article class="ficha" [attr.aria-labelledby]="'admision-' + doc.id">
+            @switch (doc.id) {
+              @case ('vacantes') {
+                <h2 [id]="'admision-' + doc.id">Vacantes FID</h2>
+                @if (hayTexto(copy().modality)) {
+                  <div class="det-content__html ficha-lead" [innerHTML]="copy().modality"></div>
+                }
+                <p class="ficha-lead">
+                  {{ vacancyTotal() }} vacantes en {{ fidPrograms().length }} programas de
+                  {{ fidPrograms()[0]?.duration }}. Clases: {{ info().schedule.classesPresential }}
+                </p>
+                <ul class="vacantes">
+                  @for (program of fidPrograms(); track program.id) {
+                    <li>
+                      <a routerLink="/programas">
+                        <span class="vacantes-nombre">{{ program.title }}</span>
+                        <span class="vacantes-meta">{{ program.normative }}</span>
+                      </a>
+                      <strong>{{ program.vacancies }}</strong>
+                    </li>
+                  }
+                </ul>
+              }
+              @case ('evaluacion') {
+                <h2 [id]="'admision-' + doc.id">Evaluación</h2>
+                <p class="ficha-lead">
+                  Nota mínima para la entrevista y para aprobar:
+                  {{ formatScore(copy().passingScore) }}.
+                </p>
+                <div class="columnas">
+                  <section>
+                    <h3>Prueba escrita · {{ copy().writtenWeight }}%</h3>
+                    <ul class="puntajes">
+                      @for (item of copy().writtenItems; track item.label) {
+                        <li>
+                          <span>{{ item.label }}</span>
+                          <strong>{{ item.score }}</strong>
+                        </li>
+                      }
+                    </ul>
+                  </section>
+                  <section>
+                    <h3>Entrevista situacional · {{ copy().interviewWeight }}%</h3>
+                    <ul class="puntajes">
+                      @for (item of copy().interviewItems; track item.label) {
+                        <li>
+                          <span>{{ item.label }}</span>
+                          <strong>{{ item.score }}</strong>
+                        </li>
+                      }
+                    </ul>
+                  </section>
+                </div>
+              }
+              @case ('requisitos') {
+                <h2 [id]="'admision-' + doc.id">Requisitos</h2>
+                <ul class="checks">
+                  @for (item of copy().requirements; track item) {
+                    <li>{{ item }}</li>
+                  }
+                </ul>
+              }
+              @case ('inscripcion') {
+                <h2 [id]="'admision-' + doc.id">Inscripción</h2>
+                <ol class="pasos-lista">
+                  @for (step of copy().inscriptionSteps; track step) {
+                    <li>{{ step }}</li>
+                  }
+                </ol>
+                <div class="cta-row">
+                  <a
+                    appButton
+                    variant="whatsapp"
+                    [href]="whatsappUrl()"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Informes por WhatsApp
+                  </a>
+                  <a appButton [href]="mailtoHref()">Redactar correo</a>
+                  <a appButton variant="outline" routerLink="/programas">Ver carreras</a>
+                </div>
+                <h3>Datos del correo</h3>
+                <ul class="lista">
+                  @for (field of copy().emailFields; track field) {
+                    <li>{{ field }}</li>
+                  }
+                </ul>
+                <p class="ficha-lead">
+                  Enviar a
+                  <a [href]="'mailto:' + info().contact.emailIntake">{{
+                    info().contact.emailIntake
+                  }}</a
+                  >. Campus: {{ campus().address }}, {{ campus().city }}.
+                </p>
+                <div class="modelo">
+                  <div class="modelo-head">
+                    <h3>Modelo de mensaje</h3>
+                    <button
+                      type="button"
+                      appButton
+                      variant="ghost"
+                      size="sm"
+                      (click)="copyText(copy().emailTemplate, 'email')"
+                    >
+                      {{ copiedKey() === 'email' ? 'Copiado' : 'Copiar' }}
+                    </button>
+                  </div>
+                  <div class="det-content__html modelo-cuerpo" [innerHTML]="copy().emailTemplate"></div>
+                </div>
+              }
+              @case ('pagos') {
+                <h2 [id]="'admision-' + doc.id">Costos y pagos</h2>
+                <dl class="tarifas">
+                  @for (fee of feeItems(); track fee.id) {
+                    <div>
+                      <dt>{{ fee.label }}</dt>
+                      <dd>{{ formatFee(fee.amount) }}</dd>
+                    </div>
+                  }
+                </dl>
+                <div class="cta-row">
+                  <a appButton routerLink="/costos">Ver costos</a>
+                </div>
+                <h3>Cuentas institucionales</h3>
+                <ul class="cuentas">
+                  @for (account of info().bankAccounts; track account.accountNumber) {
+                    <li>
+                      <strong>{{ account.bank }}</strong>
+                      <p>{{ account.accountType }} {{ account.accountNumber }}</p>
+                      <p>CCI {{ account.cci }}</p>
+                      <p>{{ account.holder }}</p>
+                      <button
+                        type="button"
+                        appButton
+                        variant="ghost"
+                        size="sm"
+                        (click)="copyText(account.accountNumber, account.accountNumber)"
+                      >
+                        {{
+                          copiedKey() === account.accountNumber ? 'Copiado' : 'Copiar cuenta'
+                        }}
+                      </button>
+                    </li>
+                  }
+                </ul>
+              }
+              @case ('normas') {
+                <h2 [id]="'admision-' + doc.id">Normas del proceso</h2>
+                <ul class="lista">
+                  @for (norm of copy().norms; track norm) {
+                    <li>{{ norm }}</li>
+                  }
+                </ul>
+                <div class="cta-row">
+                  <a
+                    appButton
+                    variant="whatsapp"
+                    [href]="whatsappUrl()"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Consultar convocatoria
+                  </a>
+                </div>
+              }
+            }
+          </article>
+        }
+      }
+    }
+  </div>
+</section>

@@ -1,0 +1,33 @@
+<section class="historia" aria-labelledby="historia-title">
+  <article class="historia-card">
+    <h2 id="historia-title">Reseña histórica</h2>
+    <div class="historia-layout">
+      <figure>
+        <img [appSrc]="copy().historiaImage.src" [alt]="copy().historiaImage.alt" />
+      </figure>
+      <div class="historia-copy" [class.is-expanded]="expanded()">
+        <div class="det-content__html" [innerHTML]="copy().historyLead"></div>
+        @if (expanded() && tieneCronologia()) {
+          <div
+            id="historia-cronologia"
+            class="det-content__html historia-detalle"
+            [innerHTML]="copy().historyTimeline"
+          ></div>
+        }
+        @if (tieneCronologia()) {
+          <button
+            type="button"
+            appButton
+            variant="outline"
+            size="sm"
+            [attr.aria-expanded]="expanded()"
+            aria-controls="historia-cronologia"
+            (click)="expanded.update((v) => !v)"
+          >
+            {{ expanded() ? 'Ver menos' : 'Ver más' }}
+          </button>
+        }
+      </div>
+    </div>
+  </article>
+</section>
