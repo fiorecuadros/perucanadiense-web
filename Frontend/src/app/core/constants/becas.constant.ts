@@ -32,7 +32,7 @@ export const BECAS_COPY: BecasContent = {
   emptyBody:
     'Este rubro del Portal de Transparencia aún no tiene una relación ni un PDF institucional en el sitio. Cuando el instituto la publique, aparecerá aquí.',
   cover: {
-    src: 'images/pcanadiense/becas%20600x400.jpg',
+    src: 'assets/becas%20600x400.jpg',
     alt: 'Imagen del rubro Becas y créditos en el Portal de Transparencia Institucional',
   },
   tasasLead:

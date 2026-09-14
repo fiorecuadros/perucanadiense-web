@@ -40,11 +40,11 @@ export const COSTOS_COPY: CostosContent = {
   tarifarioUrl:
     'https://pcanadiense-my.sharepoint.com/:b:/g/personal/supervisor_pcanadiense_edu_pe/EdKV0g3T6CJIk7FgHKvbjFkBvViLDzc7Ews0xSeTYDSt1A?e=lIcKL2',
   cover: {
-    src: 'images/pcanadiense/derechos%20y%20tasas.jpg',
+    src: 'assets/derechos%20y%20tasas.jpg',
     alt: 'Imagen del rubro Derechos y tasas en el Portal de Transparencia Institucional',
   },
   matriculaImage: {
-    src: 'images/pcanadiense/img_matricula_2025.jpeg',
+    src: 'assets/img_matricula_2025.jpeg',
     alt: 'Atención de matrícula en el IESPP Peruano Canadiense',
   },
   matriculaLead:

@@ -39,11 +39,11 @@ export const ABOUT_COPY: AboutContent = {
     '</ul>',
   ].join(''),
   organigrama: {
-    src: 'images/pcanadiense/organigrama.jpg',
+    src: 'assets/organigrama.jpg',
     alt: 'Organigrama institucional del IESPP Peruano Canadiense',
   },
   historiaImage: {
-    src: 'images/pcanadiense/historia.jpg',
+    src: 'assets/historia.jpg',
     alt: 'Sede e historia del IESPP Peruano Canadiense',
   },
   historyLead:

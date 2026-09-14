@@ -18,7 +18,7 @@ export const HORARIOS_DOCS: readonly HorariosDoc[] = [
     id: 'atencion',
     label: 'Atención al público',
     kind: 'image',
-    src: 'images/pcanadiense/horario_atencion_2026v2.png',
+    src: 'assets/horario_atencion_2026v2.png',
     alt: 'Afiche de horarios de atención al público del IESPP Peruano Canadiense',
   },
   { id: 'clases', label: 'Clases presenciales', kind: 'panel' },

@@ -1,7 +1,7 @@
 /**
  * Copy y materiales del proceso de admisión FID.
  * Tarifas, cuentas y vacantes viven en INSTITUTION / ACADEMIC_PROGRAMS.
- * Afiches: archivos reales en public/images/pcanadiense/.
+ * Afiches: archivos reales en public/assets/.
  */
 
 export type AdmissionDocKind = 'image' | 'panel';
@@ -19,14 +19,14 @@ export const ADMISSION_DOCS: readonly AdmissionDoc[] = [
     id: 'convocatoria',
     label: 'Convocatoria',
     kind: 'image',
-    src: 'images/pcanadiense/Admision%202026-04-04.png',
+    src: 'assets/Admision%202026-04-04.png',
     alt: 'Afiche del examen de admisión 2026 del IESPP Peruano Canadiense',
   },
   {
     id: 'horarios',
     label: 'Horarios de atención',
     kind: 'image',
-    src: 'images/pcanadiense/horario_atencion_2026v2.png',
+    src: 'assets/horario_atencion_2026v2.png',
     alt: 'Horarios de atención al público del IESPP Peruano Canadiense',
   },
   { id: 'vacantes', label: 'Vacantes', kind: 'panel' },

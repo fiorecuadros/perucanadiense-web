@@ -35,7 +35,7 @@ export const INVERSIONES_COPY: InversionesContent = {
   emptyBody:
     'Este rubro del Portal de Transparencia aún no tiene un informe ni un PDF institucional en el sitio. Cuando el instituto lo publique, aparecerá aquí.',
   cover: {
-    src: 'images/pcanadiense/reinversiones.jpg',
+    src: 'assets/reinversiones.jpg',
     alt: 'Imagen del rubro Inversiones y reinversiones en el Portal de Transparencia Institucional',
   },
   campusLead:

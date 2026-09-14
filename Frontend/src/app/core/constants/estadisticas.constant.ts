@@ -36,7 +36,7 @@ export const ESTADISTICAS_COPY: EstadisticasContent = {
   ptiUrl:
     'https://pcanadiense-my.sharepoint.com/:b:/g/personal/supervisor_pcanadiense_edu_pe/EcVz9jCUAnhEocDnFDnqDdUBvVclw2Fgu15yuP4JCW3uNA?e=y9MNmn',
   ptiCover: {
-    src: 'images/pcanadiense/matriculados-egresados.jpg',
+    src: 'assets/matriculados-egresados.jpg',
     alt: 'Imagen del rubro Matriculados y egresados en el Portal de Transparencia Institucional',
   },
   resultadosLead: 'Resultados de admisión del periodo 2025-II publicados por el instituto.',

@@ -45,7 +45,7 @@ export const LICENCIAMIENTO_COPY: LicenciamientoContent = {
   rvmUrl: '/docs/RVM-097-2022-MINEDU.pdf',
   rvmLabel: 'Abrir RVM-097-2022-MINEDU',
   cover: {
-    src: 'images/pcanadiense/licenciamiento.jpg',
+    src: 'assets/licenciamiento.jpg',
     alt: 'Ficha de licenciamiento MINEDU del IESPP Peruano Canadiense',
   },
   carrerasLead:

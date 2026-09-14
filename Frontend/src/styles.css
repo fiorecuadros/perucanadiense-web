@@ -126,7 +126,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: url('/images/banner-hero-nosotros.png') center/cover;
+  background: url('/assets/banner-hero-nosotros.png') center/cover;
   opacity: 0.15;
   mix-blend-mode: overlay;
   pointer-events: none;

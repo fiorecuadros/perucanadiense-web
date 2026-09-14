@@ -48,13 +48,13 @@ export const PROCEDIMIENTOS_COPY: ProcedimientosContent = {
   tupaLead:
     'El TUPA institucional (rubro 7 del Portal de Transparencia, Ley N° 30512) describe los trámites administrativos, requisitos y plazos. El archivo vive en SharePoint y no está archivado en este sitio.',
   tupaCover: {
-    src: 'images/pcanadiense/tupa.jpg',
+    src: 'assets/tupa.jpg',
     alt: 'Imagen del rubro TUPA en el Portal de Transparencia Institucional',
   },
   reglamentoLead:
     'El reglamento interno e institucional (rubro 1 del PTI) contiene el estatuto y las normas de convivencia. El PDF no está archivado en este repositorio.',
   reglamentoCover: {
-    src: 'images/pcanadiense/reglamento.jpg',
+    src: 'assets/reglamento.jpg',
     alt: 'Imagen del rubro Reglamento interno en el Portal de Transparencia Institucional',
   },
   tasasLead:

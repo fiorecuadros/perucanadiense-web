@@ -68,7 +68,7 @@ export const ACADEMIC_PROGRAMS: Program[] = [
       'Centros de estimulación temprana y desarrollo psicomotriz',
       'Colegio de Aplicación Peruano Canadiense',
     ],
-    image: 'images/pcanadiense/inicial.jpg',
+    image: 'assets/inicial.jpg',
     featured: true,
   },
   {
@@ -92,7 +92,7 @@ export const ACADEMIC_PROGRAMS: Program[] = [
       'Asesoría pedagógica e investigación educativa',
       'Dirección y coordinación de proyectos formativos escolares',
     ],
-    image: 'images/pcanadiense/primaria.jpg',
+    image: 'assets/primaria.jpg',
     featured: true,
   },
   {
@@ -116,7 +116,7 @@ export const ACADEMIC_PROGRAMS: Program[] = [
       'Academias y centros preuniversitarios',
       'Desarrollo curricular e investigación en didáctica matemática',
     ],
-    image: 'images/pcanadiense/secundaria.jpg',
+    image: 'assets/secundaria.jpg',
     featured: true,
   },
   {
@@ -140,7 +140,7 @@ export const ACADEMIC_PROGRAMS: Program[] = [
       'Organizaciones no gubernamentales e instituciones culturales',
       'Gestión de políticas educativas y proyectos comunitarios',
     ],
-    image: 'images/pcanadiense/secundaria.jpg',
+    image: 'assets/secundaria.jpg',
     featured: true,
   },
   {
@@ -161,7 +161,7 @@ export const ACADEMIC_PROGRAMS: Program[] = [
       'Instituciones públicas y privadas en educación inicial y primaria',
       'Guarderías y centros de cuidado infantil',
     ],
-    image: 'images/pcanadiense/inicial.jpg',
+    image: 'assets/inicial.jpg',
     featured: false,
   },
   {
@@ -182,7 +182,7 @@ export const ACADEMIC_PROGRAMS: Program[] = [
       'Aulas de innovación pedagógica (AIP)',
       'Centros de cómputo educativos y soporte TIC escolar',
     ],
-    image: 'images/pcanadiense/secundaria.jpg',
+    image: 'assets/secundaria.jpg',
     featured: false,
   },
   {
@@ -203,7 +203,7 @@ export const ACADEMIC_PROGRAMS: Program[] = [
       'Centros de educación especial (CEBE)',
       'Clínicas y centros de terapia física y estimulación',
     ],
-    image: 'images/pcanadiense/primaria.jpg',
+    image: 'assets/primaria.jpg',
     featured: false,
   },
 ];

@@ -42,62 +42,62 @@ export interface InicioContent {
 export const INICIO_COPY: InicioContent = {
   heroImages: [
     {
-      src: 'images/pcanadiense/Fondo1.jpeg',
+      src: 'assets/Fondo1.jpeg',
       alt: 'Comunidad educativa del IESPP Peruano Canadiense en Chiclayo',
     },
     {
-      src: 'images/pcanadiense/programas.jpg',
+      src: 'assets/programas.jpg',
       alt: 'Programas de estudio del IESPP Peruano Canadiense',
     },
     {
-      src: 'images/pcanadiense/inicial.jpg',
+      src: 'assets/inicial.jpg',
       alt: 'Formación docente en Educación Inicial',
     },
   ],
   licensingImage: {
-    src: 'images/pcanadiense/licenciamiento.jpg',
+    src: 'assets/licenciamiento.jpg',
     alt: 'Ficha de licenciamiento MINEDU',
   },
   services: [
     {
-      src: 'images/pcanadiense/computacion-1.jpg',
+      src: 'assets/computacion-1.jpg',
       title: 'Carreras Técnicas',
       alt: 'Carreras técnicas del IESPP Peruano Canadiense',
     },
     {
-      src: 'images/pcanadiense/x_seminario.jpg',
+      src: 'assets/x_seminario.jpg',
       title: 'Formación Continua',
       alt: 'Formación continua y seminarios institucionales',
     },
   ],
   logos: [
     {
-      image: 'images/pcanadiense/logo_minedu.png',
+      image: 'assets/logo_minedu.png',
       url: 'https://www.gob.pe/minedu',
       alt: 'Ministerio de Educación',
     },
     {
-      image: 'images/pcanadiense/logo_difoid.png',
+      image: 'assets/logo_difoid.png',
       url: 'https://www.minedu.gob.pe/superiorpedagogica/',
       alt: 'DIFOID — Educación Superior Pedagógica',
     },
     {
-      image: 'images/pcanadiense/logo_sia.png',
+      image: 'assets/logo_sia.png',
       url: 'https://www.gob.pe/minedu',
       alt: 'Sistema de Información Académica',
     },
     {
-      image: 'images/pcanadiense/logo_bnp.png',
+      image: 'assets/logo_bnp.png',
       url: 'https://www.bnp.gob.pe/',
       alt: 'Biblioteca Nacional del Perú',
     },
     {
-      image: 'images/pcanadiense/logo%20perueduca.jpg',
+      image: 'assets/logo%20perueduca.jpg',
       url: 'https://www.perueduca.pe/',
       alt: 'PerúEduca',
     },
     {
-      image: 'images/pcanadiense/logo_M365.png',
+      image: 'assets/logo_M365.png',
       url: 'https://www.office.com/',
       alt: 'Microsoft 365',
     },
