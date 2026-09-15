@@ -11,3 +11,43 @@
   height: 100%;
   object-fit: cover;
 }
+
+.image-recommendations {
+  margin-top: 12px;
+  margin-bottom: 14px;
+  padding: 14px 16px;
+  background: #fff8e1;
+  border: 1px solid #f0c36d;
+  border-radius: 6px;
+  color: #5f4b18;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.image-recommendations strong {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.image-recommendations ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.image-recommendations li {
+  margin: 2px 0;
+}
+
+.image-recommendations ul {
+  display: block !important;
+  list-style: disc !important;
+  list-style-position: outside !important;
+  padding-left: 22px !important;
+  margin: 6px 0 0 !important;
+}
+
+.image-recommendations li {
+  display: list-item !important;
+  list-style: disc !important;
+  margin: 2px 0 !important;
+}
