@@ -1,4 +1,4 @@
-const { consultarUna } = require('../../config/db');
+﻿const { consultarUna } = require('../../config/db');
 const { leerJson } = require('../../lib/json');
 const programas = require('../programas/programas.servicio');
 const { INTENCIONES, respuestaPrograma, respuestaVacia } = require('./asistente.conocimiento');
@@ -7,13 +7,40 @@ const TTL_MS = 60 * 1000;
 let cache = { en: 0, ctx: null };
 
 function normalizar(texto) {
-  return String(texto || '')
+  let limpio = String(texto || '')
     .toLowerCase()
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .replace(/[^a-z0-9\s]/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
+
+  const correcciones = {
+    k: 'que',
+    q: 'que',
+    kiero: 'quiero',
+    kiere: 'quiere',
+    kieren: 'quieren',
+    kuesta: 'cuesta',
+    kosto: 'costo',
+    kostos: 'costos',
+    keda: 'queda',
+    kedan: 'quedan',
+    komo: 'como',
+    dnd: 'donde',
+    info: 'informacion',
+    wsp: 'whatsapp',
+    wssp: 'whatsapp',
+    wasap: 'whatsapp',
+    wtsp: 'whatsapp'
+  };
+
+  limpio = limpio
+    .split(' ')
+    .map((palabra) => correcciones[palabra] || palabra)
+    .join(' ');
+
+  return limpio;
 }
 
 function pega(mensaje, patron) {
@@ -162,28 +189,129 @@ function respuestaVarios(programas) {
 
 const FICHA_PROGRAMA = new Set(['programas', 'duracion', 'titulo']);
 
+// Intenciones que pueden responderse juntas en una misma consulta.
+const INTENCIONES_COMBINABLES = new Set([
+  'programas',
+  'duracion',
+  'titulo',
+  'admision',
+  'examen',
+  'costos',
+  'cuentas',
+  'becas',
+  'licenciamiento',
+  'servicios',
+  'psicopedagogico',
+  'medico',
+  'social',
+  'mesa',
+  'reclamaciones',
+  'noticias',
+  'repositorio',
+  'transparencia',
+  'reglamentos',
+  'procedimientos',
+  'horarios',
+  'estadisticas',
+  'inversiones',
+  'contacto',
+]);
+
+function unirRespuestas(respuestas) {
+  const textos = [];
+  const enlaces = [];
+  const sugerencias = [];
+
+  for (const respuesta of respuestas) {
+    if (!respuesta) continue;
+
+    if (respuesta.texto && !textos.includes(respuesta.texto)) {
+      textos.push(respuesta.texto);
+    }
+
+    for (const enlace of respuesta.enlaces || []) {
+      const repetido = enlaces.some(
+        (item) => item.etiqueta === enlace.etiqueta && item.ruta === enlace.ruta
+      );
+      if (!repetido) enlaces.push(enlace);
+    }
+
+    for (const sugerencia of respuesta.sugerencias || []) {
+      if (!sugerencias.includes(sugerencia)) {
+        sugerencias.push(sugerencia);
+      }
+    }
+  }
+
+  return {
+    texto: textos.join(' '),
+    enlaces: enlaces.slice(0, 5),
+    sugerencias: sugerencias.slice(0, 5),
+  };
+}
+
 async function consultar(mensaje) {
   const ctx = await contexto();
   const texto = normalizar(mensaje);
 
-  let ganadora = null;
-  let mejor = { puntos: 0, masLargo: 0 };
+  const coincidencias = [];
+
   for (const intencion of INTENCIONES) {
     const marca = puntuar(texto, intencion.patrones);
-    if (marca.puntos > mejor.puntos || (marca.puntos === mejor.puntos && marca.masLargo > mejor.masLargo)) {
-      mejor = marca;
-      ganadora = intencion;
+
+    if (marca.puntos > 0) {
+      coincidencias.push({
+        intencion,
+        puntos: marca.puntos,
+        masLargo: marca.masLargo,
+      });
     }
   }
 
+  coincidencias.sort((a, b) => {
+    if (b.puntos !== a.puntos) return b.puntos - a.puntos;
+    return b.masLargo - a.masLargo;
+  });
+
   const mencionados = programasMencionados(texto, ctx.programas);
-  const sinIntencion = !ganadora || mejor.puntos === 0;
-  if (mencionados.length && (sinIntencion || FICHA_PROGRAMA.has(ganadora.id))) {
-    return respuestaVarios(mencionados);
+
+  if (!coincidencias.length && !mencionados.length) {
+    return respuestaVacia(ctx);
   }
 
-  if (sinIntencion) return respuestaVacia(ctx);
-  return ganadora.responder(ctx);
+  const respuestas = [];
+  const idsUsados = new Set();
+
+  // Si se menciona una carrera concreta, responder primero su ficha.
+  if (mencionados.length) {
+    respuestas.push(respuestaVarios(mencionados));
+    idsUsados.add('programas');
+    idsUsados.add('duracion');
+    idsUsados.add('titulo');
+  }
+
+  for (const item of coincidencias) {
+    const { intencion } = item;
+
+    if (idsUsados.has(intencion.id)) continue;
+
+    // Saludo, despedida, ayuda e inicio no se mezclan con respuestas informativas.
+    if (!INTENCIONES_COMBINABLES.has(intencion.id)) continue;
+
+    respuestas.push(intencion.responder(ctx));
+    idsUsados.add(intencion.id);
+  }
+
+  if (respuestas.length) {
+    return unirRespuestas(respuestas);
+  }
+
+  // Conserva el comportamiento anterior para saludos, ayuda, despedidas, etc.
+  const principal = coincidencias[0];
+  if (principal) return principal.intencion.responder(ctx);
+
+  return respuestaVacia(ctx);
 }
 
 module.exports = { consultar };
+

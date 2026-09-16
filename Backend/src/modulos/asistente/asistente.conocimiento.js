@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Intenciones del asistente del portal. No recita cifras ni plazos inventados:
  * rellena con la ficha y los programas vivos, y para lo que cambia (cronograma,
  * requisitos de una convocatoria) manda a la página oficial.
@@ -88,7 +88,15 @@ const INTENCIONES = [
   },
   {
     id: 'duracion',
-    patrones: ['cuanto dura', 'duracion', 'semestres', 'ciclos academicos', 'anios de estudio'],
+    patrones: [
+      'cuanto dura', 'duracion', 'semestres', 'ciclos academicos',
+      'anios de estudio',
+      'cuantos anos',
+      'cuantos anos se estudia',
+      'cuantos ciclos',
+      'cuantos ciclos son',
+      'tiempo de estudio'
+    ],
     responder: (ctx) => ({
       texto: duracionOferta(ctx),
       enlaces: [enlace('Ver programas', '/programas')],
@@ -124,6 +132,17 @@ const INTENCIONES = [
       'oferta academica',
       'formacion inicial',
       'fid',
+      'que puedo estudiar',
+      'que ensenan',
+      'que puedo estudiar aqui',
+      'quiero estudiar una carrera',
+      'quiero estudiar',
+      'quiero estudiar para profesor',
+      'que puedo estudiar para ser profesor',
+      'que opciones tienen',
+      'que opciones de estudio tienen',
+      'informacion de carreras',
+      'info de carreras',
     ],
     responder: (ctx) => ({
       texto: listarOferta(ctx),
@@ -143,6 +162,14 @@ const INTENCIONES = [
       'proceso de admision',
       'postulacion',
       'requisitos de admision',
+      'como puedo ingresar',
+      'como ingreso',
+      'como me inscribo',
+      'como inscribirme',
+      'que necesito para ingresar',
+      'que necesito para postular',
+      'quiero ingresar',
+      'quiero inscribirme',
     ],
     responder: () => ({
       texto: 'El proceso, el cronograma y los requisitos de la convocatoria vigente están en Admisión. No los listo aquí porque cambian por proceso: lo publicado en esa página es lo que vale.',
@@ -161,7 +188,16 @@ const INTENCIONES = [
   },
   {
     id: 'costos',
-    patrones: ['costo', 'costos', 'pension', 'mensualidad', 'matricula', 'cuanto cuesta', 'precio', 'arancel', 'tarifario'],
+    patrones: [
+      'costo', 'costos', 'pension', 'mensualidad', 'matricula',
+      'cuanto cuesta', 'precio', 'arancel', 'tarifario',
+      'cuanto tengo que pagar',
+      'cuanto pago',
+      'cuanto debo pagar',
+      'cuanto esta',
+      'precio de estudiar',
+      'pago mensual'
+    ],
     responder: (ctx) => ({
       texto: textoCostos(ctx),
       enlaces: [enlace('Costos y tarifario', '/costos')],
@@ -187,7 +223,19 @@ const INTENCIONES = [
   },
   {
     id: 'becas',
-    patrones: ['beca', 'becas', 'credito educativo', 'financiamiento', 'pronabec', 'apoyo economico'],
+    patrones: [
+      'beca',
+      'becas',
+      'credito educativo',
+      'financiamiento',
+      'pronabec',
+      'apoyo economico',
+      'ayuda economica',
+      'ayuda para estudiar',
+      'apoyo para estudiar',
+      'beneficio economico',
+      'tienen ayuda economica'
+    ],
     responder: () => ({
       texto: 'La información de becas y créditos que el instituto tiene publicada está en Becas. Si un rubro del portal de transparencia está vacío, esa página lo dice: no hay cupos ni montos inventados.',
       enlaces: [enlace('Becas y créditos', '/becas')],
@@ -234,12 +282,23 @@ const INTENCIONES = [
     id: 'mesa',
     patrones: [
       'mesa de partes',
+    'donde presento documentos',
+    'donde presentar documentos',
+    'donde puedo presentar documentos',
+    'quiero presentar documentos',
+    'presentar documentos',
+    'enviar documentos',
+    'entregar documentos',
       'tramite',
       'tramites',
       'solicitud',
       'constancia',
       'enviar documento',
       'fut',
+      'quiero presentar un documento',
+      'presentar documento',
+      'quiero enviar un documento',
+      'registrar documento',
     ],
     responder: () => ({
       texto: 'Por mesa de partes virtual puede presentar un documento y recibe un código de seguimiento. Otros formularios del portal: acceso a la información, cita psicopedagógica y servicio social.',
@@ -346,8 +405,26 @@ const INTENCIONES = [
       'direccion',
       'ubicacion',
       'donde estan',
+    'donde esta',
+    'donde queda',
+    'donde quedan',
+    'donde se ubica',
+    'donde se encuentran',
       'sedes',
       'facebook',
+      'como puedo comunicarme',
+      'como me comunico',
+      'como los contacto',
+      'como contactarlos',
+      'numero para comunicarme',
+    'quiero hablar con alguien',
+    'quiero comunicarme con alguien',
+    'quiero hablar con ustedes',
+    'quiero comunicarme con ustedes',
+    'necesito hablar con alguien',
+    'con quien puedo hablar',
+    'quiero contactar al instituto',
+    'como contacto al instituto',
     ],
     responder: (ctx) => ({
       texto: textoContacto(ctx),
@@ -458,3 +535,8 @@ function respuestaVacia(ctx) {
 }
 
 module.exports = { INTENCIONES, respuestaPrograma, respuestaVacia };
+
+
+
+
+

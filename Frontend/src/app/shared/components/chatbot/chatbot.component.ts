@@ -1,4 +1,4 @@
-import {
+﻿import {
   Component, signal, ViewChild, ElementRef,
   AfterViewChecked, HostListener, inject
 } from '@angular/core';
@@ -62,7 +62,7 @@ export class ChatbotComponent implements AfterViewChecked {
 
   sendMessage() {
     const text = this.userInput.trim();
-    if (!text) return;
+    if (!text || this.isTyping()) return;
 
     this.addMessage({ type: 'user', text, time: this.nowTime() });
     this.userInput = '';
@@ -84,11 +84,23 @@ export class ChatbotComponent implements AfterViewChecked {
           time: this.nowTime(),
         });
       },
-      error: () => {
+      error: (err) => {
         this.isTyping.set(false);
+
+        let mensaje =
+          'Lo siento, hubo un problema al conectar con el servidor. Por favor intenta nuevamente.';
+
+        if (err.status === 429) {
+          mensaje =
+            'Has realizado varias consultas seguidas. Espera un momento antes de volver a intentarlo.';
+        } else if (err.status === 0) {
+          mensaje =
+            'No puedo comunicarme con el servidor en este momento. Por favor intenta nuevamente más tarde.';
+        }
+
         this.addMessage({
           type: 'bot',
-          text: 'Lo siento, hubo un problema al conectar con el servidor. Por favor intenta nuevamente.',
+          text: mensaje,
           quickReplies: ['Programas', 'Admisión', 'Contacto'],
           time: this.nowTime(),
         });
@@ -125,3 +137,5 @@ export class ChatbotComponent implements AfterViewChecked {
   @HostListener('document:keydown.escape')
   onEscape() { this.close(); }
 }
+
+

@@ -1,4 +1,4 @@
-<!-- Botón flotante -->
+﻿<!-- Botón flotante -->
 <button class="chat-fab" (click)="toggle()" [class.chat-fab--open]="isOpen()" aria-label="Abrir asistente virtual">
   @if (!isOpen()) {
     <i class="fas fa-comments"></i>
@@ -95,13 +95,15 @@
         placeholder="Escribe tu consulta..."
         [(ngModel)]="userInput"
         (keydown.enter)="sendMessage()"
+        [disabled]="isTyping()"
         maxlength="300"
         autocomplete="off"
       />
-      <button class="chat-send" (click)="sendMessage()" [disabled]="!userInput.trim()" aria-label="Enviar">
+      <button class="chat-send" (click)="sendMessage()" [disabled]="!userInput.trim() || isTyping()" aria-label="Enviar">
         <i class="fas fa-paper-plane"></i>
       </button>
     </div>
 
   </div>
 }
+
