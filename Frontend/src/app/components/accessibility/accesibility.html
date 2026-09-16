@@ -1,0 +1,366 @@
+﻿<!-- Botón flotante de accesibilidad -->
+<button
+  class="accessibility-toggle"
+  (click)="togglePanel()"
+  [attr.aria-expanded]="isOpen"
+  aria-label="Ayuda de accesibilidad"
+  [class.active]="isOpen">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="3"></circle>
+    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+  </svg>
+</button>
+
+<!-- Panel de accesibilidad - Estilo AudioEye -->
+<div
+  class="accessibility-panel"
+  [class.open]="isOpen"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="accessibility-title">
+  <div class="panel-header">
+    <h2 id="accessibility-title">Ayuda de accesibilidad</h2>
+    <button class="close-btn" (click)="closePanel()" aria-label="Cerrar panel">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Pestañas -->
+  <div class="tabs-container" role="tablist">
+    <button
+      class="tab-btn"
+      [class.active]="activeTab === 'report'"
+      (click)="activeTab = 'report'"
+      role="tab"
+      [attr.aria-selected]="activeTab === 'report'"
+      [attr.aria-controls]="activeTab === 'report' ? 'report-panel' : null"
+      id="tab-report">
+      Informar problema
+    </button>
+    <button
+      class="tab-btn"
+      [class.active]="activeTab === 'tools'"
+      (click)="activeTab = 'tools'"
+      role="tab"
+      [attr.aria-selected]="activeTab === 'tools'"
+      [attr.aria-controls]="activeTab === 'tools' ? 'tools-panel' : null"
+      id="tab-tools">
+      Herramientas de personalización
+    </button>
+  </div>
+
+  <!-- Contenido de pestañas -->
+  <div class="panel-content">
+    <!-- Pestaña 1: Informar problema -->
+    <div
+      class="tab-panel"
+      [class.active]="activeTab === 'report'"
+      id="report-panel"
+      role="tabpanel"
+      [attr.aria-labelledby]="activeTab === 'report' ? 'tab-report' : null">
+      <form class="report-form" (ngSubmit)="submitReport()">
+        <div class="form-group">
+          <label for="report-name">Nombre *</label>
+          <input
+            type="text"
+            id="report-name"
+            name="reportName" [(ngModel)]="reportForm.name"
+            required
+            aria-required="true">
+        </div>
+
+        <div class="form-group">
+          <label for="report-email">Correo electrónico *</label>
+          <input
+            type="email"
+            id="report-email"
+            name="reportEmail" [(ngModel)]="reportForm.email"
+            required
+            aria-required="true">
+        </div>
+
+        <div class="form-group">
+          <label for="report-phone">Teléfono (opcional)</label>
+          <input
+            type="tel"
+            id="report-phone"
+            name="reportPhone" [(ngModel)]="reportForm.phone">
+        </div>
+
+        <div class="form-group">
+          <label>Tipo de asistencia *</label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input
+                type="radio"
+                name="assistance-type"
+                [(ngModel)]="reportForm.assistanceType"
+                value="accessibility"
+                required>
+              <span>Problema de accesibilidad</span>
+            </label>
+            <label class="radio-label">
+              <input
+                type="radio"
+                name="assistance-type"
+                [(ngModel)]="reportForm.assistanceType"
+                value="general">
+              <span>Consulta general</span>
+            </label>
+            <label class="radio-label">
+              <input
+                type="radio"
+                name="assistance-type"
+                [(ngModel)]="reportForm.assistanceType"
+                value="bug">
+              <span>Reportar error</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="report-description">Descripción *</label>
+          <textarea
+            id="report-description"
+            name="reportDescription" [(ngModel)]="reportForm.description"
+            rows="4"
+            required
+            aria-required="true"
+            placeholder="Describe el problema o consulta..."></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn">Enviar reporte</button>
+      </form>
+    </div>
+
+    <!-- Pestaña 2: Herramientas de personalización -->
+    <div
+      class="tab-panel"
+      [class.active]="activeTab === 'tools'"
+      id="tools-panel"
+      role="tabpanel"
+      [attr.aria-labelledby]="activeTab === 'tools' ? 'tab-tools' : null">
+      <div class="tools-grid">
+        <button
+          class="tool-btn"
+          [class.active]="accessibilityTools.focus"
+          (click)="toggleTool('focus')"
+          aria-label="Enfoque: Resaltar elementos interactivos"
+          title="Enfoque">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+          <span>Enfoque</span>
+        </button>
+
+        <button
+          class="tool-btn"
+          [class.active]="accessibilityTools.largeCursor"
+          (click)="toggleTool('largeCursor')"
+          aria-label="Cursor grande: Aumentar tamaño del cursor"
+          title="Cursor grande">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"></path>
+          </svg>
+          <span>Cursor grande</span>
+        </button>
+
+        <button
+          class="tool-btn"
+          [class.active]="accessibilityTools.highlightLinks"
+          (click)="toggleTool('highlightLinks')"
+          aria-label="Destacar enlaces: Resaltar todos los enlaces"
+          title="Destacar enlaces">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+          </svg>
+          <span>Destacar enlaces</span>
+        </button>
+
+        <button
+          class="tool-btn"
+          [class.active]="accessibilityTools.highContrast"
+          (click)="toggleTool('highContrast')"
+          aria-label="Alto contraste: Aumentar contraste de colores"
+          title="Alto contraste">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <span>Alto contraste</span>
+        </button>
+
+        <button
+          class="tool-btn"
+          [class.active]="accessibilityTools.colorShift"
+          (click)="toggleTool('colorShift')"
+          aria-label="Cambio de color: Cambiar paleta de colores"
+          title="Cambio de color">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="13.5" cy="6.5" r=".5"></circle>
+            <circle cx="17.5" cy="10.5" r=".5"></circle>
+            <circle cx="8.5" cy="7.5" r=".5"></circle>
+            <circle cx="6.5" cy="12.5" r=".5"></circle>
+            <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path>
+          </svg>
+          <span>Cambio de color</span>
+        </button>
+
+        <button
+          class="tool-btn"
+          [class.active]="accessibilityTools.stopAnimation"
+          (click)="toggleTool('stopAnimation')"
+          aria-label="Detener animación: Desactivar animaciones"
+          title="Detener animación">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="6" y="4" width="4" height="16"></rect>
+            <rect x="14" y="4" width="4" height="16"></rect>
+          </svg>
+          <span>Detener animación</span>
+        </button>
+
+        <button
+          class="tool-btn"
+          [class.active]="accessibilityTools.textSize === 'large'"
+          (click)="toggleTextSize()"
+          aria-label="Tamaño del texto: Aumentar tamaño de fuente"
+          title="Tamaño del texto">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="4 7 4 4 20 4 20 7"></polyline>
+            <line x1="9" y1="20" x2="15" y2="20"></line>
+            <line x1="12" y1="4" x2="12" y2="20"></line>
+          </svg>
+          <span>Tamaño del texto</span>
+        </button>
+
+        <button
+          class="tool-btn"
+          [class.active]="accessibilityTools.spacing === 'increased'"
+          (click)="toggleSpacing()"
+          aria-label="Espaciado: Aumentar espaciado de texto"
+          title="Espaciado">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+          <span>Espaciado</span>
+        </button>
+
+        <button
+          class="tool-btn"
+          [class.active]="accessibilityTools.dyslexicFont"
+          (click)="toggleTool('dyslexicFont')"
+          aria-label="Fuente accesible: Cambiar a fuente amigable"
+          title="Fuente accesible">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 7V4h16v3"></path>
+            <path d="M9 20h6"></path>
+            <line x1="12" y1="4" x2="12" y2="20"></line>
+          </svg>
+          <span>Fuente accesible</span>
+        </button>
+
+        <button
+          class="tool-btn"
+          [class.active]="accessibilityTools.readingGuide"
+          (click)="toggleTool('readingGuide')"
+          aria-label="Guía de lectura: Línea de lectura"
+          title="Guía de lectura">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <line x1="2" y1="12" x2="6" y2="12"></line>
+            <line x1="18" y1="12" x2="22" y2="12"></line>
+          </svg>
+          <span>Guía de lectura</span>
+        </button>
+
+        <button
+          class="tool-btn"
+          [class.active]="accessibilityTools.windowMask"
+          (click)="toggleTool('windowMask')"
+          aria-label="Máscara de ventana: Enfocar área específica"
+          title="Máscara de ventana">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+          <span>Máscara de ventana</span>
+        </button>
+
+        <button
+          class="tool-btn"
+          [class.active]="accessibilityTools.hideImages"
+          (click)="toggleTool('hideImages')"
+          aria-label="Ocultar imágenes: Ocultar todas las imágenes"
+          title="Ocultar imágenes">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+            <polyline points="21 15 16 10 5 21"></polyline>
+          </svg>
+          <span>Ocultar imágenes</span>
+        </button>
+
+        <button
+          class="tool-btn"
+          [class.active]="accessibilityTools.highlightHeadings"
+          (click)="toggleTool('highlightHeadings')"
+          aria-label="Destacar encabezados: Resaltar títulos y subtítulos"
+          title="Destacar encabezados">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 6h16M4 12h16M4 18h7"></path>
+          </svg>
+          <span>Destacar encabezados</span>
+        </button>
+
+        <button
+          class="tool-btn"
+          [class.active]="accessibilityTools.invertColors"
+          (click)="toggleTool('invertColors')"
+          aria-label="Invertir colores: Invertir paleta de colores"
+          title="Invertir colores">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 2a10 10 0 0 0 0 20 10 10 0 0 0 0-20z"></path>
+          </svg>
+          <span>Invertir colores</span>
+        </button>
+      </div>
+
+      <button class="reset-tools-btn" (click)="resetTools()">Restablecer todo</button>
+    </div>
+  </div>
+
+  <!-- Atajos de teclado -->
+  <div class="keyboard-shortcuts">
+    <h3>Atajos de teclado</h3>
+    <div class="shortcuts-list">
+      <div class="shortcut-item">
+        <kbd>Shift</kbd> + <kbd>R</kbd>
+        <span>Restablecer</span>
+      </div>
+      <div class="shortcut-item">
+        <kbd>Esc</kbd>
+        <span>Cerrar panel</span>
+      </div>
+      <div class="shortcut-item">
+        <kbd>H</kbd>
+        <span>Ir al formulario</span>
+      </div>
+    </div>
+  </div>
+</div>
+

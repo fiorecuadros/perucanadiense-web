@@ -1,4 +1,4 @@
-import {
+﻿import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
@@ -77,7 +77,11 @@ export class LogosCarousel {
     }
 
     const tick = () => {
-      if (!this.isPaused && !this.isDragging) {
+      if (
+        !this.isPaused &&
+        !this.isDragging &&
+        !document.body.classList.contains('ae-stop-animation')
+      ) {
         this.currentTranslate -= this.scrollSpeed;
         const halfWidth = trackEl.scrollWidth / 2;
         if (halfWidth > 0 && Math.abs(this.currentTranslate) >= halfWidth) {
@@ -162,3 +166,4 @@ export class LogosCarousel {
     return event instanceof MouseEvent ? event.clientX : event.touches[0].clientX;
   }
 }
+
