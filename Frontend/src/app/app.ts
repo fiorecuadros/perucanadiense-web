@@ -11,7 +11,7 @@ import { AccessibilityComponent } from './components/accessibility/accesibility'
   styleUrl: './app.css',
 })
 export class App {
-  mostrarAccesibilidad = true;
+  mostrarAccesibilidad = false;
 
   constructor(private router: Router) {
     this.actualizarVisibilidad(this.router.url);
@@ -27,3 +27,4 @@ export class App {
     this.mostrarAccesibilidad = !url.startsWith('/admin');
   }
 }
+
