@@ -67,7 +67,8 @@
           <input
             type="text"
             id="report-name"
-            name="reportName" [(ngModel)]="reportForm.name"
+            name="reportName"
+            [(ngModel)]="reportForm.name"
             required
             aria-required="true">
         </div>
@@ -77,7 +78,8 @@
           <input
             type="email"
             id="report-email"
-            name="reportEmail" [(ngModel)]="reportForm.email"
+            name="reportEmail"
+            [(ngModel)]="reportForm.email"
             required
             aria-required="true">
         </div>
@@ -87,7 +89,8 @@
           <input
             type="tel"
             id="report-phone"
-            name="reportPhone" [(ngModel)]="reportForm.phone">
+            name="reportPhone"
+            [(ngModel)]="reportForm.phone">
         </div>
 
         <div class="form-group">
@@ -125,7 +128,8 @@
           <label for="report-description">Descripción *</label>
           <textarea
             id="report-description"
-            name="reportDescription" [(ngModel)]="reportForm.description"
+            name="reportDescription"
+            [(ngModel)]="reportForm.description"
             rows="4"
             required
             aria-required="true"
@@ -202,6 +206,8 @@
           <span>Alto contraste</span>
         </button>
 
+        <!-- Cambio de color desactivado temporalmente - afecta layout -->
+        <!--
         <button
           class="tool-btn"
           [class.active]="accessibilityTools.colorShift"
@@ -217,6 +223,7 @@
           </svg>
           <span>Cambio de color</span>
         </button>
+        -->
 
         <button
           class="tool-btn"
@@ -326,6 +333,8 @@
           <span>Destacar encabezados</span>
         </button>
 
+        <!-- Invertir colores desactivado temporalmente - afecta layout -->
+        <!--
         <button
           class="tool-btn"
           [class.active]="accessibilityTools.invertColors"
@@ -338,27 +347,24 @@
           </svg>
           <span>Invertir colores</span>
         </button>
+        -->
       </div>
 
       <button class="reset-tools-btn" (click)="resetTools()">Restablecer todo</button>
-    </div>
-  </div>
 
-  <!-- Atajos de teclado -->
-  <div class="keyboard-shortcuts">
-    <h3>Atajos de teclado</h3>
-    <div class="shortcuts-list">
-      <div class="shortcut-item">
-        <kbd>Shift</kbd> + <kbd>R</kbd>
-        <span>Restablecer</span>
-      </div>
-      <div class="shortcut-item">
-        <kbd>Esc</kbd>
-        <span>Cerrar panel</span>
-      </div>
-      <div class="shortcut-item">
-        <kbd>H</kbd>
-        <span>Ir al formulario</span>
+      <!-- Atajos de teclado -->
+      <div class="keyboard-shortcuts">
+        <h3>Atajos de teclado</h3>
+        <div class="shortcuts-list">
+          <div class="shortcut-item">
+            <kbd>Shift</kbd> + <kbd>R</kbd>
+            <span>Restablecer</span>
+          </div>
+          <div class="shortcut-item">
+            <kbd>Esc</kbd>
+            <span>Cerrar panel</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>

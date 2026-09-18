@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Los cinco trámites comparten estructura (código, estado, datos del solicitante)
  * y se diferencian en la tabla y en un puñado de columnas. Describirlos aquí
  * evita escribir cinco veces el mismo repositorio y el mismo controlador.
@@ -114,6 +114,24 @@ const TIPOS = {
     exigenMotivo: ['cancelada'],
     campoRespuesta: 'notas',
   },
+  accesibilidad: {
+    tabla: 'reportes_accesibilidad',
+    prefijo: 'ACC',
+    etiqueta: 'Reporte de accesibilidad',
+    campoCorreo: 'email',
+    entidad: 'reportes-accesibilidad',
+    columnas: {
+      name: 'nombre',
+      email: 'email',
+      phone: 'telefono',
+      assistanceType: 'tipo_asistencia',
+      description: 'descripcion',
+    },
+    estados: ['pendiente', 'en_proceso', 'resuelto'],
+    cerrados: ['resuelto'],
+    exigenMotivo: ['resuelto'],
+    campoRespuesta: 'respuesta',
+  },
   social: {
     tabla: 'apoyo_social',
     prefijo: 'SS',
@@ -139,3 +157,4 @@ const TIPOS = {
 };
 
 module.exports = { TIPOS };
+

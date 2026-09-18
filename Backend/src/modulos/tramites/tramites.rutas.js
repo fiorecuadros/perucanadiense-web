@@ -1,4 +1,4 @@
-const { Router } = require('express');
+﻿const { Router } = require('express');
 const { exigirSesion } = require('../../middlewares/auth');
 const { validar } = require('../../middlewares/validar');
 const { recibirArchivo, validarArchivo } = require('../../middlewares/subida');
@@ -28,12 +28,20 @@ router.post('/tramites/acceso-informacion', limitadorTramites, validar(esquemas.
 router.post('/tramites/psicopedagogico', limitadorTramites, validar(esquemas.citaPsicopedagogica), controlador.crearSimple('psico'));
 router.post('/tramites/servicio-social', limitadorTramites, validar(esquemas.apoyoSocial), controlador.crearSimple('social'));
 
+router.post(
+  '/tramites/accesibilidad',
+  limitadorTramites,
+  validar(esquemas.reporteAccesibilidad),
+  controlador.crearSimple('accesibilidad'),
+);
+
 // -------------------------------------------------------------------- panel
 router.use('/admin/mesa-de-partes', exigirSesion);
 router.use('/admin/reclamaciones', exigirSesion);
 router.use('/admin/acceso-informacion', exigirSesion);
 router.use('/admin/citas-psicopedagogicas', exigirSesion);
 router.use('/admin/servicio-social', exigirSesion);
+router.use('/admin/reportes-accesibilidad', exigirSesion);
 router.use('/admin/tramites', exigirSesion);
 
 router.get('/admin/mesa-de-partes', controlador.listar('mesa'));
@@ -53,6 +61,12 @@ router.put('/admin/citas-psicopedagogicas/:id', validar(esquemas.actualizacionAd
 router.get('/admin/servicio-social', controlador.listar('social'));
 router.put('/admin/servicio-social/:id', validar(esquemas.actualizacionAdmin), controlador.actualizar('social'));
 
+router.get('/admin/reportes-accesibilidad', controlador.listar('accesibilidad'));
+router.get('/admin/reportes-accesibilidad/:id', controlador.obtener('accesibilidad'));
+router.put('/admin/reportes-accesibilidad/:id', validar(esquemas.actualizacionAdmin), controlador.actualizar('accesibilidad'));
+
 router.get('/admin/tramites/resumen', controlador.resumen);
 
 module.exports = router;
+
+

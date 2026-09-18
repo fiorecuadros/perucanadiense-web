@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+﻿import { Routes } from '@angular/router';
 import { salirConCambios } from './admin/shared/aviso-cambios/salir-con-cambios';
 import { authGuard } from './core/guards/auth.guard';
 
@@ -409,6 +409,14 @@ export const routes: Routes = [
             (m) => m.AdminReclamacionesComponent,
           ),
         title: 'Gestión de Reclamaciones — Admin',
+      },
+      {
+        path: 'accesibilidad',
+        loadComponent: () =>
+          import('./admin/accesibilidad/accesibilidad.component').then(
+            (m) => m.AdminAccesibilidadComponent,
+          ),
+        title: 'Reportes de Accesibilidad — Admin',
       },
       {
         path: 'solicitudes',

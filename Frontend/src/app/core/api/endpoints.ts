@@ -1,4 +1,4 @@
-import { environment } from '../../../environments/environment';
+﻿import { environment } from '../../../environments/environment';
 
 /**
  * Contrato HTTP del portal. Todas las rutas son relativas a `environment.apiUrl`
@@ -75,6 +75,7 @@ export const API = {
     acceso: '/tramites/acceso-informacion',
     psico: '/tramites/psicopedagogico',
     social: '/tramites/servicio-social',
+    accesibilidad: '/tramites/accesibilidad',
   },
   adminTramites: {
     mesa: '/admin/mesa-de-partes',
@@ -87,6 +88,8 @@ export const API = {
     citaUna: (id: string) => `/admin/citas-psicopedagogicas/${id}`,
     apoyo: '/admin/servicio-social',
     apoyoUna: (id: string) => `/admin/servicio-social/${id}`,
+    accesibilidad: '/admin/reportes-accesibilidad',
+    accesibilidadUna: (id: string) => `/admin/reportes-accesibilidad/${id}`,
     usuarios: '/admin/usuarios',
     usuario: (id: string) => `/admin/usuarios/${id}`,
   },
@@ -99,3 +102,5 @@ export function apiPath(path: string): string {
 export function archivoPublicoUrl(id: string): string {
   return `${environment.baseUrl}${API.archivos.uno(id)}`;
 }
+
+

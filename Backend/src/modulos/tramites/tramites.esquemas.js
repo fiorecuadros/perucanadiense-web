@@ -1,4 +1,4 @@
-const { z } = require('zod');
+﻿const { z } = require('zod');
 
 const texto = (max, mensaje) => z.string().trim().min(1, mensaje).max(max);
 const opcional = (max) => z.string().trim().max(max).optional().nullable();
@@ -88,6 +88,14 @@ const apoyoSocial = z.object({
   descripcionSituacion: texto(5000, 'Describa su situación.'),
 });
 
+
+const reporteAccesibilidad = z.object({
+  name: texto(150, 'Ingrese su nombre.'),
+  email: correo,
+  phone: opcional(20),
+  assistanceType: z.enum(['accessibility', 'general', 'bug']),
+  description: texto(5000, 'Describa el problema o consulta.'),
+});
 /** Cambios de estado desde el panel. */
 const actualizacionAdmin = z.object({
   estado: z.string().trim().min(1).max(40),
@@ -105,5 +113,7 @@ module.exports = {
   accesoInformacion,
   citaPsicopedagogica,
   apoyoSocial,
+  reporteAccesibilidad,
   actualizacionAdmin,
 };
+

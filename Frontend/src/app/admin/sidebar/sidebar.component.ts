@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+﻿import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../core/auth/auth.service';
 import { AdminNavStore } from '../shared/admin-nav.store';
@@ -83,6 +83,7 @@ export class AdminSidebarComponent {
         { label: 'Documentos Transparencia', route: '/admin/documentos', icon: 'fa-folder-open' },
         { label: 'Mesa de Partes', route: '/admin/mesa-de-partes', icon: 'fa-envelope-open-text' },
         { label: 'Reclamaciones', route: '/admin/reclamaciones', icon: 'fa-scale-balanced' },
+        { label: 'Reportes de accesibilidad', route: '/admin/accesibilidad', icon: 'fa-universal-access' },
         { label: 'Otras solicitudes', route: '/admin/solicitudes', icon: 'fa-inbox' },
         { label: 'Usuarios', route: '/admin/usuarios', icon: 'fa-users-gear' },
       ],

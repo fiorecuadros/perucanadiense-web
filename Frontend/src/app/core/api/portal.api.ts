@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+﻿import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -38,6 +38,21 @@ export class PortalApi {
 
   readonly remoto = environment.useRemoteApi;
 
+
+  enviarReporteAccesibilidad(body: {
+    name: string;
+    email: string;
+    phone?: string;
+    assistanceType: 'accessibility' | 'general' | 'bug';
+    description: string;
+  }): Promise<{ codigo: string }> {
+    return firstValueFrom(
+      this.http.post<{ codigo: string }>(
+        apiPath(API.tramites.accesibilidad),
+        body
+      )
+    );
+  }
   login(body: AuthLoginBody): Promise<AuthSession> {
     return firstValueFrom(this.http.post<AuthSession>(apiPath(API.auth.login), body));
   }
@@ -399,6 +414,23 @@ export class PortalApi {
     );
   }
 
+  bandejaAccesibilidad(): Promise<TramiteAdmin[]> {
+    return firstValueFrom(
+      this.http.get<TramiteAdmin[]>(apiPath(API.adminTramites.accesibilidad)),
+    );
+  }
+
+  cambiarEstadoAccesibilidad(
+    id: string,
+    cambio: TramiteCambioEstado,
+  ): Promise<TramiteAdmin> {
+    return firstValueFrom(
+      this.http.put<TramiteAdmin>(
+        apiPath(API.adminTramites.accesibilidadUna(id)),
+        cambio,
+      ),
+    );
+  }
   // ----------------------------------------------------------------- usuarios
   usuarios(): Promise<UsuarioAdmin[]> {
     return firstValueFrom(this.http.get<UsuarioAdmin[]>(apiPath(API.adminTramites.usuarios)));
@@ -423,3 +455,6 @@ export class PortalApi {
     return firstValueFrom(this.http.get<PanelResumen>(apiPath(API.panel.resumen)));
   }
 }
+
+
+
