@@ -1,4 +1,4 @@
-.dash {
+﻿.dash {
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -43,7 +43,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .panel-title {
@@ -61,7 +61,7 @@
 }
 
 .panel-lead {
-  margin-bottom: 14px;
+  margin-bottom: 6px;
 }
 
 .panel-count {
@@ -376,3 +376,36 @@
     transform: translateY(6px);
   }
 }
+
+/* Espaciado del encabezado de Actividad reciente */
+.activity-card .admin-card-body {
+  padding-top: 28px;
+  padding-bottom: 24px;
+}
+
+.activity-card .panel-title {
+  margin-bottom: 2px;
+}
+
+.activity-card .panel-sub {
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+
+/* Espaciado de Actividad reciente */
+.activity-card .panel-intro {
+  padding-top: 10px;
+  padding-bottom: 8px;
+}
+
+.activity-card .panel-title {
+  margin-bottom: 2px;
+}
+
+.activity-card .panel-sub {
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+
+
+
