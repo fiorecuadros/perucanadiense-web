@@ -1,4 +1,4 @@
-<div class="admin-page dash" [class.dash--busy]="refrescando()">
+﻿<div class="admin-page dash" [class.dash--busy]="refrescando()">
   <header class="page-header">
     <div>
       <h1 class="page-title">
@@ -139,39 +139,25 @@
       </section>
     }
 
-    <section class="admin-card">
+    <section class="admin-card activity-card">
       <div class="admin-card-body panel-intro">
-        <h2 class="panel-title">Últimos cambios</h2>
-        <p class="panel-sub">
-          @if (esAdmin()) {
-            Registro de auditoría: el Portal de Transparencia obliga a poder decir quién publicó
-            cada cosa.
-          } @else {
-            Movimientos recientes del equipo dentro del panel.
-          }
-        </p>
+        <h2 class="panel-title">Actividad reciente</h2>
+        <p class="panel-sub">Revisa las acciones recientes del panel administrativo.</p>
       </div>
       <div class="dash-tablewrap">
         <table class="admin-table">
           <thead>
             <tr>
-              <th scope="col">Quién</th>
-              <th scope="col">Qué</th>
-              <th scope="col">Cuándo</th>
+              <th scope="col">Usuario</th>
+              <th scope="col">Actividad</th>
+              <th scope="col">Fecha y hora</th>
             </tr>
           </thead>
           <tbody>
             @for (evento of datos.actividad; track claveEvento(evento)) {
               <tr>
                 <td>{{ evento.usuario }}</td>
-                <td>
-                  {{ accion(evento.accion) }} <strong>{{ evento.entidad }}</strong>
-                  @if (evento.entidadId) {
-                    <span class="form-hint" [title]="evento.entidadId">{{
-                      idCorto(evento.entidadId)
-                    }}</span>
-                  }
-                </td>
+                <td>{{ descripcionEvento(evento) }}</td>
                 <td class="dash-when">{{ fecha(evento.fecha) }}</td>
               </tr>
             } @empty {
@@ -188,3 +174,6 @@
     </section>
   }
 </div>
+
+
+

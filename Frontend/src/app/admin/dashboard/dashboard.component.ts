@@ -1,4 +1,4 @@
-import {
+﻿import {
   ChangeDetectionStrategy,
   Component,
   computed,
@@ -172,6 +172,37 @@ export class AdminDashboardComponent {
     return ETIQUETA_ACCION[accion] ?? accion;
   }
 
+
+  descripcionEvento(evento: PanelResumen['actividad'][number]): string {
+    const entidad = (evento.entidad ?? '').toLowerCase();
+    const accion = (evento.accion ?? '').toLowerCase();
+
+    if (entidad === 'auth') {
+      if (accion === 'login') {
+        return 'Inició sesión en el panel administrativo';
+      }
+
+      if (accion === 'logout') {
+        return 'Cerró sesión del panel administrativo';
+      }
+    }
+
+    if (entidad === 'tramites:accesibilidad') {
+      if (accion === 'crear') {
+        return 'Registró un reporte de accesibilidad';
+      }
+
+      if (accion === 'actualizar') {
+        return 'Actualizó un reporte de accesibilidad';
+      }
+
+      if (accion === 'eliminar') {
+        return 'Eliminó un reporte de accesibilidad';
+      }
+    }
+
+    return `${this.accion(evento.accion)} ${evento.entidad}`;
+  }
   fecha(iso: string): string {
     return new Date(iso).toLocaleString('es-PE', { dateStyle: 'medium', timeStyle: 'short' });
   }
@@ -196,3 +227,4 @@ export class AdminDashboardComponent {
     return `${nombres.slice(0, -1).join(', ')} y ${nombres[nombres.length - 1]}`;
   }
 }
+
