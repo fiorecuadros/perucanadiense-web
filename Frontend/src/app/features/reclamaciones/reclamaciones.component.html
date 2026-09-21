@@ -118,6 +118,24 @@
             <p class="field-error">Indique una dirección (mínimo 10 caracteres).</p>
           }
           <label>
+            Bien contratado
+            <select formControlName="tipoBien">
+              <option value="">Seleccione</option>
+              <option value="Producto">Producto</option>
+              <option value="Servicio">Servicio</option>
+            </select>
+          </label>
+          @if (invalid('tipoBien')) {
+            <p class="field-error">Indique si reclama un producto o un servicio.</p>
+          }
+          <label
+            >Descripción del bien o servicio
+            <input appInput formControlName="descripcionBien"
+          /></label>
+          @if (invalid('descripcionBien')) {
+            <p class="field-error">Describa el bien o servicio contratado.</p>
+          }
+          <label>
             Tipo
             <select formControlName="tipoReclamo">
               <option value="">Seleccione</option>

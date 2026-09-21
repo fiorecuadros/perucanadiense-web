@@ -62,6 +62,9 @@ export class ReclamacionesComponent {
     email: ['', [Validators.required, Validators.email]],
     telefono: ['', [Validators.required, Validators.pattern(/^\d{7,9}$/)]],
     direccion: ['', [Validators.required, Validators.minLength(10)]],
+    // Hoja INDECOPI (Ley 29571): el backend exige ambos campos.
+    tipoBien: ['', Validators.required],
+    descripcionBien: ['', [Validators.required, Validators.minLength(3)]],
     tipoReclamo: ['', Validators.required],
     detalleReclamo: ['', [Validators.required, Validators.minLength(20)]],
     pedido: ['', [Validators.required, Validators.minLength(10)]],
