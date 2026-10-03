@@ -34,7 +34,7 @@
           >
             @if (program.image) {
               <span class="pick-foto">
-                <img [src]="program.image" [appSrc]="program.image" alt="" />
+                <img [appSrc]="program.image" alt="" />
               </span>
             }
             <span class="pick-copy">
@@ -53,7 +53,7 @@
         <div class="ficha-hero">
           @if (program.image) {
             <figure class="ficha-foto">
-              <img [src]="program.image" [appSrc]="program.image" [alt]="program.title" />
+              <img [appSrc]="program.image" [alt]="program.title" />
             </figure>
           }
           <div class="ficha-id">

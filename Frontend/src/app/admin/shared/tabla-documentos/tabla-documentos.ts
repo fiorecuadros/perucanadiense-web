@@ -1,3 +1,4 @@
+import { AppSrc } from '../../../core/directives/app-src';
 import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
 import { DialogComponent } from '../../../shared/ui';
 import type { DocumentoInstitucional, ModuloId } from '../../../core/models/documento.model';
@@ -32,7 +33,7 @@ const VACIO: DocForm = {
 @Component({
   selector: 'app-tabla-documentos',
   standalone: true,
-  imports: [DialogComponent, SelectorArchivo, VisorPdf, EditorQuill],
+  imports: [AppSrc, DialogComponent, SelectorArchivo, VisorPdf, EditorQuill],
   template: `
     <div class="page-header" style="margin-bottom:12px">
       <div>
@@ -206,7 +207,7 @@ const VACIO: DocForm = {
         @if (doc.tipo === 'pdf') {
           <app-visor-pdf [src]="previewUrl()" modo="mini" />
         } @else if (doc.tipo === 'imagen') {
-          <img [src]="previewUrl()" [alt]="doc.titulo" style="max-width:100%;border-radius:8px" />
+          <img [appSrc]="previewUrl()" [alt]="doc.titulo" style="max-width:100%;border-radius:8px" />
         } @else {
           <p>
             <a [href]="previewUrl()" target="_blank" rel="noopener noreferrer">{{ doc.url }}</a>

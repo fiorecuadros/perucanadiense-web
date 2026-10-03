@@ -70,7 +70,7 @@
                 }
               </div>
               <figure class="cover">
-                <img [src]="copy().cover.src" [alt]="copy().cover.alt" />
+                <img [appSrc]="copy().cover.src" [alt]="copy().cover.alt" />
               </figure>
             }
             @case ('matricula') {
@@ -93,7 +93,7 @@
                 {{ info().contact.emailAdmin }}.
               </p>
               <figure class="cover cover-wide">
-                <img [src]="copy().matriculaImage.src" [alt]="copy().matriculaImage.alt" />
+                <img [appSrc]="copy().matriculaImage.src" [alt]="copy().matriculaImage.alt" />
               </figure>
             }
             @case ('consultas') {

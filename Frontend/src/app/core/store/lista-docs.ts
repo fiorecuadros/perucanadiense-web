@@ -1,3 +1,4 @@
+import { AppSrc } from '../../core/directives/app-src';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -14,7 +15,7 @@ import { ArchivosStore } from './archivos.store';
 @Component({
   selector: 'app-lista-docs',
   standalone: true,
-  imports: [ButtonDirective],
+  imports: [AppSrc, ButtonDirective],
   template: `
     @if (ficheros().length) {
       <div class="cta-row">
@@ -28,12 +29,12 @@ import { ArchivosStore } from './archivos.store';
     @for (doc of imagenes(); track doc.id) {
       @if (variante() === 'afiche') {
         <button type="button" class="poster" (click)="abrir(doc)">
-          <img [src]="href(doc)" [alt]="doc.titulo" />
+          <img [appSrc]="doc.url" [alt]="doc.titulo" />
           <span>Ver afiche completo</span>
         </button>
       } @else {
         <figure class="cover">
-          <img [src]="href(doc)" [alt]="doc.titulo" />
+          <img [appSrc]="doc.url" [alt]="doc.titulo" />
         </figure>
       }
     }

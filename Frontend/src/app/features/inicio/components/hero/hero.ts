@@ -1,4 +1,5 @@
-﻿import {
+import { AppSrc } from '../../../../core/directives/app-src';
+import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
@@ -14,7 +15,7 @@ import { ContenidoStore } from '../../../../core/store/contenido.store';
 @Component({
   selector: 'app-inicio-hero',
   standalone: true,
-  imports: [RouterLink],
+  imports: [AppSrc, RouterLink],
   templateUrl: './hero.html',
   styleUrl: './hero.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

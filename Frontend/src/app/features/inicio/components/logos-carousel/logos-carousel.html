@@ -2,7 +2,7 @@
   <div class="carousel-track" #track>
     @for (item of items(); track item.alt) {
       <a class="carousel-item" [href]="item.url" target="_blank" rel="noopener noreferrer">
-        <img [src]="item.image" [alt]="item.alt" />
+        <img [appSrc]="item.image" [alt]="item.alt" />
       </a>
     }
   </div>

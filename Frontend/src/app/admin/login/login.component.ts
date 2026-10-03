@@ -1,3 +1,4 @@
+import { AppSrc } from '../../core/directives/app-src';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,7 +10,7 @@ import { ButtonDirective, InputDirective } from '../../shared/ui';
 @Component({
   selector: 'app-admin-login',
   standalone: true,
-  imports: [ReactiveFormsModule, ButtonDirective, InputDirective],
+  imports: [AppSrc, ReactiveFormsModule, ButtonDirective, InputDirective],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

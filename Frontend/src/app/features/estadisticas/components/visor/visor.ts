@@ -1,3 +1,4 @@
+import { AppSrc } from '../../../../core/directives/app-src';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -18,7 +19,7 @@ import { AlertComponent, BadgeComponent, ButtonDirective } from '../../../../sha
 @Component({
   selector: 'app-estadisticas-visor',
   standalone: true,
-  imports: [RouterLink, AlertComponent, BadgeComponent, ButtonDirective, ListaDocs],
+  imports: [AppSrc, RouterLink, AlertComponent, BadgeComponent, ButtonDirective, ListaDocs],
   templateUrl: './visor.html',
   styleUrls: ['../../../../shared/styles/viewer-shell.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,

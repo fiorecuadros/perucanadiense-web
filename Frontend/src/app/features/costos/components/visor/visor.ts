@@ -1,3 +1,4 @@
+import { AppSrc } from '../../../../core/directives/app-src';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -26,7 +27,7 @@ import {
 @Component({
   selector: 'app-costos-visor',
   standalone: true,
-  imports: [
+  imports: [AppSrc,
     RouterLink,
     BadgeComponent,
     ButtonDirective,

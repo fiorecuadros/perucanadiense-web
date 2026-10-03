@@ -1,3 +1,4 @@
+import { AppSrc } from '../../../core/directives/app-src';
 import { ChangeDetectionStrategy, Component, effect, inject, input, signal } from '@angular/core';
 import { ArchivosStore } from '../../../core/store/archivos.store';
 
@@ -13,10 +14,11 @@ import { ArchivosStore } from '../../../core/store/archivos.store';
 @Component({
   selector: 'app-miniatura-imagen',
   standalone: true,
+  imports: [AppSrc],
   template: `
     @if (src() && !roto()) {
       <img
-        [src]="src()"
+        [appSrc]="src()"
         [alt]="alt() || 'Vista previa'"
         loading="lazy"
         [style.object-fit]="ajuste()"
@@ -72,6 +74,7 @@ export class MiniaturaImagen {
     effect((onCleanup) => {
       const ref = this.referencia().trim();
       this.roto.set(false);
+      this.src.set('');
       if (!ref) {
         this.src.set('');
         return;

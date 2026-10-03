@@ -31,15 +31,35 @@ const eliminar = (id) => ejecutar('DELETE FROM archivos WHERE id = ?', [id]);
 
 /** ¿Alguien sigue apuntando a este archivo? Evita borrar un PDF aún publicado. */
 async function referencias(id) {
+  // Buscar también en contenido JSON y en versiones restaurables.
+  // Una coincidencia conserva el archivo para evitar referencias rotas.
   const filas = await consultar(
     `SELECT
-       (SELECT COUNT(*) FROM documentos WHERE archivo_id = ?)            AS documentos,
-       (SELECT COUNT(*) FROM repositorio WHERE archivo_id = ?)           AS repositorio,
-       (SELECT COUNT(*) FROM tramites_mesa_partes WHERE archivo_id = ?)  AS mesa`,
-    [id, id, id],
+       (SELECT COUNT(*) FROM documentos WHERE archivo_id = ?) AS documentos,
+       (SELECT COUNT(*) FROM repositorio WHERE archivo_id = ?) AS repositorio,
+       (SELECT COUNT(*) FROM tramites_mesa_partes WHERE archivo_id = ?) AS mesa,
+       (SELECT COUNT(*) FROM contenido_modulos
+         WHERE LOCATE(?, CAST(data AS CHAR)) > 0) AS contenido,
+       (SELECT COUNT(*) FROM contenido_versiones
+         WHERE LOCATE(?, CAST(data AS CHAR)) > 0) AS versiones,
+       (SELECT COUNT(*) FROM semillas
+         WHERE LOCATE(?, CAST(data AS CHAR)) > 0) AS semillas,
+       (SELECT COUNT(*) FROM institucion
+         WHERE LOCATE(?, CAST(data AS CHAR)) > 0) AS institucion,
+       (SELECT COUNT(*) FROM noticias
+         WHERE LOCATE(?, imagen) > 0) AS noticias,
+       (SELECT COUNT(*) FROM personal
+         WHERE LOCATE(?, imagen) > 0) AS personal,
+       (SELECT COUNT(*) FROM programas
+         WHERE LOCATE(?, imagen) > 0) AS programas`,
+    Array(10).fill(id),
   );
+
   const fila = filas[0] || {};
-  return Number(fila.documentos || 0) + Number(fila.repositorio || 0) + Number(fila.mesa || 0);
+  return Object.values(fila).reduce(
+    (total, cantidad) => total + Number(cantidad || 0),
+    0
+  );
 }
 
 module.exports = { porId, porHash, crear, eliminar, referencias };

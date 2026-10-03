@@ -1,3 +1,4 @@
+import { AppSrc } from '../../core/directives/app-src';
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { InstitutionService } from '../../core/services/institution.service';
@@ -7,7 +8,7 @@ import { EnlaceMenu } from '../enlace-menu/enlace-menu';
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [RouterLink, EnlaceMenu],
+  imports: [AppSrc, RouterLink, EnlaceMenu],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.css',
 })

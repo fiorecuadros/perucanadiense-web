@@ -1,4 +1,5 @@
-﻿import {
+import { AppSrc } from '../../../core/directives/app-src';
+import {
   Component, signal, ViewChild, ElementRef,
   AfterViewChecked, HostListener, inject
 } from '@angular/core';
@@ -27,7 +28,7 @@ interface AsistenteApiResponse {
 @Component({
   selector: 'app-chatbot',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [AppSrc, CommonModule, FormsModule, RouterLink],
   templateUrl: './chatbot.component.html',
   styleUrl: './chatbot.component.css',
 })

@@ -1,4 +1,5 @@
-﻿import {
+import { AppSrc } from '../../../../core/directives/app-src';
+import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
@@ -14,6 +15,7 @@ import { ContenidoStore } from '../../../../core/store/contenido.store';
 @Component({
   selector: 'app-inicio-logos-carousel',
   standalone: true,
+  imports: [AppSrc],
   templateUrl: './logos-carousel.html',
   styleUrl: './logos-carousel.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

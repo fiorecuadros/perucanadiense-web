@@ -2,7 +2,7 @@
   <div class="hero-slides">
     @for (img of heroImages(); track img.src; let i = $index) {
       <img
-        [src]="img.src"
+        [appSrc]="img.src"
         [alt]="img.alt"
         class="hero-bg"
         [class.active]="i === currentHeroIndex()"
@@ -36,7 +36,7 @@
               <span>Licenciamiento</span>
             </div>
             <div class="licencia-popup">
-              <img [src]="copy().licensingImage.src" [alt]="copy().licensingImage.alt" />
+              <img [appSrc]="copy().licensingImage.src" [alt]="copy().licensingImage.alt" />
             </div>
           </div>
         </a>
@@ -51,7 +51,7 @@
         rel="noopener noreferrer"
       >
         <div class="side-btn">
-          <img src="icons/icon_eva.png" alt="" />
+          <img appSrc="icons/icon_eva.png" alt="" />
         </div>
         <span class="side-text">Plataforma EVA</span>
       </a>
@@ -63,14 +63,14 @@
         rel="noopener noreferrer"
       >
         <div class="side-btn">
-          <img src="icons/icon_aula.png" alt="" />
+          <img appSrc="icons/icon_aula.png" alt="" />
         </div>
         <span class="side-text">Aula virtual</span>
       </a>
 
       <a routerLink="/repositorio" class="side-item">
         <div class="side-btn">
-          <img src="icons/icon_biblioteca.png" alt="" />
+          <img appSrc="icons/icon_biblioteca.png" alt="" />
         </div>
         <span class="side-text">Biblioteca virtual</span>
       </a>
