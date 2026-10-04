@@ -28,7 +28,7 @@
                 <div class="det-content__html" [innerHTML]="copy().emptyBody"></div>
               </app-alert>
               <figure class="cover">
-                <img [src]="copy().tupaCover.src" [alt]="copy().tupaCover.alt" />
+                <img [appSrc]="copy().tupaCover.src" [alt]="copy().tupaCover.alt" />
               </figure>
             }
             @case ('reglamento') {
@@ -39,7 +39,7 @@
                 <div class="det-content__html" [innerHTML]="copy().emptyBody"></div>
               </app-alert>
               <figure class="cover">
-                <img [src]="copy().reglamentoCover.src" [alt]="copy().reglamentoCover.alt" />
+                <img [appSrc]="copy().reglamentoCover.src" [alt]="copy().reglamentoCover.alt" />
               </figure>
             }
             @case ('tasas') {

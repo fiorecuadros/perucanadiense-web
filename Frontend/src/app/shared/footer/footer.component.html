@@ -1,7 +1,7 @@
 <footer class="site-footer">
   <div class="footer-container">
     <div class="footer-block">
-      <img src="assets/logopc2.png" [alt]="info().shortName" class="footer-logo" />
+      <img appSrc="assets/logopc2.png" [alt]="info().shortName" class="footer-logo" />
       <p>
         {{ info().yearsOfExperience }} años formando maestros líderes con identidad regional y
         valores cristianos.
@@ -21,7 +21,7 @@
       }
       <a routerLink="/reclamaciones" class="libro-link">
         <img
-          src="images/libro-de-reclamaciones.jpg"
+          appSrc="images/libro-de-reclamaciones.jpg"
           alt="Libro de Reclamaciones"
           class="libro-img"
         />

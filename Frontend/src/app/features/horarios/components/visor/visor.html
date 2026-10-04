@@ -43,7 +43,7 @@
               @if (docsActivos().length) {
                 <app-lista-docs [docs]="docsActivos()" />
               } @else {
-                <img [src]="doc.src" [alt]="doc.alt" />
+                <img [appSrc]="doc.src" [alt]="doc.alt" />
               }
             </div>
           </div>

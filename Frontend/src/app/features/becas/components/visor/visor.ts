@@ -1,3 +1,4 @@
+import { AppSrc } from '../../../../core/directives/app-src';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -18,7 +19,7 @@ import { AlertComponent, ButtonDirective } from '../../../../shared/ui';
 @Component({
   selector: 'app-becas-visor',
   standalone: true,
-  imports: [RouterLink, AlertComponent, ButtonDirective, ListaDocs],
+  imports: [AppSrc, RouterLink, AlertComponent, ButtonDirective, ListaDocs],
   templateUrl: './visor.html',
   styleUrls: ['../../../../shared/styles/viewer-shell.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,

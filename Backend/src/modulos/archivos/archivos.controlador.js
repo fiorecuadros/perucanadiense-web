@@ -28,12 +28,29 @@ const descargar = asincrono(async (req, res) => {
     await registrar(req, { accion: 'descargar', entidad: 'archivos', entidadId: req.params.id });
   }
   fs.createReadStream(ruta)
-    .on('error', () => res.status(404).json({ message: 'El archivo ya no está disponible.' }))
+    .on('error', (error) => {
+      if (res.destroyed) return;
+
+      if (res.headersSent) {
+        res.destroy();
+        return;
+      }
+
+      res.removeHeader('Content-Disposition');
+      res.setHeader('Cache-Control', 'no-store');
+
+      const falta = error.code === 'ENOENT';
+      res.status(falta ? 404 : 500).json({
+        message: falta
+          ? 'El archivo ya no está disponible.'
+          : 'No se pudo leer el archivo.',
+      });
+    })
     .pipe(res);
 });
 
 const eliminar = asincrono(async (req, res) => {
-  await servicio.eliminar(req.params.id, { forzar: req.query.forzar === '1' });
+  await servicio.eliminar(req.params.id);
   await registrar(req, { accion: 'eliminar', entidad: 'archivos', entidadId: req.params.id });
   res.status(204).end();
 });

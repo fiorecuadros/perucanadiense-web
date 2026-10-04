@@ -56,7 +56,37 @@ async function endurecerPermisos(destino) {
 async function guardar(file, usuarioId, { publico = true } = {}) {
   const sha256 = crypto.createHash('sha256').update(file.buffer).digest('hex');
   const existente = await repo.porHash(sha256, publico);
-  if (existente) return aRespuesta(existente);
+  if (existente) {
+    const destinoExistente = path.join(
+      env.archivos.directorio,
+      existente.ruta_relativa
+    );
+
+    try {
+      await fs.access(destinoExistente);
+    } catch (error) {
+      if (error.code !== 'ENOENT') throw error;
+
+      // Restaurar el archivo faltante conservando su ID y las referencias.
+      await fs.mkdir(path.dirname(destinoExistente), {
+        recursive: true,
+        mode: PERMISO_CARPETA,
+      });
+
+      try {
+        await fs.writeFile(destinoExistente, file.buffer, {
+          mode: PERMISO_ARCHIVO,
+          flag: 'wx',
+        });
+      } catch (errorEscritura) {
+        if (errorEscritura.code !== 'EEXIST') throw errorEscritura;
+      }
+
+      await endurecerPermisos(destinoExistente);
+    }
+
+    return aRespuesta(existente);
+  }
 
   const id = crypto.randomUUID();
   const ahora = new Date();
@@ -102,14 +132,14 @@ async function obtener(id) {
   };
 }
 
-async function eliminar(id, { forzar = false } = {}) {
+async function eliminar(id) {
   const fila = await repo.porId(id);
   if (!fila) throw noEncontrado('Archivo no encontrado.');
 
-  if (!forzar) {
+  {
     const usos = await repo.referencias(id);
     if (usos > 0) {
-      throw conflicto('El archivo está en uso por un documento publicado. Quite primero esa referencia.');
+      throw conflicto('El archivo está en uso por contenido, documentos o versiones anteriores y no puede eliminarse.');
     }
   }
 

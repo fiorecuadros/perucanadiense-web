@@ -1,3 +1,4 @@
+import { AppSrc } from '../../core/directives/app-src';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { InstitutionService } from '../../core/services/institution.service';
@@ -8,7 +9,7 @@ import { AlertComponent, ButtonDirective } from '../../shared/ui';
 @Component({
   selector: 'app-procedimientos',
   standalone: true,
-  imports: [RouterLink, PageHero, AlertComponent, ButtonDirective],
+  imports: [AppSrc, RouterLink, PageHero, AlertComponent, ButtonDirective],
   templateUrl: './procedimientos.html',
   styleUrls: ['../../shared/styles/viewer-shell.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,

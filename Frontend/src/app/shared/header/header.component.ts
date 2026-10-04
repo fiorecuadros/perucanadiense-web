@@ -1,3 +1,4 @@
+import { AppSrc } from '../../core/directives/app-src';
 import { Component, HostListener, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { InstitutionService } from '../../core/services/institution.service';
@@ -7,7 +8,7 @@ import { EnlaceMenu } from '../enlace-menu/enlace-menu';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, EnlaceMenu],
+  imports: [AppSrc, RouterLink, EnlaceMenu],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })

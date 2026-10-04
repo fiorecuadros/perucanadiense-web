@@ -61,7 +61,7 @@
                 <app-lista-docs variante="afiche" [docs]="docsActivos()" />
               } @else if (doc.src) {
                 <button type="button" class="poster" (click)="openAfiche(doc)">
-                  <img [src]="doc.src" [appSrc]="doc.src" [alt]="doc.alt || doc.label" />
+                  <img [appSrc]="doc.src" [alt]="doc.alt || doc.label" />
                   <span>Ver afiche completo</span>
                 </button>
               }
@@ -82,7 +82,7 @@
                 <app-lista-docs variante="afiche" [docs]="docsActivos()" />
               } @else if (doc.src) {
                 <button type="button" class="poster" (click)="openAfiche(doc)">
-                  <img [src]="doc.src" [appSrc]="doc.src" [alt]="doc.alt || doc.label" />
+                  <img [appSrc]="doc.src" [alt]="doc.alt || doc.label" />
                   <span>Ver afiche completo</span>
                 </button>
               }
